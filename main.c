@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include "menu.c"
-
-void main() {
+#include "menu.h"
+int main() {
     menu();
 }
 

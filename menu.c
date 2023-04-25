@@ -1,7 +1,10 @@
-#include "main.c"
+#include <stdio.h>
+#include <string.h>
 #include "menu.h"
+
 int menu(){
     int el_user;
+    /*
     while (TRUE == 1){
         printf("Select and option \n");
         printf("1- Create new user\n2-");
@@ -10,6 +13,7 @@ int menu(){
             printf("Hello");
         }
         return MENU_ERROR_SELECT;
-    }
+    }*/
+
 }
 

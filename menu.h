@@ -3,3 +3,6 @@
 #define FALSE  0
 
 #define NEW_USER 1
+
+// Funcions:
+int menu();
