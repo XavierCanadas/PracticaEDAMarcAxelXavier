@@ -1,8 +1,5 @@
-//
-// Created by u215107 on 25/04/2023.
-//
+#define MENU_ERROR_SELECT  -1
+#define TRUE  1
+#define FALSE  0
 
-#ifndef UNTITLED2_MENU_H
-#define UNTITLED2_MENU_H
-
-#endif //UNTITLED2_MENU_H
+#define NEW_USER 1
