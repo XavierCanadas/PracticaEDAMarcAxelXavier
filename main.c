@@ -1,6 +1,9 @@
-#include <stdio.h>
+#include "global.h"
 #include "menu.h"
+
+
 int main() {
-    menu();
+    bucleMenu();
+
 }
 

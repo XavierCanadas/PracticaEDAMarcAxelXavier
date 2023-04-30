@@ -76,6 +76,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/xavicanadas/CLionProjects/PracticaEDAMarcAxelXavier/global.h">
+			<Option target="untitled2"/>
+		</Unit>
 		<Unit filename="/Users/xavicanadas/CLionProjects/PracticaEDAMarcAxelXavier/main.c">
 			<Option target="untitled2"/>
 		</Unit>
