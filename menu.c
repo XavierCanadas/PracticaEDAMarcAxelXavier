@@ -2,10 +2,15 @@
 #include "structs.h"
 
 
+
+// es crea l'Array d'usuaris
+
+
 // Aquesta funció conté el bucle del menú del programa.
 int bucleMenu() {
 
     Usuari *llistaUsuaris = (Usuari*) malloc(sizeof(Usuari));
+
     int opcioEscollida = 0;
 
     // Es mostra el menú d'opcions
@@ -55,26 +60,10 @@ void showMenuOptions() {
     printf("\t %d: sortir.\n", SORTIR);
 }
 
-int entradaInt(){
-    int nombreEnter;
 
-    if (scanf("%d", &nombreEnter) != ERROR_ENTRADA_DADES) return nombreEnter;
 
-    flush_input();
-
-    return OPCIO_INVALIDA;
-}
-
-// Aquesta funció estava a la pràctica d'EDA-I, si no s'executa al final de trucar a "scanf" poden sortir bugs
-// que facin que hi hagi bucles infinits en el menú.
-void flush_input() {
-    char c;
-    while ((c = getchar()) != '\n' && c != EOF) {
-    }
-}
-
-int NouUsuari(){
-    Usuari *user= (Usuari*) malloc(sizeof(Usuari));
+int nouUsuari() {
+    Usuari *user = (Usuari*) malloc(sizeof(Usuari));
     printf("Introdueixi el seu nom: \n");
     scanf("%s",user->nom);
     printf("Introdueixi la seva ciutat: \n");
@@ -85,4 +74,10 @@ int NouUsuari(){
     scanf("%d",&user->edat);
     printf("Introdueixi 5 gustos de la llista seguent, separats per una coma: \n");
     scanf("%s",user->gustos);
+
+    return SUCCESS;
+}
+
+int entradaNouUsuari() {
+
 }

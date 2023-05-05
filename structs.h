@@ -2,6 +2,7 @@
 // Created by axeld on 25/04/2023.
 //
 #include "global.h"
+
 #ifndef UNTITLED2_STRUCTS_H
 #define UNTITLED2_STRUCTS_H
 
@@ -12,4 +13,5 @@ typedef struct{
     char correu[MAX_STRING];
     char ciutat[MAX_STRING];
     char gustos[MAX_STRING];
-}Usuari;
+} Usuari;
+

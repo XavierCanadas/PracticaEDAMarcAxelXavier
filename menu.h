@@ -13,8 +13,9 @@
 // Funcions:
 int bucleMenu();
 void showMenuOptions();
-int entradaInt();
-void flush_input();
+int nouUsuari()
+int entradaNouUsuari();
+
 
 
 /*
