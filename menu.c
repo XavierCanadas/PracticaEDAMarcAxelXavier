@@ -1,9 +1,11 @@
 #include "menu.h"
 #include "structs.h"
 
+
 // Aquesta funció conté el bucle del menú del programa.
 int bucleMenu() {
 
+    Usuari *llistaUsuaris = (Usuari*) malloc(sizeof(Usuari));
     int opcioEscollida = 0;
 
     // Es mostra el menú d'opcions
