@@ -1,5 +1,5 @@
 #include "menu.h"
-
+#include "structs.h"
 
 // Aquesta funció conté el bucle del menú del programa.
 int bucleMenu() {
@@ -71,3 +71,8 @@ void flush_input() {
     }
 }
 
+int NouUsuari(){
+    Usuari user;
+    printf("Introdueixi el seu nom: \n");
+    scanf("%s",)
+}

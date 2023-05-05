@@ -13,7 +13,7 @@
 #define SUCCESS 33 // Per saber si una funció ha tingut èxit.
 #define OPCIO_INVALIDA -10
 #define ERROR_ENTRADA_DADES 0 // la funció scanf retorna 0 si no s'ha introduït el que demana
-
+#define MAX_STRING 50
 // Importar llibreries per tot el programa
 #include <stdio.h>
 #include <string.h>
