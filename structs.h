@@ -6,10 +6,10 @@
 #define UNTITLED2_STRUCTS_H
 
 #endif //UNTITLED2_STRUCTS_H
-struct Usuari{
+typedef struct{
     char nom[MAX_STRING];
     int edat;
     char correu[MAX_STRING];
     char ciutat[MAX_STRING];
     char gustos[MAX_STRING];
-};
+}Usuari;

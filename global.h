@@ -17,7 +17,7 @@
 // Importar llibreries per tot el programa
 #include <stdio.h>
 #include <string.h>
-
+#include <stdlib.h>
 
 
 
