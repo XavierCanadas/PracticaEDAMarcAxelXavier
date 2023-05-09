@@ -13,7 +13,7 @@
 // Funcions:
 int bucleMenu();
 void showMenuOptions();
-int nouUsuari()
+int nouUsuari();
 int entradaNouUsuari();
 
 

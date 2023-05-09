@@ -12,6 +12,7 @@ typedef struct{
     int edat;
     char correu[MAX_STRING];
     char ciutat[MAX_STRING];
-    char gustos[MAX_STRING];
+    char gustos[5][MAX_STRING];
+
 } Usuari;
 

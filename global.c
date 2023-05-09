@@ -8,7 +8,7 @@
 // retorna
 int entradaInt(char missatge[]) {
     int nombreEnter;
-    printf("%s", missatge);
+    printf("%s: ", missatge);
     if (scanf("%d", &nombreEnter) == ERROR_ENTRADA_DADES) {
         nombreEnter = ERROR_ENTRADA_DADES;
     }

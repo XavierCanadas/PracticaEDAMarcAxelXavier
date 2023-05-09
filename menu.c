@@ -17,7 +17,7 @@ int bucleMenu() {
     showMenuOptions();
 
     while (opcioEscollida != SORTIR) {
-        opcioEscollida = entradaInt();
+        opcioEscollida = entradaInt("Si us plau, seleccioni una opció");
 
         switch (opcioEscollida) {
             case NOU_USUARI:
@@ -37,7 +37,9 @@ int bucleMenu() {
 
             case MOSTRAR_OPCIONS:
                 showMenuOptions();
+                break;
 
+            case SORTIR:
                 break;
 
             default:
@@ -45,7 +47,7 @@ int bucleMenu() {
                 break;
         }
     }
-    printf("Adeu!\n");
+    printf("\nAdeu!\n");
 
     return SUCCESS;
 }
@@ -73,7 +75,7 @@ int nouUsuari() {
     printf("Introdueixi la seva edat: \n");
     scanf("%d",&user->edat);
     printf("Introdueixi 5 gustos de la llista seguent, separats per una coma: \n");
-    scanf("%s",user->gustos);
+    //scanf("%s",user->gustos);
 
     return SUCCESS;
 }
