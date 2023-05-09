@@ -1,11 +1,13 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/untitled2.dir/global.c.o"
-  "CMakeFiles/untitled2.dir/global.c.o.d"
-  "CMakeFiles/untitled2.dir/main.c.o"
-  "CMakeFiles/untitled2.dir/main.c.o.d"
-  "CMakeFiles/untitled2.dir/menu.c.o"
-  "CMakeFiles/untitled2.dir/menu.c.o.d"
-  "untitled2"
+  "CMakeFiles/untitled2.dir/global.c.obj"
+  "CMakeFiles/untitled2.dir/global.c.obj.d"
+  "CMakeFiles/untitled2.dir/main.c.obj"
+  "CMakeFiles/untitled2.dir/main.c.obj.d"
+  "CMakeFiles/untitled2.dir/menu.c.obj"
+  "CMakeFiles/untitled2.dir/menu.c.obj.d"
+  "libuntitled2.dll.a"
+  "untitled2.exe"
+  "untitled2.exe.manifest"
   "untitled2.pdb"
 )
 

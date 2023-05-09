@@ -66,17 +66,14 @@ void showMenuOptions() {
 
 int nouUsuari() {
     Usuari *user = (Usuari*) malloc(sizeof(Usuari));
-    printf("Introdueixi el seu nom: \n");
-    scanf("%s",user->nom);
-    printf("Introdueixi la seva ciutat: \n");
-    scanf("%s",user->ciutat);
-    printf("Introdueixi el seu correu: \n");
-    scanf("%s",user->correu);
-    printf("Introdueixi la seva edat: \n");
-    scanf("%d",&user->edat);
-    printf("Introdueixi 5 gustos de la llista seguent, separats per una coma: \n");
-    //scanf("%s",user->gustos);
-
+    entradaString("Introdueixi el seu nom: ",user->nom );
+    entradaString("Introdueixi la seva ciutat: ",user->ciutat);
+    entradaString("Introdueixi el seu correu: ",user->correu);
+    user->edat= entradaInt("Introdueixi la seva edat: ");
+    for (int i=0;i<5;i++){
+        entradaString("Introdueixi un gust: ",user->gustos[i]);
+        if (user->gustos[i]=="");
+    }
     return SUCCESS;
 }
 

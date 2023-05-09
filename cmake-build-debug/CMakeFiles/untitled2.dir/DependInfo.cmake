@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/xavicanadas/CLionProjects/PracticaEDAMarcAxelXavier/global.c" "CMakeFiles/untitled2.dir/global.c.o" "gcc" "CMakeFiles/untitled2.dir/global.c.o.d"
-  "/Users/xavicanadas/CLionProjects/PracticaEDAMarcAxelXavier/main.c" "CMakeFiles/untitled2.dir/main.c.o" "gcc" "CMakeFiles/untitled2.dir/main.c.o.d"
-  "/Users/xavicanadas/CLionProjects/PracticaEDAMarcAxelXavier/menu.c" "CMakeFiles/untitled2.dir/menu.c.o" "gcc" "CMakeFiles/untitled2.dir/menu.c.o.d"
+  "C:/Users/USUARI/CLionProjects/PracticaEDAMarcAxelXavier/global.c" "CMakeFiles/untitled2.dir/global.c.obj" "gcc" "CMakeFiles/untitled2.dir/global.c.obj.d"
+  "C:/Users/USUARI/CLionProjects/PracticaEDAMarcAxelXavier/main.c" "CMakeFiles/untitled2.dir/main.c.obj" "gcc" "CMakeFiles/untitled2.dir/main.c.obj.d"
+  "C:/Users/USUARI/CLionProjects/PracticaEDAMarcAxelXavier/menu.c" "CMakeFiles/untitled2.dir/menu.c.obj" "gcc" "CMakeFiles/untitled2.dir/menu.c.obj.d"
   )
 
 # Targets to which this target links.
