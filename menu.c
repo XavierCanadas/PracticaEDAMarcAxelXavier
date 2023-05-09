@@ -117,7 +117,7 @@ Usuari* nouUsuari() {
     user->edat = entradaInt("Introdueixi la seva edat: ");
     for (int i = 0; i < 5; i++) {
         entradaString("Introdueixi un gust: ", user->gustos[i]);
-        if (user->gustos[i] == "") break;
+        if (user->gustos[i] == "\n") break;
     }
     return user;
 }
