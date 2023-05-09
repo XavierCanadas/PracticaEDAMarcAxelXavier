@@ -1,4 +1,5 @@
 #include "global.h"
+#include "structs.h"
 
 
 #define MENU_ERROR_SELECT  -1
@@ -21,7 +22,7 @@ int bucleMenu();
 void showMenuOptions();
 Usuari* nouUsuari();
 int entradaNouUsuari();
-void printUsers(LlistaUsers* llista)
+void printUsers(LlistaUsers* llista);
 void showEscollirUsuaruMenu();
 int bucleEscollirUsuari();
 

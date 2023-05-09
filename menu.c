@@ -1,5 +1,4 @@
 #include "menu.h"
-#include "structs.h"
 
 
 // Aquesta funció conté el bucle del menú del programa.
@@ -118,7 +117,7 @@ Usuari* nouUsuari() {
     user->edat = entradaInt("Introdueixi la seva edat: ");
     for (int i = 0; i < 5; i++) {
         entradaString("Introdueixi un gust: ", user->gustos[i]);
-        if (user->gustos[i] == "");
+        if (user->gustos[i] == "") break;
     }
     return user;
 }

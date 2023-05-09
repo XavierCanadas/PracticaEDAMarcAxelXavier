@@ -15,7 +15,7 @@ typedef struct {
     char gustos[5][MAX_STRING];
 } Usuari;
 
-typedef struct{
+typedef struct {
     Usuari *llista;
     int num_users;
 }LlistaUsers;
