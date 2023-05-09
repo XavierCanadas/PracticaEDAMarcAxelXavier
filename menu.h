@@ -1,7 +1,6 @@
 #include "global.h"
 #include "structs.h"
 
-
 #define MENU_ERROR_SELECT  -1
 
 // Opcions del menú
