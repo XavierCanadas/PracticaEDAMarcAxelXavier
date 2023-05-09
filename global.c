@@ -16,7 +16,16 @@ int entradaInt(char missatge[]) {
     return nombreEnter;
 }
 
-int entradaString(char missatge[], char entradaUsuari[]);
+int entradaString(char missatge[], char entradaUsuari[]) {
+
+    printf("%s: ", missatge);
+    if (scanf("%s", entradaUsuari) == ERROR_ENTRADA_DADES) {
+        flush_input();
+        return ERROR_ENTRADA_DADES;
+    }
+    flush_input();
+    return SUCCESS;
+};
 
 // Aquesta funció estava a la pràctica d'EDA-I, si no s'executa al final de trucar a "scanf" poden sortir bugs
 // que facin que hi hagi bucles infinits en el menú.

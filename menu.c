@@ -21,7 +21,7 @@ int bucleMenu() {
 
         switch (opcioEscollida) {
             case NOU_USUARI:
-                printf("Crida funció nou usuari\n");
+                nouUsuari();
 
                 break;
 
@@ -61,8 +61,6 @@ void showMenuOptions() {
     printf("\t %d: mostrar opcions.\n", MOSTRAR_OPCIONS);
     printf("\t %d: sortir.\n", SORTIR);
 }
-
-
 
 int nouUsuari() {
     Usuari *user = (Usuari*) malloc(sizeof(Usuari));
