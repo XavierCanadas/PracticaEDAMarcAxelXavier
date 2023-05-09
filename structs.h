@@ -7,7 +7,7 @@
 #define UNTITLED2_STRUCTS_H
 
 #endif //UNTITLED2_STRUCTS_H
-typedef struct{
+typedef struct {
     char nom[MAX_STRING];
     int edat;
     char correu[MAX_STRING];

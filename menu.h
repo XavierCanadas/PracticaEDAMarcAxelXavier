@@ -10,11 +10,19 @@
 #define MOSTRAR_OPCIONS 4
 #define SORTIR 5
 
+// Opcions escollir usuari
+#define ENVIAR_SOLICITUD 10
+#define GESTIONAR_SOLICITUTS 11
+#define FER_PUBLICACIO 12
+#define VEURE_PUBLICACIONS 13
+
 // Funcions:
 int bucleMenu();
 void showMenuOptions();
 int nouUsuari();
 int entradaNouUsuari();
+void showEscollirUsuaruMenu();
+int bucleEscollirUsuari();
 
 
 
