@@ -2,14 +2,13 @@
 #include "structs.h"
 
 
-
-// es crea l'Array d'usuaris
-
-
 // Aquesta funció conté el bucle del menú del programa.
 int bucleMenu() {
 
-    Usuari *llistaUsuaris = (Usuari*) malloc(sizeof(Usuari));
+    // es crea l'Array d'usuaris
+    LlistaUsers llistaUsuaris;
+    llistaUsuaris.llista = (Usuari*) malloc(10*sizeof(Usuari));
+    llistaUsuaris.num_users=0;
 
     int opcioEscollida = 0;
 
@@ -21,12 +20,15 @@ int bucleMenu() {
 
         switch (opcioEscollida) {
             case NOU_USUARI:
-                nouUsuari();
-
+                if(llistaUsuaris.num_users % 10 == 0){
+                    realloc(llistaUsuaris.llista,10*llistaUsuaris.num_users*sizeof(Usuari));
+                }
+                llistaUsuaris.llista[llistaUsuaris.num_users]=*nouUsuari();
+                llistaUsuaris.num_users ++;
                 break;
 
             case LLISTA_USUARIS:
-                printf("Crida funció llista usuaris\n");
+                printUsers(&llistaUsuaris);
 
                 break;
 
@@ -108,17 +110,23 @@ void showEscollirUsuaruMenu() {
     printf("\t %d: sortir.\n", SORTIR);
 }
 
-int nouUsuari() {
-    Usuari *user = (Usuari*) malloc(sizeof(Usuari));
-    entradaString("Introdueixi el seu nom: ",user->nom );
-    entradaString("Introdueixi la seva ciutat: ",user->ciutat);
-    entradaString("Introdueixi el seu correu: ",user->correu);
-    user->edat= entradaInt("Introdueixi la seva edat: ");
-    for (int i=0;i<5;i++){
-        entradaString("Introdueixi un gust: ",user->gustos[i]);
-        if (user->gustos[i]=="");
+Usuari* nouUsuari() {
+    Usuari *user = (Usuari *) malloc(sizeof(Usuari));
+    entradaString("Introdueixi el seu nom: ", user->nom);
+    entradaString("Introdueixi la seva ciutat: ", user->ciutat);
+    entradaString("Introdueixi el seu correu: ", user->correu);
+    user->edat = entradaInt("Introdueixi la seva edat: ");
+    for (int i = 0; i < 5; i++) {
+        entradaString("Introdueixi un gust: ", user->gustos[i]);
+        if (user->gustos[i] == "");
     }
-    return SUCCESS;
+    return user;
+}
+
+void printUsers(LlistaUsers* llista){
+    for (int i = 0; i < llista->num_users; ++i) {
+        printf("%s \n",llista->llista[i].nom);
+    }
 }
 
 int entradaNouUsuari() {

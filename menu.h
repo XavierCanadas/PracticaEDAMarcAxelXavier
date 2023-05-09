@@ -19,8 +19,9 @@
 // Funcions:
 int bucleMenu();
 void showMenuOptions();
-int nouUsuari();
+Usuari* nouUsuari();
 int entradaNouUsuari();
+void printUsers(LlistaUsers* llista)
 void showEscollirUsuaruMenu();
 int bucleEscollirUsuari();
 

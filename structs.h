@@ -13,6 +13,10 @@ typedef struct {
     char correu[MAX_STRING];
     char ciutat[MAX_STRING];
     char gustos[5][MAX_STRING];
-
 } Usuari;
+
+typedef struct{
+    Usuari *llista;
+    int num_users;
+}LlistaUsers;
 
