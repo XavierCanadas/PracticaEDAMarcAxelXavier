@@ -3,8 +3,6 @@
 //
 #include "global.h"
 
-//Test de merge i push
-
 // Aquesta funció serveix perquè l'usuari introdueixi un enter, el paràmetre és per imprimir un missatge per l'usuari.
 // retorna
 int entradaInt(char missatge[]) {
