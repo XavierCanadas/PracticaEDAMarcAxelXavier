@@ -51,6 +51,11 @@ void initTaulaHash(TaulaHash* taulaHash, int size) {
     taulaHash->elements = llistaElements;
     taulaHash->size = size;
     taulaHash->count = 0;
+
+    for (int i = 0; i < taulaHash->size; ++i) {
+        memset(taulaHash->elements[i].clau, 0, sizeof(taulaHash->elements->clau));
+        taulaHash->elements[i].valor = NULL;
+    }
 }
 
 int guardarUsuari(Usuari* usuari, TaulaHash* taulaHash,  int *indexGuardat) {
