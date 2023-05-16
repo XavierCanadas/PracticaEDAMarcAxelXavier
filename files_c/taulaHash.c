@@ -9,8 +9,8 @@
  *
  * La funció hash rep una clau del tipus String i una taula hash, al principi truca a la funció
  * charToIntASCII() per convertir la clau en un nombre. Després aplica el mòdul al nombre de la clau
- * i comproba si amb l'índex que ha donat, a la taula auqest index està ocupat o lliure. Si està lliure
- * o està ocupat per la mateixa clau retorna l'index trobat, sinó torna a aplicar el mòdul al nombre,
+ * i comproba si amb l'índex que ha donat, a la taula aquest índex està ocupat o lliure. Si està lliure
+ * o està ocupat per la mateixa clau retorna l'índex trobat, sinó torna a aplicar el mòdul al nombre,
  * però aquesta vegada sumant-li +1 i torna a mirar la condició.
  */
 
@@ -91,14 +91,26 @@ int taulaHashPlena(TaulaHash* taulaHash) {
 
     // Tornar a calcular tots els nous índex. El bucle és fins a size/2 perquè els elements estaran
     // a la primera meitat de l'actual taula.
-    for (int i = 0; i < (taulaHash->size - 10); ++i) {
-        int indexGuardat;
-        guardarUsuari(taulaHash->elements[i].valor, taulaHash, &indexGuardat);
 
-        if (indexGuardat != i) {
+    /*
+     * Aquest for itera per tota la taula des de l'últim element fins al primer. Primer assigna NULL als 10 últims
+     * elements, que són els que s'han creat amb el realloc anterior. A continuació calcula el nou índex pels elements que
+     * hi havia guardats a la taula.
+     */
+    for (int i = taulaHash->size - 1; i >= 0; i--) {
+        if (i >= taulaHash->size - 10) {
             taulaHash->elements[i].valor = NULL;
             // Posa que tots els caràcters de la clau siguin '0'.
             memset(taulaHash->elements[i].clau, 0, sizeof(taulaHash->elements[i].clau));
+        } else {
+            int indexGuardat;
+            guardarUsuari(taulaHash->elements[i].valor, taulaHash, &indexGuardat);
+
+            if (indexGuardat != i) {
+                taulaHash->elements[i].valor = NULL;
+                // Posa que tots els caràcters de la clau siguin '0'.
+                memset(taulaHash->elements[i].clau, 0, sizeof(taulaHash->elements[i].clau));
+            }
         }
     }
 
