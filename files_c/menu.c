@@ -1,4 +1,4 @@
-#include "menu.h"
+#include "../files_h/menu.h"
 
 
 // Aquesta funció conté el bucle del menú del programa.

@@ -8,7 +8,7 @@
 #endif //UNTITLED2_TAULAHASH_H
 
 /// Llibreries
-#include "global.h"
+#include "../global.h"
 #include "structs.h"
 
 /// Errors

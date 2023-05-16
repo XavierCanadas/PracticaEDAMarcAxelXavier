@@ -1,7 +1,7 @@
 //
 // Created by axeld on 25/04/2023.
 //
-#include "global.h"
+#include "../global.h"
 
 #ifndef UNTITLED2_STRUCTS_H
 #define UNTITLED2_STRUCTS_H

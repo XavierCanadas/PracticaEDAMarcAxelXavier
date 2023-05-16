@@ -1,7 +1,7 @@
 //
 // Created by Xavi Cañadas on 14/5/23.
 //
-#include "usuari.h"
+#include "../files_h/usuari.h"
 
 
 /// Creació i guardar un usuari
