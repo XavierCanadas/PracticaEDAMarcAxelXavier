@@ -4,10 +4,16 @@
 // Aquesta funció conté el bucle del menú del programa.
 int bucleMenu() {
 
+    // Es crea la taula hash
+    TaulaHash* taulaHash = (TaulaHash*) malloc(sizeof(TaulaHash));
+    initTaulaHash(taulaHash, 10);
+
+    /*
     // es crea l'Array d'usuaris
     LlistaUsers llistaUsuaris;
     llistaUsuaris.llista = (Usuari*) malloc(10*sizeof(Usuari));
     llistaUsuaris.num_users=0;
+    */
 
     int opcioEscollida = 0;
 
@@ -15,20 +21,38 @@ int bucleMenu() {
     showMenuOptions();
 
     while (opcioEscollida != SORTIR) {
-        opcioEscollida = entradaInt("Si us plau, seleccioni una opció");
+        opcioEscollida = entradaInt("\nSi us plau, seleccioni una opció");
+
+        Usuari* usuariAux = NULL;
+        int codiGuardarUsuari = ERROR_GUARDAR_USUARU;
 
         switch (opcioEscollida) {
             case NOU_USUARI:
+                /*
                 if(llistaUsuaris.num_users % 10 == 0){
                     realloc(llistaUsuaris.llista,10*llistaUsuaris.num_users*sizeof(Usuari));
                 }
                 llistaUsuaris.llista[llistaUsuaris.num_users]=*nouUsuari();
-                llistaUsuaris.num_users ++;
+                llistaUsuaris.num_users ++;*/
+
+                usuariAux = nouUsuari();
+                while (codiGuardarUsuari == ERROR_GUARDAR_USUARU) {
+                    int aux;
+                    codiGuardarUsuari = guardarUsuari(usuariAux, taulaHash, &aux);
+                    if (codiGuardarUsuari != SUCCESS) {
+                        if (taulaHashPlena(taulaHash) == ERROR_AMPLIAR_TAULA) {
+                            printf("Hi ha hagut un error al guardar al ampliar la taula");
+                            break;
+                        }
+                    }
+
+                }
+
                 break;
 
             case LLISTA_USUARIS:
-                printUsers(&llistaUsuaris);
-
+                //printUsers(&llistaUsuaris);
+                imprimirUsuaris(taulaHash);
                 break;
 
             case ESCOLLIR_USUARI:
@@ -41,6 +65,7 @@ int bucleMenu() {
                 break;
 
             case SORTIR:
+                eliminarTaulaHash(taulaHash);
                 break;
 
             default:
@@ -109,25 +134,9 @@ void showEscollirUsuaruMenu() {
     printf("\t %d: sortir.\n", SORTIR);
 }
 
-Usuari* nouUsuari() {
-    Usuari *user = (Usuari *) malloc(sizeof(Usuari));
-    entradaString("Introdueixi el seu nom: ", user->nom);
-    entradaString("Introdueixi la seva ciutat: ", user->ciutat);
-    entradaString("Introdueixi el seu correu: ", user->correu);
-    user->edat = entradaInt("Introdueixi la seva edat: ");
-    for (int i = 0; i < 5; i++) {
-        entradaString("Introdueixi un gust: ", user->gustos[i]);
-        if (user->gustos[i] == "\n") break;
-    }
-    return user;
-}
-
+/*
 void printUsers(LlistaUsers* llista){
     for (int i = 0; i < llista->num_users; ++i) {
         printf("%s \n",llista->llista[i].nom);
     }
-}
-
-int entradaNouUsuari() {
-
-}
+}*/

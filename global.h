@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 
 // Declaració de constants globals
 #define TRUE 1
@@ -19,6 +20,9 @@
 #define OPCIO_INVALIDA (-10)
 #define ERROR_ENTRADA_DADES 0 // la funció scanf retorna 0 si no s'ha introduït el que demana
 #define MAX_STRING 50
+
+// És una millor manera de fer servir boleans en comtes del #define
+//typedef enum {true, false} bool;
 
 
 // Funcions globals
