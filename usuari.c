@@ -34,5 +34,6 @@ void imprimirUsuaris(TaulaHash* taulaHash) {
 
 // Funció buscar usuari: s'ha de trucar a la funció hashing
 Usuari* buscarUsuari(TaulaHash* taulaHash, char* nomUsuari) {
-    return NULL;
+    int idx = hashing(nomUsuari, taulaHash);
+    return taulaHash->elements[idx].valor;
 }
