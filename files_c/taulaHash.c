@@ -1,7 +1,7 @@
 //
 // Created by Xavi Cañadas on 15/5/23.
 //
-#include "taulaHash.h"
+#include "../files_h/taulaHash.h"
 
 /// Taula Hash:
 

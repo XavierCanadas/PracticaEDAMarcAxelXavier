@@ -1,4 +1,4 @@
-#include "global.h"
+#include "../global.h"
 #include "usuari.h"
 
 #define MENU_ERROR_SELECT  -1
