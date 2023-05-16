@@ -9,7 +9,6 @@ Usuari* nouUsuari() {
     Usuari *user = (Usuari *) malloc(sizeof(Usuari));
 
     entradaString("Introdueixi el seu nom: ", user->nom);
-
     entradaString("Introdueixi el seu nom d'usuari: ", user->nomUsuari);
     entradaString("Introdueixi la seva ciutat: ", user->ciutat);
     entradaString("Introdueixi el seu correu: ", user->correu);
