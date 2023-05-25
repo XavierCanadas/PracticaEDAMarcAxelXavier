@@ -22,6 +22,6 @@ void showMenuOptions();
 
 //void printUsers(LlistaUsers* llista);
 void showEscollirUsuaruMenu();
-int bucleEscollirUsuari();
+int bucleEscollirUsuari(TaulaHash* taula);
 
 

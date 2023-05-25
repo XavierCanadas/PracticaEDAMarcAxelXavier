@@ -8,11 +8,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/xavicanadas/CLionProjects/PracticaEDAMarcAxelXavier/global.c" "CMakeFiles/untitled2.dir/global.c.o" "gcc" "CMakeFiles/untitled2.dir/global.c.o.d"
-  "/Users/xavicanadas/CLionProjects/PracticaEDAMarcAxelXavier/main.c" "CMakeFiles/untitled2.dir/main.c.o" "gcc" "CMakeFiles/untitled2.dir/main.c.o.d"
-  "/Users/xavicanadas/CLionProjects/PracticaEDAMarcAxelXavier/menu.c" "CMakeFiles/untitled2.dir/menu.c.o" "gcc" "CMakeFiles/untitled2.dir/menu.c.o.d"
-  "/Users/xavicanadas/CLionProjects/PracticaEDAMarcAxelXavier/taulaHash.c" "CMakeFiles/untitled2.dir/taulaHash.c.o" "gcc" "CMakeFiles/untitled2.dir/taulaHash.c.o.d"
-  "/Users/xavicanadas/CLionProjects/PracticaEDAMarcAxelXavier/usuari.c" "CMakeFiles/untitled2.dir/usuari.c.o" "gcc" "CMakeFiles/untitled2.dir/usuari.c.o.d"
+  "C:/Users/USUARI/CLionProjects/PracticaEDAMarcAxelXavier/files_c/menu.c" "CMakeFiles/untitled2.dir/files_c/menu.c.obj" "gcc" "CMakeFiles/untitled2.dir/files_c/menu.c.obj.d"
+  "C:/Users/USUARI/CLionProjects/PracticaEDAMarcAxelXavier/files_c/taulaHash.c" "CMakeFiles/untitled2.dir/files_c/taulaHash.c.obj" "gcc" "CMakeFiles/untitled2.dir/files_c/taulaHash.c.obj.d"
+  "C:/Users/USUARI/CLionProjects/PracticaEDAMarcAxelXavier/files_c/usuari.c" "CMakeFiles/untitled2.dir/files_c/usuari.c.obj" "gcc" "CMakeFiles/untitled2.dir/files_c/usuari.c.obj.d"
+  "C:/Users/USUARI/CLionProjects/PracticaEDAMarcAxelXavier/global.c" "CMakeFiles/untitled2.dir/global.c.obj" "gcc" "CMakeFiles/untitled2.dir/global.c.obj.d"
+  "C:/Users/USUARI/CLionProjects/PracticaEDAMarcAxelXavier/main.c" "CMakeFiles/untitled2.dir/main.c.obj" "gcc" "CMakeFiles/untitled2.dir/main.c.obj.d"
   )
 
 # Targets to which this target links.

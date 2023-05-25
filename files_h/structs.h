@@ -7,7 +7,7 @@
 #define UNTITLED2_STRUCTS_H
 
 #endif //UNTITLED2_STRUCTS_H
-typedef struct {
+typedef struct usuari{
     char nomUsuari[MAX_STRING];
     char nom[MAX_STRING];
     int edat;
@@ -15,6 +15,7 @@ typedef struct {
     char ciutat[MAX_STRING];
     // Això ho canviaria i ho faria amb una enumeració
     char gustos[5][MAX_STRING];
+    struct usuari* amics;
 } Usuari;
 
 /*

@@ -57,7 +57,7 @@ int bucleMenu() {
 
             case ESCOLLIR_USUARI:
                 printf("Crida funció escollir usuari\n");
-                bucleEscollirUsuari();
+                bucleEscollirUsuari(taulaHash);
                 break;
 
             case MOSTRAR_OPCIONS:
@@ -77,12 +77,18 @@ int bucleMenu() {
 
     return SUCCESS;
 }
-int bucleEscollirUsuari() {
+int bucleEscollirUsuari(TaulaHash* taula) {
     int opcioEscollida = 0;
 
     // Es mostra el menú d'opcions
     showEscollirUsuaruMenu();
-
+    char user[MAX_STRING];
+    entradaString("Introduiu el nom d'usuari amb el que volgueu operar: ", user);
+    Usuari *usuari = buscarUsuari(taula, user);
+    while (usuari == NULL) {
+        entradaString("Usuari invàlid, introduiu un altre nom: ", user);
+        usuari = buscarUsuari(taula, user);
+    }
     while (opcioEscollida != SORTIR) {
         opcioEscollida = entradaInt("Si us plau, seleccioni una opció");
 
@@ -121,6 +127,7 @@ void showMenuOptions() {
     printf("\t %d: escollir un usuari\n", ESCOLLIR_USUARI);
     printf("\t %d: mostrar opcions.\n", MOSTRAR_OPCIONS);
     printf("\t %d: sortir.\n", SORTIR);
+    fflush(stdout);
 }
 
 // Imprimeix el menú del bucle de l'opció escollir usuari

@@ -18,7 +18,7 @@ Usuari* nouUsuari() {
         entradaString("Introdueixi un gust: ", user->gustos[i]);
         if (strcmp(user->gustos[i],"\n") == 0) break;
     }
-
+    user->amics = (Usuari *) malloc(10*sizeof(Usuari));
     return user;
 }
 
@@ -34,5 +34,6 @@ void imprimirUsuaris(TaulaHash* taulaHash) {
 // Funció buscar usuari: s'ha de trucar a la funció hashing
 Usuari* buscarUsuari(TaulaHash* taulaHash, char* nomUsuari) {
     int idx = hashing(nomUsuari, taulaHash);
+    if (idx==ERROR_CALCULAR_INDEX) return NULL;
     return taulaHash->elements[idx].valor;
 }
