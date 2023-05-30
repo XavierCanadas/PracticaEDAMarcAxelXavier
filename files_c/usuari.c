@@ -24,11 +24,14 @@ Usuari* nouUsuari() {
 
 void imprimirUsuaris(TaulaHash* taulaHash) {
     // Recorrer tota la taula i imprimir
+    int k=0;
     for (int i = 0; i < taulaHash->size; ++i) {
         if (taulaHash->elements[i].valor != NULL) {
             printf("Nom usuari %d %s\n", i, taulaHash->elements[i].valor->nomUsuari);
+            k++;
         }
     }
+    if(k==0) printf("No hi ha usuaris per imprimir\n");
 }
 
 // Funció buscar usuari: s'ha de trucar a la funció hashing
