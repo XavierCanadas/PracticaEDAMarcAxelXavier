@@ -11,11 +11,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <math.h>
+#include <ctype.h>
 
 // Declaració de constants globals
-#define TRUE 1
-#define FALSE 0
 #define SUCCESS 33 // Per saber si una funció ha tingut èxit.
 #define OPCIO_INVALIDA (-10)
 #define ERROR_ENTRADA_DADES 0 // la funció scanf retorna 0 si no s'ha introduït el que demana

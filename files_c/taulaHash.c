@@ -12,6 +12,7 @@
  * i comproba si amb l'índex que ha donat, a la taula aquest índex està ocupat o lliure. Si està lliure
  * o està ocupat per la mateixa clau retorna l'índex trobat, sinó torna a aplicar el mòdul al nombre,
  * però aquesta vegada sumant-li +1 i torna a mirar la condició.
+ * (La comprobació de col·lisions es fa a la funció guardarUsuari())
  */
 
 int hashing(char* clau, TaulaHash* taulaHash) {
@@ -61,8 +62,10 @@ void initTaulaHash(TaulaHash* taulaHash, int size) {
 int guardarUsuari(Usuari* usuari, TaulaHash* taulaHash,  int *indexGuardat) {
     int index = hashing(usuari->nomUsuari, taulaHash);
 
-    if (index == ERROR_CALCULAR_INDEX)
+    // Si hi ha un error al calcular l'índex o si el nou usuari que es vol guardar ja està a la taula es retirna ERROR.
+    if (index == ERROR_CALCULAR_INDEX || (strcmp(usuari->nom, taulaHash->elements[index].clau)) == 0)
         return ERROR_GUARDAR_USUARU;
+
 
     // S'assigna la clau i el valor a la posició de l'índex retornat per hashing()
     strcpy(taulaHash->elements[index].clau, usuari->nomUsuari);
