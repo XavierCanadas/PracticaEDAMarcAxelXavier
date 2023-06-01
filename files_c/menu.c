@@ -17,10 +17,9 @@ int bucleMenu() {
 
     int opcioEscollida = 0;
 
-    // Es mostra el menú d'opcions
-    showMenuOptions();
-
     while (opcioEscollida != SORTIR) {
+        // Es mostra el menú d'opcions
+        showMenuOptions();
         opcioEscollida = entradaInt("\nSi us plau, seleccioni una opció");
 
         Usuari* usuariAux = NULL;
@@ -56,7 +55,6 @@ int bucleMenu() {
                 break;
 
             case ESCOLLIR_USUARI:
-                printf("Crida funció escollir usuari\n");
                 bucleEscollirUsuari(taulaHash);
                 break;
 
@@ -80,8 +78,6 @@ int bucleMenu() {
 int bucleEscollirUsuari(TaulaHash* taula) {
     int opcioEscollida = 0;
 
-    // Es mostra el menú d'opcions
-    showEscollirUsuaruMenu();
     char user[MAX_STRING];
     entradaString("Introduiu el nom d'usuari amb el que volgueu operar: ", user);
     Usuari *usuari = buscarUsuari(taula, user);
@@ -89,6 +85,8 @@ int bucleEscollirUsuari(TaulaHash* taula) {
         entradaString("Usuari invàlid, introduiu un altre nom: ", user);
         usuari = buscarUsuari(taula, user);
     }
+    // Es mostra el menú d'opcions
+    showEscollirUsuaruMenu();
     while (opcioEscollida != SORTIR) {
         opcioEscollida = entradaInt("Si us plau, seleccioni una opció");
 
@@ -122,23 +120,23 @@ int bucleEscollirUsuari(TaulaHash* taula) {
 // Aquesta funció servirà per ensenyar les opcions que hi ha en el menú.
 void showMenuOptions() {
     printf("Esculli una de les següents opcions:\n");
-    printf("\t %d: crear nou usuari.\n", NOU_USUARI);
-    printf("\t %d: llista de tots els usuaris guardats.\n", LLISTA_USUARIS);
-    printf("\t %d: escollir un usuari\n", ESCOLLIR_USUARI);
-    printf("\t %d: mostrar opcions.\n", MOSTRAR_OPCIONS);
-    printf("\t %d: sortir.\n", SORTIR);
+    printf("\t %d: Crear nou usuari.\n", NOU_USUARI);
+    printf("\t %d: Llistar tots els usuaris guardats.\n", LLISTA_USUARIS);
+    printf("\t %d: Escollir un usuari\n", ESCOLLIR_USUARI);
+    printf("\t %d: Mostrar opcions.\n", MOSTRAR_OPCIONS);
+    printf("\t %d: Sortir.\n", SORTIR);
     fflush(stdout);
 }
 
 // Imprimeix el menú del bucle de l'opció escollir usuari
 void showEscollirUsuaruMenu() {
     printf("Esculli una de les següents opcions:\n");
-    printf("\t %d: enviar una solicitut d'amistat.\n", ENVIAR_SOLICITUD);
-    printf("\t %d: gestiona les teves solicituts d'amistat.\n", GESTIONAR_SOLICITUTS);
-    printf("\t %d: fer una publicació\n", FER_PUBLICACIO);
-    printf("\t %d: veure les publicacions.\n", VEURE_PUBLICACIONS);
-    printf("\t %d: mostrar opcions.\n", MOSTRAR_OPCIONS);
-    printf("\t %d: sortir.\n", SORTIR);
+    printf("\t %d: Enviar una solicitut d'amistat.\n", ENVIAR_SOLICITUD);
+    printf("\t %d: Gestiona les teves solicituts d'amistat.\n", GESTIONAR_SOLICITUTS);
+    printf("\t %d: Fer una publicació\n", FER_PUBLICACIO);
+    printf("\t %d: Veure les publicacions.\n", VEURE_PUBLICACIONS);
+    printf("\t %d: Mostrar opcions.\n", MOSTRAR_OPCIONS);
+    printf("\t %d: Sortir.\n", SORTIR);
 }
 
 /*
