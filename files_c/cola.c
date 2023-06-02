@@ -1,6 +1,7 @@
 //
 // Created by USUARI on 02/06/2023.
 //
+/*
 #include "../files_h/cola.h"
 
 void inicializarCola(ColaSolicitudes* cola) {
@@ -62,3 +63,4 @@ void rechazarSolicitud(ColaSolicitudes* cola) {
 
     free(nodoEliminar);
 }
+ */
