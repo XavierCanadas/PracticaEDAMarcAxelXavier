@@ -7,7 +7,6 @@ int bucleMenu() {
     // Es crea la taula hash
     TaulaHash* taulaHash = (TaulaHash*) malloc(sizeof(TaulaHash));
     initTaulaHash(taulaHash, 10);
-
     /*
     // es crea l'Array d'usuaris
     LlistaUsers llistaUsuaris;
@@ -92,7 +91,7 @@ int bucleEscollirUsuari(TaulaHash* taula) {
 
         switch (opcioEscollida) {
             case ENVIAR_SOLICITUD:
-                printf("enviar solicitud\n");
+                gestionSolicitudesAmistad(usuari);
 
                 break;
             case GESTIONAR_SOLICITUTS:

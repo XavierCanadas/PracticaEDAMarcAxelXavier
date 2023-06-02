@@ -39,3 +39,25 @@ struct TaulaHash{
     int count;
     ElementTaulaHash* elements;
 };
+
+
+///Estructures cua per solicituds d'amistat
+typedef struct Nodo {
+    char remitente[MAX_STRING];
+    char destinatario[MAX_STRING];
+    struct Nodo* siguiente;
+} NodoSolicitud;
+
+typedef struct {
+    NodoSolicitud* frente;
+    NodoSolicitud* final;
+} ColaSolicitudes;
+
+///funcions
+void inicializarCola(ColaSolicitudes* cola);
+bool colaVacia(ColaSolicitudes* cola);
+void encolar(ColaSolicitudes* cola, const char* remitente, const char* destinatario);
+void desencolar(ColaSolicitudes* cola);
+void rechazarSolicitud(ColaSolicitudes* cola);
+void gestionSolicitudesAmistad(Usuari* usuari);
+void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari);
