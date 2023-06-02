@@ -7,6 +7,7 @@
 #define UNTITLED2_STRUCTS_H
 
 #endif //UNTITLED2_STRUCTS_H
+typedef struct TaulaHash TaulaHash;
 typedef struct usuari{
     char nomUsuari[MAX_STRING];
     char nom[MAX_STRING];
@@ -15,8 +16,10 @@ typedef struct usuari{
     char ciutat[MAX_STRING];
     // Això ho canviaria i ho faria amb una enumeració
     char gustos[5][MAX_STRING];
-    struct usuari* amics;
+    TaulaHash* amics;
+    TaulaHash* solicitudsAmistat;
 } Usuari;
+
 
 /*
 typedef struct {
@@ -31,8 +34,8 @@ typedef struct {
     Usuari* valor;
 } ElementTaulaHash;
 
-typedef struct {
+struct TaulaHash{
     int size;
     int count;
     ElementTaulaHash* elements;
-} TaulaHash;
+};
