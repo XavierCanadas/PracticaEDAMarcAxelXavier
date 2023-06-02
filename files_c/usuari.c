@@ -37,7 +37,7 @@ void imprimirUsuaris(TaulaHash* taulaHash) {
     int k=0;
     for (int i = 0; i < taulaHash->size; ++i) {
         if (taulaHash->elements[i].valor != NULL) {
-            printf("Nom usuari %d %s\n", i, taulaHash->elements[i].valor->nomUsuari);
+            printf("Nom usuari %s\n", taulaHash->elements[i].valor->nomUsuari);
             k++;
         }
     }
