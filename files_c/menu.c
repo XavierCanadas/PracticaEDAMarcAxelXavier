@@ -90,12 +90,8 @@ int bucleEscollirUsuari(TaulaHash* taula) {
         opcioEscollida = entradaInt("Si us plau, seleccioni una opció");
 
         switch (opcioEscollida) {
-            case ENVIAR_SOLICITUD:
-                gestionSolicitudesAmistad(usuari);
-
-                break;
             case GESTIONAR_SOLICITUTS:
-                printf("gestionar solicituds\n");
+                gestionSolicitudesAmistad(usuari);
 
                 break;
             case FER_PUBLICACIO:
@@ -130,8 +126,7 @@ void showMenuOptions() {
 // Imprimeix el menú del bucle de l'opció escollir usuari
 void showEscollirUsuaruMenu() {
     printf("Esculli una de les següents opcions:\n");
-    printf("\t %d: Enviar una solicitut d'amistat.\n", ENVIAR_SOLICITUD);
-    printf("\t %d: Gestiona les teves solicituts d'amistat.\n", GESTIONAR_SOLICITUTS);
+    printf("\t %d: Gestiona i envia solicituts d'amistat.\n", GESTIONAR_SOLICITUTS);
     printf("\t %d: Fer una publicació\n", FER_PUBLICACIO);
     printf("\t %d: Veure les publicacions.\n", VEURE_PUBLICACIONS);
     printf("\t %d: Mostrar opcions.\n", MOSTRAR_OPCIONS);
