@@ -14,14 +14,15 @@ int bucleMenu() {
     llistaUsuaris.llista = (Usuari*) malloc(10*sizeof(Usuari));
     llistaUsuaris.num_users=0;
     */
-
     int opcioEscollida = 0;
 
     while (opcioEscollida != SORTIR) {
         // Es mostra el menú d'opcions
         showMenuOptions();
-        opcioEscollida = entradaInt("\nSi us plau, seleccioni una opció");
-
+        opcioEscollida = 0;
+        while(opcioEscollida < 1 || opcioEscollida > 5) {
+            opcioEscollida = entradaInt("\nSi us plau, seleccioni una opcio del menu");
+        }
         Usuari* usuariAux = NULL;
         int codiGuardarUsuari = ERROR_GUARDAR_USUARU;
 
@@ -40,7 +41,7 @@ int bucleMenu() {
                     codiGuardarUsuari = guardarUsuari(usuariAux, taulaHash, &aux);
                     if (codiGuardarUsuari != SUCCESS) {
                         if (taulaHashPlena(taulaHash) == ERROR_AMPLIAR_TAULA) {
-                            printf("Hi ha hagut un error al guardar al ampliar la taula");
+                            printf("Hi ha hagut un error al guardar o al ampliar la taula");
                             break;
                         }
                     }
@@ -59,7 +60,6 @@ int bucleMenu() {
                 break;
 
             case MOSTRAR_OPCIONS:
-                showMenuOptions();
                 break;
 
             case SORTIR:
