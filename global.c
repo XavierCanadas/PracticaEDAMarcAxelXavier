@@ -26,6 +26,7 @@ int entradaString(char missatge[], char entradaUsuari[], char filtres[]) {
         printf("%s", missatge);
         if(strcmp(filtres, "none") == 0){
             scan(entradaUsuari);
+            i = 1;
         }else if ((strcmp(filtres, "name") == 0)){
             scan(entradaUsuari);
             i =name_filter(entradaUsuari);
