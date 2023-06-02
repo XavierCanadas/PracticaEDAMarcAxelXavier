@@ -3,7 +3,8 @@
 //
 #include "../files_h/taulaHash.h"
 
-/**
+/*
+/*
  * Inicialitza la cua de sol·licituds.
  */
 void inicializarCola(ColaSolicitudes* cola) {
@@ -11,7 +12,7 @@ void inicializarCola(ColaSolicitudes* cola) {
     cola->final = NULL;
 }
 
-/**
+/*
  * Comprova si la cua de sol·licituds està buida.
  * Retorna true si la cua està buida, false en cas contrari.
  */
@@ -19,9 +20,11 @@ bool colaVacia(ColaSolicitudes* cola) {
     return cola->frente == NULL;
 }
 
-/**
+/*
  * Afegeix una nova sol·licitud de amistat a la cua.
  */
+
+
 void encolar(ColaSolicitudes* cola, const char* remitente, const char* destinatario) {
     NodoSolicitud* nuevoNodo = (NodoSolicitud*)malloc(sizeof(NodoSolicitud));
     strcpy(nuevoNodo->remitente, remitente);
@@ -39,7 +42,7 @@ void encolar(ColaSolicitudes* cola, const char* remitente, const char* destinata
     printf("Sol·licitud d'amistat enviada a %s.\n", destinatario);
 }
 
-/**
+/*
  * Elimina la sol·licitud de amistat del davant de la cua.
  */
 void desencolar(ColaSolicitudes* cola) {
@@ -59,7 +62,7 @@ void desencolar(ColaSolicitudes* cola) {
     free(nodoEliminar);
 }
 
-/**
+/*
  * Rebutja la sol·licitud de amistat del davant de la cua.
  */
 void rechazarSolicitud(ColaSolicitudes* cola) {
@@ -79,7 +82,7 @@ void rechazarSolicitud(ColaSolicitudes* cola) {
     free(nodoEliminar);
 }
 
-/**
+/*
  * Accepta la sol·licitud de amistat del davant de la cua.
  * Afegeix l'amistat a la llista d'amics de l'usuari.
  */
@@ -106,10 +109,12 @@ void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari) {
 
 
 
-/**
+/*
  * Gestiona les sol·licituds d'amistat.
  * Proporciona un menú per enviar, acceptar o rebutjar sol·licituds de amistat.
  */
+
+
 void gestionSolicitudesAmistad(Usuari* usuari) {
     ColaSolicitudes cola;
     inicializarCola(&cola);
@@ -150,3 +155,4 @@ void gestionSolicitudesAmistad(Usuari* usuari) {
         printf("---------------------------------------------\n\n");
     }
 }
+

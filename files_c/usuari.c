@@ -3,22 +3,21 @@
 //
 #include "../files_h/usuari.h"
 
-
-/// Creació i guardar un usuari
+/// Creació i guardar un usuari"
 Usuari* nouUsuari() {
     Usuari *user = (Usuari *) malloc(sizeof(Usuari));
 
     // El nom d'usuari es convertirà a tot minuscules.
 
-    entradaString("Introdueixi el seu nom: ", user->nom);
-    entradaString("Introdueixi el seu nom d'usuari: ", user->nomUsuari);
-    entradaString("Introdueixi la seva ciutat: ", user->ciutat);
-    entradaString("Introdueixi el seu correu: ", user->correu);
+    entradaString("Introdueixi el seu nom: ", user->nom, "name");
+    entradaString("Introdueixi el seu nom d'usuari: ", user->nomUsuari, "user");
+    entradaString("Introdueixi la seva ciutat: ", user->ciutat, "city");
+    entradaString("Introdueixi el seu correu: ", user->correu, "mail");
     user->edat = entradaInt("Introdueixi la seva edat: ");
 
 
     for (int i = 0; i < 1; i++) {
-        entradaString("Introdueixi un gust: ", user->gustos[i]);
+        entradaString("Introdueixi un gust: ", user->gustos[i], "none");
         if (strcmp(user->gustos[i],"\n") == 0) break;
     }
     user->amics = (Usuari *) malloc(10*sizeof(Usuari));

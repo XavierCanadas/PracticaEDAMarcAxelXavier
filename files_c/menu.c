@@ -1,6 +1,5 @@
 #include "../files_h/menu.h"
 
-
 // Aquesta funció conté el bucle del menú del programa.
 int bucleMenu() {
 
@@ -78,10 +77,10 @@ int bucleEscollirUsuari(TaulaHash* taula) {
     int opcioEscollida = 0;
 
     char user[MAX_STRING];
-    entradaString("Introduiu el nom d'usuari amb el que volgueu operar: ", user);
+    entradaString("Introduiu el nom d'usuari amb el que volgueu operar: ", user, "none");
     Usuari *usuari = buscarUsuari(taula, user);
     while (usuari == NULL) {
-        entradaString("Usuari invàlid, introduiu un altre nom: ", user);
+        entradaString("Usuari invàlid, introduiu un altre nom: ", user, "none");
         usuari = buscarUsuari(taula, user);
     }
     // Es mostra el menú d'opcions
@@ -91,7 +90,7 @@ int bucleEscollirUsuari(TaulaHash* taula) {
 
         switch (opcioEscollida) {
             case GESTIONAR_SOLICITUTS:
-                gestionSolicitudesAmistad(usuari);
+                //gestionSolicitudesAmistad(usuari);
 
                 break;
             case FER_PUBLICACIO:
