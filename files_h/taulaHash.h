@@ -15,6 +15,7 @@
 #define ERROR_GUARDAR_USUARU -10
 #define ERROR_AMPLIAR_TAULA -20
 
+
 /// Funcions
 int hashing(char* clau, TaulaHash* taulaHash);
 int charToIntASCII(char* string);

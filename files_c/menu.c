@@ -6,12 +6,7 @@ int bucleMenu() {
     // Es crea la taula hash
     TaulaHash* taulaHash = (TaulaHash*) malloc(sizeof(TaulaHash));
     initTaulaHash(taulaHash, 10);
-    /*
-    // es crea l'Array d'usuaris
-    LlistaUsers llistaUsuaris;
-    llistaUsuaris.llista = (Usuari*) malloc(10*sizeof(Usuari));
-    llistaUsuaris.num_users=0;
-    */
+
     int opcioEscollida = 0;
 
     while (opcioEscollida != SORTIR) {
@@ -26,12 +21,6 @@ int bucleMenu() {
 
         switch (opcioEscollida) {
             case NOU_USUARI:
-                /*
-                if(llistaUsuaris.num_users % 10 == 0){
-                    realloc(llistaUsuaris.llista,10*llistaUsuaris.num_users*sizeof(Usuari));
-                }
-                llistaUsuaris.llista[llistaUsuaris.num_users]=*nouUsuari();
-                llistaUsuaris.num_users ++;*/
 
                 usuariAux = nouUsuari();
                 while (codiGuardarUsuari == ERROR_GUARDAR_USUARU) {
@@ -39,13 +28,12 @@ int bucleMenu() {
                     codiGuardarUsuari = guardarUsuari(usuariAux, taulaHash, &aux);
                     if (codiGuardarUsuari != SUCCESS) {
                         if (taulaHashPlena(taulaHash) == ERROR_AMPLIAR_TAULA) {
-                            printf("Hi ha hagut un error al guardar o al ampliar la taula");
+                            printf("Hi ha hagut un error al ampliar la taula\n");
                             break;
                         }
                     }
 
                 }
-
                 break;
 
             case LLISTA_USUARIS:
@@ -131,10 +119,3 @@ void showEscollirUsuaruMenu() {
     printf("\t %d: Mostrar opcions.\n", MOSTRAR_OPCIONS);
     printf("\t %d: Sortir.\n", SORTIR);
 }
-
-/*
-void printUsers(LlistaUsers* llista){
-    for (int i = 0; i < llista->num_users; ++i) {
-        printf("%s \n",llista->llista[i].nom);
-    }
-}*/

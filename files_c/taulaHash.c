@@ -15,7 +15,7 @@
  * (La comprobació de col·lisions es fa a la funció guardarUsuari())
  */
 
-int hashing(char* clau, TaulaHash* taulaHash) {
+int hashing(char* clau, TaulaHash* taulaHash, bool esNouUsuari) {
     int index, i = 0;
     int clauASCII = charToIntASCII(clau);
     char clauAux[MAX_STRING];
@@ -29,6 +29,10 @@ int hashing(char* clau, TaulaHash* taulaHash) {
 
         // Es complirà quan s'ha recorregut tota la taula
         if (i == taulaHash->size) {
+            return ERROR_CALCULAR_INDEX;
+        }
+        if (esNouUsuari == true && strcmp(clau, clauAux) == 0) {
+            printf("Aquest usuari ja està creat!\n");
             return ERROR_CALCULAR_INDEX;
         }
 
