@@ -11,15 +11,14 @@
 #include "structs.h"
 
 /// Errors
-#define ERROR_CALCULAR_INDEX -10
-#define ERROR_GUARDAR_USUARU -10
-#define ERROR_AMPLIAR_TAULA -20
-
+#define ERROR_CALCULAR_INDEX (-10)
+#define ERROR_GUARDAR_USUARU (-10)
+#define ERROR_AMPLIAR_TAULA (-20)
 
 /// Funcions
-int hashing(char* clau, TaulaHash* taulaHash);
+int hashing(char* clau, TaulaHash* taulaHash, bool esNouUsuari);
 int charToIntASCII(char* string);
-int guardarUsuari(Usuari* usuari, TaulaHash* taulaHash, int *indexGuardat);
+int guardarUsuari(Usuari* usuari, char* nomUsuari, TaulaHash* taulaHash,  int *indexGuardat);
 int taulaHashPlena(TaulaHash* taulaHash);
 void initTaulaHash(TaulaHash* taulaHash, int size);
 void eliminarUsuari(TaulaHash* taulaHash, int index);

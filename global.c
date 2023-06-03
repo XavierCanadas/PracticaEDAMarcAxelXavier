@@ -2,16 +2,20 @@
 // Created by Xavi Cañadas on 5/5/23.
 //
 #include "global.h"
+
+
 extern int name_filter(char name[]);
 extern int user_filter(char user[]);
 extern int city_filter(char city[]);
 extern int mail_filter(char mail[]);
+
 
 // Aquesta funció serveix perquè l'usuari introdueixi un enter, el paràmetre és per imprimir un missatge per l'usuari.
 // retorna
 int entradaInt(char missatge[]) {
     int nombreEnter;
     printf("%s:", missatge);
+    fflush(stdout);
     if (scanf("%d", &nombreEnter) == ERROR_ENTRADA_DADES) {
         nombreEnter = ERROR_ENTRADA_DADES;
     }

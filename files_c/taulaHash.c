@@ -63,21 +63,23 @@ void initTaulaHash(TaulaHash* taulaHash, int size) {
     }
 }
 
-int guardarUsuari(Usuari* usuari, TaulaHash* taulaHash,  int *indexGuardat) {
-    int index = hashing(usuari->nomUsuari, taulaHash);
+int guardarUsuari(Usuari* usuari, char* nomUsuari, TaulaHash* taulaHash, int *indexGuardat) {
+    int index = hashing(usuari->nomUsuari, taulaHash, true);
 
     // Si hi ha un error al calcular l'índex o si el nou usuari que es vol guardar ja està a la taula es retirna ERROR.
     if (index == ERROR_CALCULAR_INDEX || (strcmp(usuari->nom, taulaHash->elements[index].clau)) == 0)
         return ERROR_GUARDAR_USUARU;
 
-
     // S'assigna la clau i el valor a la posició de l'índex retornat per hashing()
-    strcpy(taulaHash->elements[index].clau, usuari->nomUsuari);
-    taulaHash->elements[index].valor = usuari;
+    strcpy(taulaHash->elements[index].clau, nomUsuari);
+
+    if (usuari != NULL)
+        taulaHash->elements[index].valor = usuari;
 
     taulaHash->count++;
 
-    *indexGuardat = index;
+    if (indexGuardat != NULL)
+        *indexGuardat = index;
 
     return SUCCESS;
 }
@@ -111,7 +113,7 @@ int taulaHashPlena(TaulaHash* taulaHash) {
             memset(taulaHash->elements[i].clau, 0, sizeof(taulaHash->elements[i].clau));
         } else {
             int indexGuardat;
-            guardarUsuari(taulaHash->elements[i].valor, taulaHash, &indexGuardat);
+            guardarUsuari(taulaHash->elements[i].valor, taulaHash->elements[i].valor->nomUsuari, taulaHash, &indexGuardat);
 
             if (indexGuardat != i) {
                 taulaHash->elements[i].valor = NULL;
@@ -125,8 +127,13 @@ int taulaHashPlena(TaulaHash* taulaHash) {
 }
 
 void eliminarUsuari(TaulaHash* taulaHash, int index) {
+    Usuari* usuari = taulaHash->elements[index].valor;
+
     // Eliminar l'usuari
-    free(taulaHash->elements[index].valor);
+    if (usuari != NULL) {
+        free(usuari);
+        taulaHash->elements[index].valor = NULL;
+    }
     memset(taulaHash->elements[index].clau, 0, sizeof(taulaHash->elements->clau));
 }
 

@@ -3,7 +3,7 @@
 //
 
 // Includes
-#include "taulaHash.h"
+#include "../files_h/taulaHash.h"
 
 #ifndef UNTITLED2_USUARI_H
 #define UNTITLED2_USUARI_H
@@ -12,7 +12,9 @@
 
 
 // Funcions
+Usuari* initUsuari();
 Usuari* nouUsuari();
 void imprimirUsuaris(TaulaHash* taulaHash);
+void initLlistaAmics(Usuari* usuari);
 Usuari* buscarUsuari(TaulaHash* taulaHash, char* nomUsuari);
 

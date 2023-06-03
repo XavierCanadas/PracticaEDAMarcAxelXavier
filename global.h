@@ -20,6 +20,8 @@
 #define OPCIO_INVALIDA (-10)
 #define ERROR_ENTRADA_DADES 0 // la funció scanf retorna 0 si no s'ha introduït el que demana
 #define MAX_STRING 50
+#define CONFIRMAR 1
+#define CANCELAR 0
 
 // És una millor manera de fer servir boleans en comtes del #define
 //typedef enum {true, false} bool;

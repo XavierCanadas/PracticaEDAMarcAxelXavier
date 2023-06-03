@@ -1,5 +1,5 @@
 #include "../global.h"
-#include "../files_h/usuari.h"
+//#include "../files_h/usuari.h"
 
 int name_filter(char name[]){
     for (int i = 0; name[i] != '\0'; i++) {
@@ -46,7 +46,7 @@ int city_filter(char city[]){
 
 
 int mail_filter(char mail[]){
-    int longitud = strlen(mail);
+    int longitud = (int) strlen(mail);
     int tieneArroba = 0;
     int tienePuntoDespuesArroba = 0;
 

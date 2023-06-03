@@ -1,9 +1,9 @@
 //
 // Created by USUARI on 02/06/2023.
 //
-#include "../files_h/taulaHash.h"
+#include "../files_h/cola.h"
+//#include "../files_h/structs.h"
 
-/*
 /*
  * Inicialitza la cua de sol·licituds.
  */
@@ -83,7 +83,7 @@ void rechazarSolicitud(ColaSolicitudes* cola) {
 }
 
 /*
- * Accepta la sol·licitud de amistat del davant de la cua.
+ * Accepta la sol·licitud d'amistat del davant de la cua.
  * Afegeix l'amistat a la llista d'amics de l'usuari.
  */
 void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari) {
@@ -96,13 +96,15 @@ void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari) {
 
     // Agregar remitente como amigo
     int indexAmic;
-    int resultado = guardarUsuari(usuari->amics, nodoAceptar->remitente, &indexAmic);
+
+
+
+    int resultado = guardarUsuari(NULL, nodoAceptar->remitente, usuari->amics, NULL);
     if (resultado == SUCCESS) {
         printf("Solicitud de amistad aceptada. %s ahora es tu amigo.\n", nodoAceptar->remitente);
     } else {
         printf("Error al aceptar solicitud de amistad.\n");
     }
-
     desencolar(cola);
     free(nodoAceptar);
 }
@@ -120,31 +122,34 @@ void gestionSolicitudesAmistad(Usuari* usuari) {
     inicializarCola(&cola);
 
     int opcion = 0;
-    while (opcion != 4) {
+    while (opcion != SORTIR_GESTIONAR_SOLICITUTS) {
         printf("----- GESTIÓ DE SOL·LICITUDS D'AMISTAT -----\n");
-        printf("1. Enviar sol·licitud d'amistat\n");
-        printf("2. Acceptar sol·licitud d'amistat\n");
-        printf("3. Rebutjar sol·licitud d'amistat\n");
-        printf("4. Sortir\n");
-        opcion = entradaInt("\"Introdueix el número de l'opció desitjada: \"");
+        printf("%d. Enviar sol·licitud d'amistat\n", ENVIAR_SOLICITUD);
+        printf("%d. Acceptar sol·licitud d'amistat\n", ACEPTAR_SOLICITUD);
+        printf("%d. Rebutjar sol·licitud d'amistat\n", REBUTJAR_SOLICITUD);
+        printf("%d. Sortir\n", SORTIR_GESTIONAR_SOLICITUTS);
+        opcion = entradaInt("Introdueix el número de l'opció desitjada: ");
 
         switch (opcion) {
-            case 1: {
+            case ENVIAR_SOLICITUD: {
                 char remitente[MAX_STRING];
                 char destinatario[MAX_STRING];
-                entradaString("Introdueix el nom d'usuari de l'emissor: ", remitente);
-                entradaString("Introdueix el nom d'usuari del destinatari: ", destinatario);
+                // No té sentit que es demani l'emissor pq es passa com a paràmetre a la funció.
+                entradaString("Introdueix el nom d'usuari de l'emissor: ", remitente, "user");
+                entradaString("Introdueix el nom d'usuari del destinatari: ", destinatario, "user");
+
+                // s'hauria de passar com a remitent el nom d'usuari de l'objecte usuari del paràmetre
                 if(strcmp(remitente,destinatario)!=0) encolar(&cola, remitente, destinatario);
                 else printf("Error al enviar la sol·licitud");
                 break;
             }
-            case 2:
+            case ACEPTAR_SOLICITUD:
                 acceptarSolicitud(&cola, usuari);
                 break;
-            case 3:
+            case REBUTJAR_SOLICITUD:
                 rechazarSolicitud(&cola);
                 break;
-            case 4:
+            case SORTIR_GESTIONAR_SOLICITUTS:
                 printf("Surt del programa...\n");
                 break;
             default:

@@ -1,5 +1,5 @@
 #include "../global.h"
-#include "usuari.h"
+#include "../files_h/cola.h"
 
 #define MENU_ERROR_SELECT  -1
 
@@ -11,10 +11,11 @@
 #define SORTIR 5
 
 // Opcions escollir usuari
-#define ENVIAR_SOLICITUD 10
 #define GESTIONAR_SOLICITUTS 11
 #define FER_PUBLICACIO 12
 #define VEURE_PUBLICACIONS 13
+#define EDITAR_USUARI 14
+#define ELIMINAR_USUARI 15
 
 // Funcions:
 int bucleMenu();

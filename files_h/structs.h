@@ -7,7 +7,9 @@
 #define UNTITLED2_STRUCTS_H
 
 #endif //UNTITLED2_STRUCTS_H
+
 typedef struct TaulaHash TaulaHash;
+
 typedef struct usuari{
     char nomUsuari[MAX_STRING];
     char nom[MAX_STRING];
@@ -21,20 +23,13 @@ typedef struct usuari{
 } Usuari;
 
 
-/*
-typedef struct {
-    Usuari *llista;
-    int num_users;
-}LlistaUsers;
- */
-
 /// Estructura per la taula hash per guadar els usuaris
 typedef struct {
     char clau[MAX_STRING]; // És el nom d'usuari.
     Usuari* valor;
 } ElementTaulaHash;
 
-struct TaulaHash{
+struct TaulaHash {
     int size;
     int count;
     ElementTaulaHash* elements;
@@ -53,6 +48,7 @@ typedef struct {
     NodoSolicitud* final;
 } ColaSolicitudes;
 
+/*
 ///funcions
 void inicializarCola(ColaSolicitudes* cola);
 bool colaVacia(ColaSolicitudes* cola);
@@ -61,3 +57,4 @@ void desencolar(ColaSolicitudes* cola);
 void rechazarSolicitud(ColaSolicitudes* cola);
 void gestionSolicitudesAmistad(Usuari* usuari);
 void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari);
+*/
