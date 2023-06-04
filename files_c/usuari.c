@@ -20,6 +20,46 @@ Usuari* initUsuari() {
 
     return usuari;
 }
+void seleccionarGustos(Usuari* usuari) {
+    // Lista de gustos en catalán
+    const char* gustos[] = {
+            "Cuina",
+            "Esport",
+            "Música",
+            "Art",
+            "Natura",
+            "Cinema",
+            "Lectura",
+            "Viatges",
+            "Història",
+            "Cuina",
+            "Moda"
+    };
+
+    const int numGustos = sizeof(gustos) / sizeof(gustos[0]);
+
+    printf("Selecciona els %d gustos que millor et defineixin:\n", 5);
+
+    // Mostrar la lista de gustos
+    for (int i = 0; i < numGustos; i++) {
+        printf("%d. %s\n", i + 1, gustos[i]);
+    }
+
+    // Solicitar al usuario que seleccione sus gustos
+    for (int i = 0; i < 5; i++) {
+        printf("Selecciona el gust número %d: ", i + 1);
+        int seleccion;
+        scanf("%d", &seleccion);
+
+        // Validar la selección del usuario
+        if (seleccion >= 1 && seleccion <= numGustos) {
+            strcpy(usuari->gustos[i], gustos[seleccion - 1]);
+        } else {
+            printf("Selecció invàlida. Intenta-ho de nou.\n");
+            i--;
+        }
+    }
+}
 
 /// Creació i guardar un usuari
 Usuari* nouUsuari() {
@@ -32,13 +72,7 @@ Usuari* nouUsuari() {
     entradaString("Introdueixi la seva ciutat: ", user->ciutat, "city");
     entradaString("Introdueixi el seu correu: ", user->correu, "mail");
     user->edat = entradaInt("Introdueixi la seva edat: ");
-
-
-    for (int i = 0; i < 1; i++) {
-        entradaString("Introdueixi un gust: ", user->gustos[i], "none");
-        if (strcmp(user->gustos[i],"\n") == 0) break;
-    }
-
+    seleccionarGustos(user);
 
     // Es converteix el nom d'usuari a minúscules
     for (int i = 0; i < strlen(user->nomUsuari); ++i) {
