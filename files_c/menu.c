@@ -9,10 +9,15 @@ int bucleMenu() {
 
     int opcioEscollida = 0;
 
+    JsonObject* root = llegirFitxer("../dades.json");
+    llegirUsuarisJson(taulaHash, root);
+
+    borrarJsonObject(root);
+
     while (opcioEscollida != SORTIR) {
         // Es mostra el menú d'opcions
         showMenuOptions();
-        opcioEscollida = 0;
+        opcioEscollida;
 
         printf("\n");
         opcioEscollida = entradaInt("Si us plau, seleccioni una opció");

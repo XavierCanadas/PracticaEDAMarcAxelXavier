@@ -22,6 +22,8 @@
 #define MAX_STRING 50
 #define CONFIRMAR 1
 #define CANCELAR 0
+#define TAULA_NO_INICIALITZADA (-1)
+#define ERROR_JSON (-2)
 
 // És una millor manera de fer servir boleans en comtes del #define
 //typedef enum {true, false} bool;

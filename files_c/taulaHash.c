@@ -64,11 +64,15 @@ void initTaulaHash(TaulaHash* taulaHash, int size) {
 }
 
 int guardarUsuari(Usuari* usuari, char* nomUsuari, TaulaHash* taulaHash, int *indexGuardat) {
-    int index = hashing(usuari->nomUsuari, taulaHash, true);
+    int index = hashing(nomUsuari, taulaHash, true);
 
     // Si hi ha un error al calcular l'índex o si el nou usuari que es vol guardar ja està a la taula es retirna ERROR.
-    if (index == ERROR_CALCULAR_INDEX || (strcmp(usuari->nom, taulaHash->elements[index].clau)) == 0)
-        return ERROR_GUARDAR_USUARU;
+    if (usuari != NULL) {
+        if ((strcmp(usuari->nom, taulaHash->elements[index].clau) || index == ERROR_CALCULAR_INDEX) == 0) {
+            return ERROR_GUARDAR_USUARU;
+        }
+    }
+
 
     // S'assigna la clau i el valor a la posició de l'índex retornat per hashing()
     strcpy(taulaHash->elements[index].clau, nomUsuari);
