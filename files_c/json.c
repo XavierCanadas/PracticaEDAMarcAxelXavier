@@ -104,7 +104,6 @@ void findValue(char *input, JsonObject *object, bool objectInArray) {
 }
 
 JsonObject* find_in_object(char *key, JsonObject *object) {
-
     JsonObject *result = initJsonObject();
     char *start = strstr(object->valor, key);
     if (start != NULL) {
@@ -146,7 +145,6 @@ JsonObject* get_element_at_index(JsonObject *array, int index) {
     int bracket_count = 0;
     int brace_count = 0;
     char *start = array->valor;
-    printf("\n %s\n", start);
     result->clau[0] = '\0';
     while (start[caracterMirat] != '\0') {
         if (start[caracterMirat] == '[') bracket_count++;
@@ -185,7 +183,6 @@ JsonObject* get_element_string_at_index(JsonObject *array, int index) {
     bool cometesObertes = false;
     bool trobat = false;
     char *start = array->valor;
-    printf("\n %s\n", start);
     elementArray->clau[0] = '\0';
 
     while (start[caracterMirat] != '\0') {

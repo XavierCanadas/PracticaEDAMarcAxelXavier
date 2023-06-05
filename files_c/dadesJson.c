@@ -79,7 +79,6 @@ Usuari* convertirJsonUsuari(JsonObject* usuariJson) {
         for (int i = 0; i < (int) count_elements(gustosArray); ++i) {
             unGust = get_element_string_at_index(gustosArray, i);
             strcpy(usuari->gustos[i], unGust->valor);
-
             borrarJsonObject(unGust);
         }
 
@@ -93,7 +92,6 @@ Usuari* convertirJsonUsuari(JsonObject* usuariJson) {
         for (int i = 0; i < midaArray; ++i) {
             unAmic = get_element_string_at_index(amicsArray, i);
             guardarUsuari(NULL, unAmic->valor, usuari->amics, NULL);
-
             borrarJsonObject(unAmic);
         }
 

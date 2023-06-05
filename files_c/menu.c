@@ -8,11 +8,11 @@ int bucleMenu() {
     initTaulaHash(taulaHash, 10);
 
     int opcioEscollida = 0;
-
+    /*
     JsonObject* root = llegirFitxer("../dades.json");
     llegirUsuarisJson(taulaHash, root);
 
-    borrarJsonObject(root);
+    borrarJsonObject(root);*/
 
     while (opcioEscollida != SORTIR) {
         // Es mostra el menú d'opcions
