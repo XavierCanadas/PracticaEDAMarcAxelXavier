@@ -5,7 +5,6 @@ JsonObject* llegirFitxer(char* direccioFitxer) {
     FILE* file = fopen(direccioFitxer, "r");
     JsonObject* jsonObject = (JsonObject*) malloc(sizeof(JsonObject));
 
-
     if (file) {
         fseek(file, 0, SEEK_END);
         mida = ftell(file);
@@ -80,6 +79,7 @@ Usuari* convertirJsonUsuari(JsonObject* usuariJson) {
         for (int i = 0; i < (int) count_elements(gustosArray); ++i) {
             unGust = get_element_string_at_index(gustosArray, i);
             strcpy(usuari->gustos[i], unGust->valor);
+
             borrarJsonObject(unGust);
         }
 
@@ -92,7 +92,6 @@ Usuari* convertirJsonUsuari(JsonObject* usuariJson) {
         int midaArray = (int) count_elements(amicsArray);
         for (int i = 0; i < midaArray; ++i) {
             unAmic = get_element_string_at_index(amicsArray, i);
-            strcpy(usuari->gustos[i], unAmic->valor);
             guardarUsuari(NULL, unAmic->valor, usuari->amics, NULL);
 
             borrarJsonObject(unAmic);
