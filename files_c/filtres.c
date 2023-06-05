@@ -29,7 +29,7 @@ int user_filter(char user[]){
 
 int city_filter(char city[]){
     if (!isupper(city[0])) {
-        printf("La primera letra debe ser una mayuscula");
+        printf("La primera letra debe ser una mayuscula\n");
         return 0;  // La primera letra no es mayúscula
     }
 

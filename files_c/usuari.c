@@ -102,3 +102,65 @@ Usuari* buscarUsuari(TaulaHash* taulaHash, char* nomUsuari) {
     if (idx==ERROR_CALCULAR_INDEX) return NULL;
     return taulaHash->elements[idx].valor;
 }
+
+///Funcions per les publicacions
+void realitzarPublicacio(Usuari* usuari) {
+    char contingut[MAX_STRING];
+printf("Introdueix el contingut de la publicació (màxim %d caràcters): ", MAX_CARACTERS);
+    fflush(stdout);
+    fgets(contingut, sizeof(contingut), stdin);
+
+    // Eliminar el salto de línea al final del texto
+    contingut[strcspn(contingut, "\n")] = '\0';
+
+    // Verificar la longitud de la publicación
+    if (strlen(contingut) > MAX_CARACTERS) {
+        printf("El contingut de la publicació és massa llarg.\n");
+        return;
+    }
+
+    // Crear la publicación y agregarla al array de publicaciones del usuario
+    Publicacio publicacio;
+    strcpy(publicacio.contingut, contingut);
+    publicacio.mAgrada = 0;
+
+    if (usuari->numPublicacions >= MAX_PUBLICACIONS) {
+        printf("Has arribat al límit màxim de publicacions.\n");
+        return;
+    }
+
+    usuari->publicacions[usuari->numPublicacions] = publicacio;
+    usuari->numPublicacions++;
+
+    printf("Publicació realitzada amb èxit.\n");
+}
+
+
+void mostrarPublicacions(TaulaHash* taula) {
+    char nomUsuari[MAX_STRING];
+    entradaString("Introdueix el nom d'usuari per mostrar les publicacions: ", nomUsuari, "none");
+
+    // Buscar l'usuari a partir del nom d'usuari proporcionat
+    Usuari* usuari = buscarUsuari(taula, nomUsuari);
+    if (usuari == NULL) {
+        printf("No s'ha trobat cap usuari amb aquest nom.\n");
+        return;
+    }
+
+    printf("Publicacions de l'usuari %s:\n", usuari->nomUsuari);
+
+    // Mostrar les publicacions de l'usuari
+    for (int i = 0; i < usuari->numPublicacions; i++) {
+        printf("%d. %s\n", i + 1, usuari->publicacions[i].contingut);
+        printf("M'agrada: %d\n", usuari->publicacions[i].mAgrada);
+
+        int opcio = entradaInt("Vols donar m'agrada a aquesta publicació? (1: Sí, 0: No)");
+
+        if (opcio == 1) {
+            usuari->publicacions[i].mAgrada++;
+            printf("Has donat m'agrada a aquesta publicació.\n");
+        }
+        printf("\n");
+    }
+}
+

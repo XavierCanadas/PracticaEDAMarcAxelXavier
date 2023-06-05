@@ -17,4 +17,11 @@ Usuari* nouUsuari();
 void imprimirUsuaris(TaulaHash* taulaHash);
 void initLlistaAmics(Usuari* usuari);
 Usuari* buscarUsuari(TaulaHash* taulaHash, char* nomUsuari);
+// Funció per realitzar una publicació
+void realitzarPublicacio(Usuari* usuari);
 
+// Funció per mostrar les publicacions d'un usuari
+void mostrarPublicacions(TaulaHash* taula);
+
+// Funció per donar "m'agrada" a una publicació
+void donarMAgrada(Usuari* usuari);

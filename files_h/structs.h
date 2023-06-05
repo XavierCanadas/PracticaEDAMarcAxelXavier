@@ -7,19 +7,28 @@
 #define UNTITLED2_STRUCTS_H
 
 #endif //UNTITLED2_STRUCTS_H
+//definicions per les publicacions
+#define MAX_PUBLICACIONS 100
+#define MAX_CARACTERS 120
+
+typedef struct {
+    char contingut[MAX_CARACTERS];
+    int mAgrada;
+} Publicacio;
 
 typedef struct TaulaHash TaulaHash;
 
-typedef struct usuari{
+typedef struct {
     char nomUsuari[MAX_STRING];
     char nom[MAX_STRING];
     int edat;
     char correu[MAX_STRING];
     char ciutat[MAX_STRING];
-    // Això ho canviaria i ho faria amb una enumeració
     char gustos[5][MAX_STRING];
     TaulaHash* amics;
     TaulaHash* solicitudsAmistat;
+    Publicacio publicacions[MAX_PUBLICACIONS];
+    int numPublicacions;
 } Usuari;
 
 

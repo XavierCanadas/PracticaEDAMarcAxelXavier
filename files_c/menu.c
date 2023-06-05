@@ -86,8 +86,8 @@ int bucleEscollirUsuari(TaulaHash* taula) {
         usuari = buscarUsuari(taula, user);
     }
     // Es mostra el menú d'opcions
-    showEscollirUsuaruMenu();
     while (opcioEscollida != SORTIR) {
+        showEscollirUsuaruMenu();
         opcioEscollida = entradaInt("Si us plau, seleccioni una opció");
 
         switch (opcioEscollida) {
@@ -96,11 +96,10 @@ int bucleEscollirUsuari(TaulaHash* taula) {
 
                 break;
             case FER_PUBLICACIO:
-                printf("fer publicació\n");
-
+                realitzarPublicacio(usuari);
                 break;
             case VEURE_PUBLICACIONS:
-                printf("veure publicacions d'un usuari");
+                mostrarPublicacions(taula);
                 break;
             case MOSTRAR_OPCIONS:
                 showEscollirUsuaruMenu();
