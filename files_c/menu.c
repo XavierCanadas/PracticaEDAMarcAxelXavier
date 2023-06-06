@@ -15,19 +15,13 @@ int bucleMenu() {
     borrarJsonObject(root);
 
     while (opcioEscollida != SORTIR) {
+        barraSeparadora();
+
         // Es mostra el menú d'opcions
         showMenuOptions();
-        opcioEscollida;
 
-        printf("\n");
         opcioEscollida = entradaInt("Si us plau, seleccioni una opció");
 
-        /* Aquest bucle no és necessari ja que si passa això s'executarà el que posa
-         * a l'apartat default del switch.
-        while(opcioEscollida < 1 || opcioEscollida > 5) {
-            opcioEscollida = entradaInt("\nSi us plau, seleccioni una opcio del menu");
-        }
-         */
         Usuari* usuariAux = NULL;
         int codiGuardarUsuari = ERROR_GUARDAR_USUARU;
 
@@ -79,7 +73,7 @@ int bucleEscollirUsuari(TaulaHash* taula) {
     int entradaAuxEliminarUsuari = 0;
 
     char user[MAX_STRING];
-    entradaString("Introduiu el nom d'usuari amb el que volgueu operar: ", user, "none");
+    entradaString("\nIntroduiu el nom d'usuari amb el que volgueu operar: ", user, "none");
     Usuari *usuari = buscarUsuari(taula, user);
     while (usuari == NULL) {
         entradaString("Usuari invàlid, introduiu un altre nom: ", user, "none");
@@ -101,8 +95,9 @@ int bucleEscollirUsuari(TaulaHash* taula) {
             case VEURE_PUBLICACIONS:
                 mostrarPublicacions(taula);
                 break;
-            case MOSTRAR_OPCIONS:
-                showEscollirUsuaruMenu();
+            case IMPRIMIR_USUARI:
+                imprimirUnUsuari(usuari);
+                break;
             case EDITAR_USUARI:
                 printf("/do s'editaria l'usuari ");
                 break;
@@ -150,7 +145,8 @@ void showEscollirUsuaruMenu() {
     printf("\t %d: Gestionar o enviar solicituts d'amistat.\n", GESTIONAR_SOLICITUTS);
     printf("\t %d: Fer una publicació\n", FER_PUBLICACIO);
     printf("\t %d: Veure les publicacions.\n", VEURE_PUBLICACIONS);
-    printf("\t %d: Editar l'usuari\n", ELIMINAR_USUARI);
+
+    printf("\t %d: Editar l'usuari\n", EDITAR_USUARI);
     printf("\t %d: Eliminar l'usuari\n", ELIMINAR_USUARI);
     printf("\t %d: Mostrar opcions.\n", MOSTRAR_OPCIONS);
     printf("\t %d: Sortir.\n", SORTIR);

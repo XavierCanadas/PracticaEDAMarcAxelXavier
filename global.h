@@ -34,6 +34,7 @@ int entradaInt(char missatge[]);
 int entradaString(char missatge[], char entradaUsuari[], char filtres[]);
 int scan(char entradaUsuari[]);
 void flush_input();
+void barraSeparadora();
 
 
 

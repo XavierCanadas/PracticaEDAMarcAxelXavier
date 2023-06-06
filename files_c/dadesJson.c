@@ -78,7 +78,6 @@ Usuari* convertirJsonUsuari(JsonObject* usuariJson) {
     if (gustosArray->type != jsonNull) {
         for (int i = 0; i < (int) count_elements(gustosArray); ++i) {
             unGust = get_element_string_at_index(gustosArray, i);
-            printf("ara és el gust %d %s", i, unGust->valor);
             strcpy(usuari->gustos[i], unGust->valor);
             borrarJsonObject(unGust);
         }
