@@ -167,8 +167,10 @@ JsonObject* get_element_at_index(JsonObject *array, int index) {
         caracterMirat++;
     }
 
-    char* input = (char*) malloc(sizeof(char)*(caracterMirat-posicioInicial + 1));
-    strncpy(input, start + posicioInicial, caracterMirat);
+    if (start[caracterMirat] == '\0') caracterMirat--;
+
+    char* input = (char*) malloc(sizeof(char)*(caracterMirat-posicioInicial+4));
+    strncpy(input, start + posicioInicial, caracterMirat - posicioInicial + 2);
     findValue(input, result, true);
     free(input);
 
@@ -200,21 +202,25 @@ JsonObject* get_element_string_at_index(JsonObject *array, int index) {
 
             if (count == (index + 1)) {
                 trobat = true;
+                caracterMirat--;
                 break;
             } else {
                 posicioInicial = caracterMirat + 1;
             }
         }
 
-        if (index == count && contadorCometes == 0) {
+        if (index == count && contadorCometes == 0 && index == 0) {
             trobat = true;
             break;
         }
         caracterMirat++;
 
     }
-    char* input = (char*) malloc(sizeof(char)*(caracterMirat-posicioInicial + 1));
-    strncpy(input, start + posicioInicial + 1, caracterMirat-posicioInicial);
+
+    if (start[caracterMirat] == '\0') caracterMirat--;
+
+    char* input = (char*) malloc(sizeof(char)*(caracterMirat-posicioInicial - 1));
+    strncpy(input, start + posicioInicial + 1, caracterMirat-posicioInicial - 1);
     elementArray->valor = input;
     if (trobat == true)
         elementArray->type = jsonString;
