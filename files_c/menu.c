@@ -96,7 +96,7 @@ int bucleEscollirUsuari(TaulaHash* taula) {
                 mostrarPublicacions(taula);
                 break;
             case IMPRIMIR_USUARI:
-                imprimirUnUsuari(usuari);
+                //imprimirUnUsuari(usuari);
                 break;
             case EDITAR_USUARI:
                 printf("/do s'editaria l'usuari ");
@@ -111,7 +111,8 @@ int bucleEscollirUsuari(TaulaHash* taula) {
                     printf("L'usuari s'ha borrat amb èxit\n");
                     opcioEscollida = SORTIR;
 
-                } else {
+                }
+                else {
                     printf("S'ha cancelat l'eliminació\n");
                 }
                 break;
