@@ -7,6 +7,8 @@ int bucleMenu() {
     TaulaHash* taulaHash = (TaulaHash*) malloc(sizeof(TaulaHash));
     initTaulaHash(taulaHash, 10);
 
+    ArrayPublciacions* arrayPublciacions = initArrayPublicacions();
+
     int opcioEscollida = 0;
 
     JsonObject* root = llegirFitxer("../dades.json");
@@ -42,7 +44,7 @@ int bucleMenu() {
                 break;
 
             case ESCOLLIR_USUARI:
-                bucleEscollirUsuari(taulaHash);
+                bucleEscollirUsuari(taulaHash, arrayPublciacions);
                 break;
 
             case MOSTRAR_OPCIONS:
@@ -50,6 +52,7 @@ int bucleMenu() {
 
             case SORTIR:
                 eliminarTaulaHash(taulaHash);
+                freeArrayPublicacions(arrayPublciacions);
                 break;
 
             default:
@@ -65,7 +68,7 @@ int bucleMenu() {
     return SUCCESS;
 }
 
-int bucleEscollirUsuari(TaulaHash* taula) {
+int bucleEscollirUsuari(TaulaHash* taula, ArrayPublciacions* arrayPublciacions) {
     int opcioEscollida = 0;
     int entradaAuxEliminarUsuari = 0;
 
@@ -87,11 +90,11 @@ int bucleEscollirUsuari(TaulaHash* taula) {
                 break;
 
             case FER_PUBLICACIO:
-                realitzarPublicacio(usuari);
+                realitzarPublicacio(usuari, arrayPublciacions);
                 break;
 
             case VEURE_PUBLICACIONS:
-                mostrarPublicacions(taula);
+                mostrarPublicacions(arrayPublciacions, usuari);
                 break;
 
             case IMPRIMIR_USUARI:

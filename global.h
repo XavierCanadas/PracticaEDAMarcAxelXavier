@@ -20,6 +20,7 @@
 #define CANCELAR 0
 #define TAULA_NO_INICIALITZADA (-1)
 #define ERROR_JSON (-2)
+#define ERROR (-1)
 
 
 

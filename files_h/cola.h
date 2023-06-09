@@ -1,5 +1,5 @@
 //Includes
-#include "../files_h/usuari.h"
+#include "../files_h/publicacions.h"
 
 // Opcions del menú
 #define ENVIAR_SOLICITUD 1

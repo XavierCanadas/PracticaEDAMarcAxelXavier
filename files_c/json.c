@@ -328,11 +328,16 @@ char* arrayToString(char** array, int size) {
             if (i != size - 1 && array[i+1] != NULL) {
                 strcat(result, ",");
             }
+
+            free(array[i]);
+            array[i] = NULL;
         }
     }
     //strcat(result, "\0");
 
-    freeArrayStringsDinamic(array);
+    free(array);
+
+    //freeArrayStringsDinamic(array);
 
     return result;
 }

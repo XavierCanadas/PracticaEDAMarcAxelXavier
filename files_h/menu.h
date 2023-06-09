@@ -23,6 +23,6 @@ int bucleMenu();
 void showMenuOptions();
 
 void showEscollirUsuaruMenu();
-int bucleEscollirUsuari(TaulaHash* taula);
+int bucleEscollirUsuari(TaulaHash* taula, ArrayPublciacions* arrayPublciacions);
 
 
