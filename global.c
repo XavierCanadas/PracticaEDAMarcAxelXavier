@@ -31,22 +31,23 @@ int entradaString(char missatge[], char entradaUsuari[], char filtres[]) {
     while (i == 0){
         printf("%s", missatge);
         if(strcmp(filtres, "none") == 0){
-            scan(entradaUsuari);
+            scanf(" %[^\n]", entradaUsuari);
             i = 1;
-        }else if ((strcmp(filtres, "name") == 0)){
-            scan(entradaUsuari);
-            i =name_filter(entradaUsuari);
-        }else if ((strcmp(filtres, "user") == 0)){
-            scan(entradaUsuari);
+        } else if ((strcmp(filtres, "name") == 0)){
+            scanf(" %[^\n]", entradaUsuari);
+            i = name_filter(entradaUsuari);
+        } else if ((strcmp(filtres, "user") == 0)){
+            scanf(" %[^\n]", entradaUsuari);
             i = user_filter(entradaUsuari);
-        }else if ((strcmp(filtres, "city") == 0)){
-            scan(entradaUsuari);
+        } else if ((strcmp(filtres, "city") == 0)){
+            scanf(" %[^\n]", entradaUsuari);
             i = city_filter(entradaUsuari);
-        }else if ((strcmp(filtres, "mail") == 0)){
-            scan(entradaUsuari);
+        } else if ((strcmp(filtres, "mail") == 0)){
+            scanf(" %[^\n]", entradaUsuari);
             i = mail_filter(entradaUsuari);
         }
     }
+
     return i;
 }
 
