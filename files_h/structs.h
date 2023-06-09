@@ -60,7 +60,7 @@ struct ColaSolicitudes{
 } ;
 
 /*
-///funcions
+/Funcions
 void inicializarCola(ColaSolicitudes* cola);
 bool colaVacia(ColaSolicitudes* cola);
 void encolar(ColaSolicitudes* cola, const char* remitente, const char* destinatario);

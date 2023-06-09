@@ -1,8 +1,5 @@
-//
-// Created by Xavi Cañadas on 14/5/23.
-//
 #include "../files_h/usuari.h"
-
+#include "time.h"
 // Aquesta funció crea espai per un usuari i totes les variables a 0.
 Usuari* initUsuari() {
     Usuari* usuari = (Usuari*) malloc(sizeof(Usuari));
@@ -25,13 +22,13 @@ void seleccionarGustos(Usuari* usuari) {
     const char* gustos[] = {
             "Cuina",
             "Esport",
-            "Música",
+            "Musica",
             "Art",
             "Natura",
             "Cinema",
             "Lectura",
             "Viatges",
-            "Història",
+            "Historia",
             "Cuina",
             "Moda"
     };
@@ -55,7 +52,7 @@ void seleccionarGustos(Usuari* usuari) {
         if (seleccion >= 1 && seleccion <= numGustos) {
             strcpy(usuari->gustos[i], gustos[seleccion - 1]);
         } else {
-            printf("Selecció invàlida. Intenta-ho de nou.\n");
+            printf("Seleccio invalida. Intenta-ho de nou.\n");
             i--;
         }
     }
@@ -107,13 +104,13 @@ Usuari* buscarUsuari(TaulaHash* taulaHash, char* nomUsuari) {
 void realitzarPublicacio(Usuari* usuari) {
     char contingut[MAX_STRING];
     fflush(stdout);
-    entradaString("Introdueix el contingut de la publicació (màxim 120 caràcters): \n", contingut,"none");
+    entradaString("Introdueix el contingut de la publicacio (maxim 120 caracters): \n", contingut,"none");
     // Eliminar el salto de línea al final del texto
     contingut[strcspn(contingut, "\n")] = '\0';
 
     // Verificar la longitud de la publicación
     if (strlen(contingut) > MAX_CARACTERS) {
-        printf("El contingut de la publicació és massa llarg.\n");
+        printf("El contingut de la publicacio es massa llarg.\n");
         return;
     }
 
@@ -122,15 +119,22 @@ void realitzarPublicacio(Usuari* usuari) {
     strcpy(publicacio.contingut, contingut);
     publicacio.mAgrada = 0;
 
+    // Obtener la fecha actual
+    time_t t = time(NULL);
+    struct tm* fecha = localtime(&t);
+
+    // Formatear la fecha en el formato deseado (dd/mm/aaaa)
+    snprintf(publicacio.data, sizeof(publicacio.data), "%02d/%02d/%d", fecha->tm_mday, fecha->tm_mon + 1, fecha->tm_year + 1900);
+
     if (usuari->numPublicacions >= MAX_PUBLICACIONS) {
-        printf("Has arribat al límit màxim de publicacions.\n");
+        printf("Has arribat al limit maxim de publicacions.\n");
         return;
     }
 
     usuari->publicacions[usuari->numPublicacions] = publicacio;
     usuari->numPublicacions++;
 
-    printf("Publicació realitzada amb èxit.\n");
+    printf("Publicacio realitzada amb exit.\n");
 }
 
 
@@ -149,16 +153,20 @@ void mostrarPublicacions(TaulaHash* taula) {
 
     // Mostrar les publicacions de l'usuari
     for (int i = 0; i < usuari->numPublicacions; i++) {
-        printf("%d. %s\n", i + 1, usuari->publicacions[i].contingut);
-        printf("M'agrada: %d\n", usuari->publicacions[i].mAgrada);
+        printf("---------------------------------------------------\n");
+        printf("                Publicacio %d\n", i + 1);
+        printf("---------------------------------------------------\n");
+        printf("Fecha: %s\n\n", usuari->publicacions[i].data);
+        printf("Contenido:\n%s\n\n", usuari->publicacions[i].contingut);
+        printf("Likes: %d\n", usuari->publicacions[i].mAgrada);
+        printf("---------------------------------------------------\n");
 
-        int opcio = entradaInt("Vols donar m'agrada a aquesta publicació? (1: Sí, 0: No)");
+        int opcio = entradaInt("Vols donar m'agrada a aquesta publicacio? (1: Si, 0: No)");
 
         if (opcio == 1) {
             usuari->publicacions[i].mAgrada++;
-            printf("Has donat m'agrada a aquesta publicació.\n");
+            printf("Has donat m'agrada a aquesta publicacio.\n");
         }
         printf("\n");
     }
 }
-

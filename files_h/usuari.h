@@ -1,7 +1,3 @@
-//
-// Created by Xavi Cañadas on 14/5/23.
-//
-
 // Includes
 #include "../files_h/taulaHash.h"
 

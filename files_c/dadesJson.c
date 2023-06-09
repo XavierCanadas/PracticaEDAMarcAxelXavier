@@ -1,7 +1,8 @@
+//Includes
 #include "../files_h/dadesJson.h"
 
 
-/// Llegir dades
+// Llegir dades
 JsonObject* llegirFitxer(char* direccioFitxer) {
     int mida;
     FILE* file = fopen(direccioFitxer, "r");

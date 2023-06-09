@@ -1,3 +1,4 @@
+//Includes
 #include "global.h"
 
 extern int name_filter(char name[]);
@@ -49,21 +50,4 @@ int entradaString(char missatge[], char entradaUsuari[], char filtres[]) {
     }
 
     return i;
-}
-
-int scan(char entradaUsuari[]){
-    if (scanf("%s", entradaUsuari) == ERROR_ENTRADA_DADES) {
-        flush_input();
-        return ERROR_ENTRADA_DADES;
-    }
-    flush_input();
-    return SUCCESS;
-}
-
-// Aquesta funció estava a la pràctica d'EDA-I, si no s'executa al final de trucar a "scanf" poden sortir bugs
-// que facin que hi hagi bucles infinits en el menú.
-void flush_input() {
-    char c;
-    while ((c = getchar()) != '\n' && c != EOF) {
-    }
 }

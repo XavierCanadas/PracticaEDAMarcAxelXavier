@@ -26,9 +26,6 @@
 // Funcions globals
 int entradaInt(char missatge[]);
 int entradaString(char missatge[], char entradaUsuari[], char filtres[]);
-int scan(char entradaUsuari[]);
-void barraSeparadora();
-void flush_input();
 
 
 
