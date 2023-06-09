@@ -148,4 +148,3 @@ void gestionSolicitudesAmistad(Usuari* usuari) {
         printf("---------------------------------------------\n\n");
     }
 }
-

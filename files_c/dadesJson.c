@@ -1,4 +1,3 @@
-//Includes
 #include "../files_h/dadesJson.h"
 
 
@@ -89,7 +88,7 @@ Usuari* convertirJsonUsuari(JsonObject* usuariJson) {
         }
 
     }
-    // inicialitza la taulaHash per guardar els amics.
+    // iniccialitza la taulaHash per guardar els amics.
     initTaulaHash(usuari->amics, 10);
 
     // es guarden els amics.
@@ -227,4 +226,3 @@ char** convertirArrayGustos(char arrayGustos[5][MAX_STRING]) {
     }
     return array;
 }
-

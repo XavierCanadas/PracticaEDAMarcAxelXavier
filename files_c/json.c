@@ -1,4 +1,3 @@
-//Include
 #include "../files_h/json.h"
 
 JsonObject* initJsonObject(char* clau, char* valor, JsonTypes jsonTypes) {
@@ -122,7 +121,7 @@ JsonObject* find_in_object(char *key, JsonObject *object) {
 
     return result;
 }
-//Todo ??
+
 void splitString(char *input, JsonObject *object) {
     findKey(input, object);
     findValue(input, object, false);
