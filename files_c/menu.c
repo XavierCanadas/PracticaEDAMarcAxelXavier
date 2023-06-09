@@ -12,7 +12,7 @@ int bucleMenu() {
     int opcioEscollida = 0;
 
     JsonObject* root = llegirFitxer("../dades.json");
-    llegirUsuarisJson(taulaHash, root); //Todo retirn succes d'usuari pq?
+    llegirUsuarisJson(taulaHash, root);
 
     borrarJsonObject(root);
 
@@ -81,7 +81,7 @@ int bucleEscollirUsuari(TaulaHash* taula, ArrayPublciacions* arrayPublciacions) 
     }
     // Es mostra el menú d'opcions
     while (opcioEscollida != SORTIR) {
-        showEscollirUsuaruMenu();
+        showEscollirUsuaruMenu(usuari);
         opcioEscollida = entradaInt("Si us plau, seleccioni una opcio");
 
         switch (opcioEscollida) {
@@ -95,10 +95,6 @@ int bucleEscollirUsuari(TaulaHash* taula, ArrayPublciacions* arrayPublciacions) 
 
             case VEURE_PUBLICACIONS:
                 mostrarPublicacions(arrayPublciacions, usuari);
-                break;
-
-            case IMPRIMIR_USUARI:
-                //imprimirUnUsuari(usuari);
                 break;
 
             case EDITAR_USUARI:
@@ -149,9 +145,9 @@ void showMenuOptions() {
 
 
 // Imprimeix el menú del bucle de l'opció escollir usuari
-void showEscollirUsuaruMenu() {
+void showEscollirUsuaruMenu(Usuari *usuari) {
     printf("\n-----------------------------------------\n");
-    printf("        MENU ESCOLLIR USUARI\n");
+    printf("        MENU %s\n", usuari->nomUsuari);
     printf("-----------------------------------------\n");
     printf("Esculli una de les seguents opcions:\n");
     printf("\t %d: Gestionar o enviar solicituts d'amistat.\n", GESTIONAR_SOLICITUTS);
