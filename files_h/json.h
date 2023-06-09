@@ -20,8 +20,10 @@ typedef struct jsonObject{
     JsonTypes type;
 }JsonObject;
 
-JsonObject* initJsonObject();
+JsonObject* initJsonObject(char* clau, char* valor, JsonTypes jsonTypes);
 void borrarJsonObject(JsonObject* jsonObject);
+
+// Lectura
 void findKey(char *input, JsonObject *object);
 void findValue(char *input, JsonObject *object, bool objectInArray);
 void splitString(char *input, JsonObject *object);
@@ -32,3 +34,9 @@ JsonObject* find_in_object(char *key, JsonObject *object);
 int count_elements(JsonObject *object);
 JsonObject* get_element_at_index(JsonObject *array, int index);
 JsonObject* get_element_string_at_index(JsonObject *array, int index);
+
+// Escriptura
+char* jsonObjectToString(JsonObject *object, bool clau, bool esFinal);
+int jsonObjectStringLength(JsonObject *object, bool clau);
+char* arrayToString(char* array[], int size);
+void freeArrayStringsDinamic(char** array);

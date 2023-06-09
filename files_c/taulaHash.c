@@ -52,7 +52,7 @@ int charToIntASCII(char* string) {
 }
 
 void initTaulaHash(TaulaHash* taulaHash, int size) {
-    ElementTaulaHash* llistaElements = (ElementTaulaHash*) malloc(sizeof(ElementTaulaHash)*size);
+    ElementTaulaHash* llistaElements = (ElementTaulaHash*) calloc(size,sizeof(ElementTaulaHash));
     taulaHash->elements = llistaElements;
     taulaHash->size = size;
     taulaHash->count = 0;

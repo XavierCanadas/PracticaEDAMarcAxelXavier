@@ -17,6 +17,7 @@ typedef struct {
 } Publicacio;
 
 typedef struct TaulaHash TaulaHash;
+typedef struct ColaSolicitudes ColaSolicitudes;
 
 typedef struct {
     char nomUsuari[MAX_STRING];
@@ -26,7 +27,7 @@ typedef struct {
     char ciutat[MAX_STRING];
     char gustos[5][MAX_STRING];
     TaulaHash* amics;
-    TaulaHash* solicitudsAmistat;
+    ColaSolicitudes* solicitudsAmistat;
     Publicacio publicacions[MAX_PUBLICACIONS];
     int numPublicacions;
 } Usuari;
@@ -52,10 +53,10 @@ typedef struct Nodo {
     struct Nodo* siguiente;
 } NodoSolicitud;
 
-typedef struct {
+ struct ColaSolicitudes{
     NodoSolicitud* frente;
     NodoSolicitud* final;
-} ColaSolicitudes;
+} ;
 
 /*
 ///funcions

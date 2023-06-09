@@ -97,8 +97,6 @@ void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari) {
     // Agregar remitente como amigo
     int indexAmic;
 
-
-
     int resultado = guardarUsuari(NULL, nodoAceptar->remitente, usuari->amics, NULL);
     if (resultado == SUCCESS) {
         printf("Solicitud de amistad aceptada. %s ahora es tu amigo.\n", nodoAceptar->remitente);
@@ -124,10 +122,10 @@ void gestionSolicitudesAmistad(Usuari* usuari) {
     int opcion = 0;
     while (opcion != SORTIR_GESTIONAR_SOLICITUTS) {
         printf("----- GESTIÓ DE SOL·LICITUDS D'AMISTAT -----\n");
-        printf("%d. Enviar sol·licitud d'amistat\n", ENVIAR_SOLICITUD);
-        printf("%d. Acceptar sol·licitud d'amistat\n", ACEPTAR_SOLICITUD);
-        printf("%d. Rebutjar sol·licitud d'amistat\n", REBUTJAR_SOLICITUD);
-        printf("%d. Sortir\n", SORTIR_GESTIONAR_SOLICITUTS);
+        printf("\t %d. Enviar sol·licitud d'amistat\n", ENVIAR_SOLICITUD);
+        printf("\t %d. Acceptar sol·licitud d'amistat\n", ACEPTAR_SOLICITUD);
+        printf("\t %d. Rebutjar sol·licitud d'amistat\n", REBUTJAR_SOLICITUD);
+        printf("\t %d. Sortir\n", SORTIR_GESTIONAR_SOLICITUTS);
         opcion = entradaInt("Introdueix el número de l'opció desitjada: ");
 
         switch (opcion) {
@@ -135,11 +133,12 @@ void gestionSolicitudesAmistad(Usuari* usuari) {
                 char remitente[MAX_STRING];
                 char destinatario[MAX_STRING];
                 // No té sentit que es demani l'emissor pq es passa com a paràmetre a la funció.
-                entradaString("Introdueix el nom d'usuari de l'emissor: ", remitente, "user");
-                entradaString("Introdueix el nom d'usuari del destinatari: ", destinatario, "user");
+                //entradaString("Introdueix el nom d'usuari de l'emissor: ", remitente, "none");
+                strcpy(remitente, usuari->nomUsuari);
+                entradaString("Introdueix el nom d'usuari del destinatari: ", destinatario, "none");
 
                 // s'hauria de passar com a remitent el nom d'usuari de l'objecte usuari del paràmetre
-                if(strcmp(remitente,destinatario)!=0) encolar(&cola, remitente, destinatario);
+                if (strcmp(remitente,destinatario) != 0) encolar(&cola, remitente, destinatario);
                 else printf("Error al enviar la sol·licitud");
                 break;
             }
@@ -157,7 +156,7 @@ void gestionSolicitudesAmistad(Usuari* usuari) {
                 break;
         }
 
-        printf("---------------------------------------------\n\n");
+        barraSeparadora();
     }
 }
 

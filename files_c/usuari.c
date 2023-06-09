@@ -5,13 +5,11 @@
 
 // Aquesta funció crea espai per un usuari i totes les variables a 0.
 Usuari* initUsuari() {
-    Usuari* usuari = (Usuari*) malloc(sizeof(Usuari));
+    Usuari* usuari = (Usuari*) calloc(1, sizeof(Usuari));
 
-    memset(usuari->nom, 0, sizeof(usuari->nom));
-    memset(usuari->nomUsuari, 0, sizeof(usuari->nomUsuari));
-    usuari->edat = 0;
-    memset(usuari->correu, 0, sizeof(usuari->correu));
-    memset(usuari->ciutat, 0, sizeof(usuari->ciutat));
+    for (int i = 0; i < 5; ++i) {
+        memset(usuari->gustos[i], 0, sizeof(usuari->gustos[i]));
+    }
 
 
     // Crea espai per deu amics
@@ -68,7 +66,7 @@ Usuari* nouUsuari() {
     // El nom d'usuari es convertirà a tot minuscules.
 
     entradaString("Introdueixi el seu nom: ", user->nom, "name");
-    entradaString("Introdueixi el seu nom d'usuari: ", user->nomUsuari, "user");
+    entradaString("Introdueixi el seu nom d'usuari: ", user->nomUsuari, "none");
     entradaString("Introdueixi la seva ciutat: ", user->ciutat, "city");
     entradaString("Introdueixi el seu correu: ", user->correu, "mail");
     user->edat = entradaInt("Introdueixi la seva edat: ");
@@ -84,16 +82,38 @@ Usuari* nouUsuari() {
 }
 
 void imprimirUsuaris(TaulaHash* taulaHash) {
+    printf("\n");
     // Recorrer tota la taula i imprimir
     int k=0, count = 0;
     for (int i = 0; i < taulaHash->size; ++i) {
-        if (taulaHash->elements[i].valor != NULL) {
+        if (taulaHash->elements[i].clau[0] != '\0') {
             count++;
-            printf("%d. Nom usuari: %s\n",count, taulaHash->elements[i].valor->nomUsuari);
+            printf("  %d. Nom usuari: %s\n",count, taulaHash->elements[i].clau);
             k++;
         }
     }
     if(k==0) printf("No hi ha usuaris per imprimir\n");
+    printf("\n");
+}
+
+void imprimirUnUsuari(Usuari* usuari) {
+    printf("Aquesta és la informació de l'usuari és\n");
+    printf("  Nom: %s\n", usuari->nom);
+    printf("  Nom: %s\n", usuari->nomUsuari);
+    printf("  Nom: %d\n", usuari->edat);
+    printf("  Nom: %s\n", usuari->correu);
+    printf("  Nom: %s\n", usuari->ciutat);
+
+    // Imprimir gustos
+    for (int i = 0; i < 5; ++i) {
+        if (usuari->gustos[i][0] != '\0') {
+            printf("  Gust %d: %s, ", i + 1, usuari->gustos[i]);
+        }
+    }
+
+    // Imprimir amics
+    printf("\nEls teus amics són: ");
+    imprimirUsuaris(usuari->amics);
 }
 
 // Funció buscar usuari: s'ha de trucar a la funció hashing

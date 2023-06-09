@@ -2,9 +2,8 @@
 
 // Aquesta funció conté el bucle del menú del programa.
 int bucleMenu() {
-
     // Es crea la taula hash
-    TaulaHash* taulaHash = (TaulaHash*) malloc(sizeof(TaulaHash));
+    TaulaHash* taulaHash = (TaulaHash*) calloc(1,sizeof(TaulaHash));
     initTaulaHash(taulaHash, 10);
 
     int opcioEscollida = 0;
@@ -13,6 +12,8 @@ int bucleMenu() {
     llegirUsuarisJson(taulaHash, root);
 
     borrarJsonObject(root);
+    JsonObject* arrayUsuarisJson;
+    char* rootGuardar;
 
     while (opcioEscollida != SORTIR) {
         barraSeparadora();
@@ -53,6 +54,8 @@ int bucleMenu() {
                 break;
 
             case SORTIR:
+                arrayUsuarisJson = guardarUsuarisJson(taulaHash);
+
                 eliminarTaulaHash(taulaHash);
                 break;
 
@@ -63,6 +66,20 @@ int bucleMenu() {
         fflush(stdout);
     }
     printf("\nAdeu!\n");
+
+    FILE* file = fopen("../dades.json", "w");
+    int midaRoot = jsonObjectStringLength(arrayUsuarisJson, true);
+    rootGuardar = (char*) calloc(midaRoot+4, sizeof(char));
+    strcat(rootGuardar, "{");
+    strcat(rootGuardar, jsonObjectToString(arrayUsuarisJson, true, true));
+    strcat(rootGuardar, "}\0");
+    fputs(rootGuardar, file);
+    fclose(file);
+
+    borrarJsonObject(arrayUsuarisJson);
+    free(rootGuardar);
+
+
     fflush(stdout);
 
     return SUCCESS;
@@ -73,8 +90,12 @@ int bucleEscollirUsuari(TaulaHash* taula) {
     int entradaAuxEliminarUsuari = 0;
 
     char user[MAX_STRING];
-    entradaString("\nIntroduiu el nom d'usuari amb el que volgueu operar: ", user, "none");
+    //entradaString("\nIntroduiu el nom d'usuari amb el que volgueu operar: ", user, "none");
+    strcpy(user, "carlossainz55");
     Usuari *usuari = buscarUsuari(taula, user);
+
+    usuariAJson(usuari);
+
     while (usuari == NULL) {
         entradaString("Usuari invàlid, introduiu un altre nom: ", user, "none");
         usuari = buscarUsuari(taula, user);
