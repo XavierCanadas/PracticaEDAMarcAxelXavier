@@ -1,10 +1,6 @@
-//
-// Created by Xavi Cañadas on 30/4/23.
-//
-
 /*
- * Aquest Header servirà per definir constants globals que serveixin per a tot el programa com els valors booleans,
- * tipus d'errors generals… Així no s'hauran de declarar en cada header.
+ Aquest Header servirà per definir constants globals que serveixin per a tot el programa com els valors booleans,
+ tipus d'errors generals… Així no s'hauran de declarar en cada header.
  */
 
 // Importar llibreries per tot el programa
@@ -25,8 +21,6 @@
 #define TAULA_NO_INICIALITZADA (-1)
 #define ERROR_JSON (-2)
 
-// És una millor manera de fer servir boleans en comtes del #define
-//typedef enum {true, false} bool;
 
 
 // Funcions globals
@@ -34,12 +28,11 @@ int entradaInt(char missatge[]);
 int entradaString(char missatge[], char entradaUsuari[], char filtres[]);
 int scan(char entradaUsuari[]);
 void flush_input();
-void barraSeparadora();
+
 
 
 
 
 #ifndef UNTITLED2_GLOBAL_H
 #define UNTITLED2_GLOBAL_H
-
 #endif //UNTITLED2_GLOBAL_H

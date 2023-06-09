@@ -1,18 +1,17 @@
-//
-// Created by Xavi Cañadas on 15/5/23.
-//
+//Includes
 #include "../files_h/taulaHash.h"
 
-/// Taula Hash:
+//Taula Hash:
 
 /* Explicació funció hash:
- *
- * La funció hash rep una clau del tipus String i una taula hash, al principi truca a la funció
- * charToIntASCII() per convertir la clau en un nombre. Després aplica el mòdul al nombre de la clau
- * i comproba si amb l'índex que ha donat, a la taula aquest índex està ocupat o lliure. Si està lliure
- * o està ocupat per la mateixa clau retorna l'índex trobat, sinó torna a aplicar el mòdul al nombre,
- * però aquesta vegada sumant-li +1 i torna a mirar la condició.
- * (La comprobació de col·lisions es fa a la funció guardarUsuari())
+
+  La funció hash rep una clau del tipus String i una taula hash, al principi truca a la funció
+  charToIntASCII() per convertir la clau en un nombre. Després aplica el mòdul al nombre de la clau
+  i comproba si amb l'índex que ha donat, a la taula aquest índex està ocupat o lliure. Si està lliure
+  o està ocupat per la mateixa clau retorna l'índex trobat, sinó torna a aplicar el mòdul al nombre,
+  però aquesta vegada sumant-li +1 i torna a mirar la condició.
+  (La comprobació de col·lisions es fa a la funció guardarUsuari())
+
  */
 
 int hashing(char* clau, TaulaHash* taulaHash, bool esNouUsuari) {
@@ -51,6 +50,7 @@ int charToIntASCII(char* string) {
     return resultat;
 }
 
+//Inicialitza la taula amb valors standart
 void initTaulaHash(TaulaHash* taulaHash, int size) {
     ElementTaulaHash* llistaElements = (ElementTaulaHash*) malloc(sizeof(ElementTaulaHash)*size);
     taulaHash->elements = llistaElements;
@@ -58,7 +58,7 @@ void initTaulaHash(TaulaHash* taulaHash, int size) {
     taulaHash->count = 0;
 
     for (int i = 0; i < taulaHash->size; ++i) {
-        memset(taulaHash->elements[i].clau, 0, sizeof(taulaHash->elements->clau));
+        memset(taulaHash->elements[i].clau, 0, sizeof(taulaHash->elements->clau)); //ToDo clau = 0?
         taulaHash->elements[i].valor = NULL;
     }
 }
@@ -151,3 +151,4 @@ void eliminarTaulaHash(TaulaHash* taulaHash) {
     // eliminar la taula
     free(taulaHash);
 }
+

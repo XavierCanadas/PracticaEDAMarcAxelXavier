@@ -1,30 +1,22 @@
-//
-// Created by USUARI on 02/06/2023.
-//
+//Includes
 #include "../files_h/cola.h"
-//#include "../files_h/structs.h"
 
-/*
- * Inicialitza la cua de sol·licituds.
- */
+//Inicialitza la cua de sol·licituds.
 void inicializarCola(ColaSolicitudes* cola) {
     cola->frente = NULL;
     cola->final = NULL;
 }
 
 /*
- * Comprova si la cua de sol·licituds està buida.
- * Retorna true si la cua està buida, false en cas contrari.
+ Comprova si la cua de sol·licituds està buida.
+ Retorna true si la cua està buida, false en cas contrari.
  */
 bool colaVacia(ColaSolicitudes* cola) {
     return cola->frente == NULL;
 }
 
-/*
- * Afegeix una nova sol·licitud de amistat a la cua.
- */
 
-
+//Afegeix una nova sol·licitud de amistat a la cua.
 void encolar(ColaSolicitudes* cola, const char* remitente, const char* destinatario) {
     NodoSolicitud* nuevoNodo = (NodoSolicitud*)malloc(sizeof(NodoSolicitud));
     strcpy(nuevoNodo->remitente, remitente);
@@ -42,17 +34,16 @@ void encolar(ColaSolicitudes* cola, const char* remitente, const char* destinata
     printf("Sol·licitud d'amistat enviada a %s.\n", destinatario);
 }
 
-/*
- * Elimina la sol·licitud de amistat del davant de la cua.
- */
+
+//Elimina la sol·licitud de amistat del davant de la cua.
 void desencolar(ColaSolicitudes* cola) {
     if (colaVacia(cola)) {
-        printf("La cua de sol·licituds està buida.\n");
+        printf("La cua de sol.licituds esta buida.\n");
         return;
     }
 
     NodoSolicitud* nodoEliminar = cola->frente;
-    printf("Sol·licitud d'amistat de %s acceptada.\n", nodoEliminar->remitente);
+    printf("Solalicitud d'amistat de %s acceptada.\n", nodoEliminar->remitente);
 
     cola->frente = cola->frente->siguiente;
     if (cola->frente == NULL) {
@@ -62,17 +53,16 @@ void desencolar(ColaSolicitudes* cola) {
     free(nodoEliminar);
 }
 
-/*
- * Rebutja la sol·licitud de amistat del davant de la cua.
- */
+
+//Rebutja la sol·licitud de amistat del davant de la cua.
 void rechazarSolicitud(ColaSolicitudes* cola) {
     if (colaVacia(cola)) {
-        printf("La cua de sol·licituds està buida.\n");
+        printf("La cua de solalicituds esta buida.\n");
         return;
     }
 
     NodoSolicitud* nodoEliminar = cola->frente;
-    printf("Sol·licitud d'amistat de %s rebutjada.\n", nodoEliminar->remitente);
+    printf("Sol.licitud d'amistat de %s rebutjada.\n", nodoEliminar->remitente);
 
     cola->frente = cola->frente->siguiente;
     if (cola->frente == NULL) {
@@ -83,16 +73,16 @@ void rechazarSolicitud(ColaSolicitudes* cola) {
 }
 
 /*
- * Accepta la sol·licitud d'amistat del davant de la cua.
- * Afegeix l'amistat a la llista d'amics de l'usuari.
- */
+ Accepta la sol·licitud d'amistat del davant de la cua.
+ Afegeix l'amistat a la llista d'amics de l'usuari.
+*/
 void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari) {
     if (colaVacia(cola)) {
-        printf("No hay solicitudes de amistad pendientes.\n");
+        printf("No hi han solicituts damistad pendents.\n");
         return;
     }
     NodoSolicitud* nodoAceptar = cola->frente;
-    printf("Aceptando solicitud de amistad de %s...\n", nodoAceptar->remitente);
+    printf("Aceptant solicituds d'amistad de %s...\n", nodoAceptar->remitente);
 
     // Agregar remitente como amigo
     int indexAmic;
@@ -101,9 +91,9 @@ void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari) {
 
     int resultado = guardarUsuari(NULL, nodoAceptar->remitente, usuari->amics, NULL);
     if (resultado == SUCCESS) {
-        printf("Solicitud de amistad aceptada. %s ahora es tu amigo.\n", nodoAceptar->remitente);
+        printf("Solicitud d'amistad acceptada. %s ara es el teu amigo.\n", nodoAceptar->remitente);
     } else {
-        printf("Error al aceptar solicitud de amistad.\n");
+        printf("Error al aceptar solicitud d'amistad.\n");
     }
     desencolar(cola);
     free(nodoAceptar);
@@ -112,30 +102,27 @@ void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari) {
 
 
 /*
- * Gestiona les sol·licituds d'amistat.
- * Proporciona un menú per enviar, acceptar o rebutjar sol·licituds de amistat.
- */
-
-
+ Gestiona les sol·licituds d'amistat.
+ Proporciona un menú per enviar, acceptar o rebutjar sol·licituds de amistat.
+*/
 void gestionSolicitudesAmistad(Usuari* usuari) {
-    ColaSolicitudes cola;
+    ColaSolicitudes cola; //Todo ??
     inicializarCola(&cola);
-
     int opcion = 0;
     while (opcion != SORTIR_GESTIONAR_SOLICITUTS) {
-        printf("----- GESTIÓ DE SOL·LICITUDS D'AMISTAT -----\n");
-        printf("%d. Enviar sol·licitud d'amistat\n", ENVIAR_SOLICITUD);
-        printf("%d. Acceptar sol·licitud d'amistat\n", ACEPTAR_SOLICITUD);
-        printf("%d. Rebutjar sol·licitud d'amistat\n", REBUTJAR_SOLICITUD);
+        printf("\n----- GESTIO DE SOL.LICITUDS D'AMISTAT -----\n");
+        printf("%d. Enviar sol.licitud d'amistat\n", ENVIAR_SOLICITUD);
+        printf("%d. Acceptar sol.licitud d'amistat\n", ACEPTAR_SOLICITUD);
+        printf("%d. Rebutjar sol.licitud d'amistat\n", REBUTJAR_SOLICITUD);
         printf("%d. Sortir\n", SORTIR_GESTIONAR_SOLICITUTS);
-        opcion = entradaInt("Introdueix el número de l'opció desitjada: ");
+        opcion = entradaInt("Introdueix el numero de l'opcio desitjada: ");
 
         switch (opcion) {
             case ENVIAR_SOLICITUD: {
-                char remitente[MAX_STRING];
+                char remitente[MAX_STRING] = usuari->nomUsuari;
                 char destinatario[MAX_STRING];
                 // No té sentit que es demani l'emissor pq es passa com a paràmetre a la funció.
-                entradaString("Introdueix el nom d'usuari de l'emissor: ", remitente, "user");
+                //entradaString("Introdueix el nom d'usuari de l'emissor: ", remitente, "user");
                 entradaString("Introdueix el nom d'usuari del destinatari: ", destinatario, "user");
 
                 // s'hauria de passar com a remitent el nom d'usuari de l'objecte usuari del paràmetre
@@ -153,7 +140,7 @@ void gestionSolicitudesAmistad(Usuari* usuari) {
                 printf("Surt del programa...\n");
                 break;
             default:
-                printf("Opció invàlida. Si us plau, introdueix un número vàlid.\n");
+                printf("Opcio invalida. Si us plau, introdueix un numero valid.\n");
                 break;
         }
 

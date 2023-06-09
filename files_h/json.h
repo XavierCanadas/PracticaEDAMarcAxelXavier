@@ -1,10 +1,11 @@
+//Includes
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
 
-
+//Linked del json
 typedef enum  {
     jsonString,
     jsonInt,
@@ -14,12 +15,15 @@ typedef enum  {
     jsonRoot
 }JsonTypes;
 
+//Struct del Json
 typedef struct jsonObject{
     char clau[50];
     char* valor;
     JsonTypes type;
 }JsonObject;
 
+
+//Funcions del Json - Manegment file
 JsonObject* initJsonObject();
 void borrarJsonObject(JsonObject* jsonObject);
 void findKey(char *input, JsonObject *object);

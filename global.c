@@ -1,8 +1,4 @@
-//
-// Created by Xavi Cañadas on 5/5/23.
-//
 #include "global.h"
-
 
 extern int name_filter(char name[]);
 extern int user_filter(char user[]);
@@ -14,12 +10,18 @@ extern int mail_filter(char mail[]);
 // retorna
 int entradaInt(char missatge[]) {
     int nombreEnter;
-    printf("%s:", missatge);
+    printf("%s: ", missatge);
     fflush(stdout);
-    if (scanf("%d", &nombreEnter) == ERROR_ENTRADA_DADES) {
-        nombreEnter = ERROR_ENTRADA_DADES;
+
+    while (scanf("%d", &nombreEnter) != 1) {
+        printf("Error: S'esperava un numero enter.\n");
+        fflush(stdin);
+
+        printf("%s: ", missatge);
+        fflush(stdout);
     }
-    flush_input();
+
+    printf("\n");
     return nombreEnter;
 }
 
@@ -63,8 +65,4 @@ void flush_input() {
     char c;
     while ((c = getchar()) != '\n' && c != EOF) {
     }
-}
-
-void barraSeparadora() {
-    printf("------------------------------------------------------------------------------------\n");
 }

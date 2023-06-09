@@ -1,21 +1,16 @@
-//
-// Created by Xavi Cañadas on 15/5/23.
-//
-
 #ifndef UNTITLED2_TAULAHASH_H
 #define UNTITLED2_TAULAHASH_H
-
 #endif //UNTITLED2_TAULAHASH_H
 
-/// Llibreries
+//Includes
 #include "structs.h"
 
-/// Errors
+// Error Manegment
 #define ERROR_CALCULAR_INDEX (-10)
 #define ERROR_GUARDAR_USUARU (-10)
 #define ERROR_AMPLIAR_TAULA (-20)
 
-/// Funcions
+// Funcions
 int hashing(char* clau, TaulaHash* taulaHash, bool esNouUsuari);
 int charToIntASCII(char* string);
 int guardarUsuari(Usuari* usuari, char* nomUsuari, TaulaHash* taulaHash,  int *indexGuardat);

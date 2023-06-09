@@ -1,5 +1,4 @@
 #include "../global.h"
-//#include "../files_h/usuari.h"
 
 int name_filter(char name[]){
     for (int i = 0; name[i] != '\0'; i++) {
@@ -17,12 +16,6 @@ int user_filter(char user[]){
             printf("El elemnto \"%c\", no es valido como parte del nombre de una Ciudad\n", user[i]);
             return 0;
         }
-
-        /*
-        if(strcmp(user, name) == 0 ){
-            printf("Notcie that your provate user name and public user anme, are the same");
-        }
-         */
     }
     return 1;  // La cadena solo contiene letras
 }

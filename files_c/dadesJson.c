@@ -1,3 +1,4 @@
+//Includes
 #include "../files_h/dadesJson.h"
 
 JsonObject* llegirFitxer(char* direccioFitxer) {
@@ -83,7 +84,7 @@ Usuari* convertirJsonUsuari(JsonObject* usuariJson) {
         }
 
     }
-    // iniccialitza la taulaHash per guardar els amics.
+    // inicialitza la taulaHash per guardar els amics.
     initTaulaHash(usuari->amics, 10);
 
     // es guarden els amics.
