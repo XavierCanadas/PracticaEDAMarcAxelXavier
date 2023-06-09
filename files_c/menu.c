@@ -56,7 +56,7 @@ int bucleMenu() {
                 break;
 
             default:
-                printf("Ha introduit una opcio inva32lida!\n");
+                printf("Ha introduit una opcio invalida!\n");
                 break;
 
         }

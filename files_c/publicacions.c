@@ -6,7 +6,7 @@
 
 // S'inicialitza l'array de publicacions
 ArrayPublciacions* initArrayPublicacions(int mida) {
-    ArrayPublciacions* arrayPublciacions = (ArrayPublciacions*) calloc(1, sizeof(ArrayPublciacions));
+    ArrayPublciacions* arrayPublciacions = (ArrayPublciacions*) malloc(sizeof(ArrayPublciacions));
     arrayPublciacions->mida = mida;
     arrayPublciacions->nombrePublicacions = 0;
     arrayPublciacions->publicacions = (Publicacio**) calloc(mida, sizeof(Publicacio*));
@@ -33,20 +33,8 @@ int realitzarPublicacio(Usuari* usuari, ArrayPublciacions* arrayPublciacions) {
     char contingut[MAX_STRING];
     printf("Introdueix el contingut de la publicacio (maxim %d caracters): ", MAX_CARACTERS);
     fflush(stdout);
-   // fgets(contingut, sizeof(contingut), stdin);
     entradaString("a", contingut, "none");
 
-    // Eliminar el salto de línea al final del texto
-    //contingut[strcspn(contingut, "\n")] = '\0';
-
-    // Verificar la longitud de la publicación
-    /*
-    if (strlen(contingut) > MAX_CARACTERS) {
-        printf("El contingut de la publicacio es massa llarg.\n");
-        return ERROR;
-    }*/
-
-    // Crear la publicación y agregarla al array de publicaciones del usuario
     Publicacio* aux;
 
     if (usuari->nombrePublicacions > 0) {
@@ -104,12 +92,11 @@ void mostrarPublicacions(ArrayPublciacions* arrayPublciacions, Usuari* usuari) {
                 case 1:
                     printf("Publicacions de l'usuari %s:\n", usuari->nomUsuari);
                     publicacio = &usuari->publicacions[i];
-
                     break;
 
                 case 2:
-                    printf("a");
                     publicacio = arrayPublciacions->publicacions[i];
+                    break;
 
                 default:
                     printf("Has entrat una opció incorrecte\n");
