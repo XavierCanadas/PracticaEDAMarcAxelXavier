@@ -119,10 +119,11 @@ void gestionSolicitudesAmistad(Usuari* usuari) {
 
         switch (opcion) {
             case ENVIAR_SOLICITUD: {
-                char remitente[MAX_STRING] = usuari->nomUsuari;
+                //char remitente[MAX_STRING] = usuari->nomUsuari;
+                char remitente[MAX_STRING];
                 char destinatario[MAX_STRING];
                 // No té sentit que es demani l'emissor pq es passa com a paràmetre a la funció.
-                //entradaString("Introdueix el nom d'usuari de l'emissor: ", remitente, "user");
+                entradaString("Introdueix el nom d'usuari de l'emissor: ", remitente, "user");
                 entradaString("Introdueix el nom d'usuari del destinatari: ", destinatario, "user");
 
                 // s'hauria de passar com a remitent el nom d'usuari de l'objecte usuari del paràmetre
