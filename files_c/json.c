@@ -1,11 +1,18 @@
 //Include
 #include "../files_h/json.h"
 
-JsonObject* initJsonObject() {
-    JsonObject *jsonObject = malloc(sizeof(JsonObject));
-    memset(jsonObject->clau, 0, sizeof(jsonObject->clau));
-    jsonObject->valor = NULL;
-    jsonObject->type = jsonNull;
+JsonObject* initJsonObject(char* clau, char* valor, JsonTypes jsonTypes) {
+    JsonObject *jsonObject = calloc(1,sizeof(JsonObject));
+    if (clau != NULL)
+        strcpy(jsonObject->clau, clau);
+
+    if (valor != NULL) {
+        jsonObject->valor = (char*) calloc(strlen(valor + 1), sizeof(char));
+        strcpy(jsonObject->valor, valor);
+    }
+
+
+    jsonObject->type = jsonTypes;
 
     return jsonObject;
 }
@@ -105,7 +112,7 @@ void findValue(char *input, JsonObject *object, bool objectInArray) {
 }
 
 JsonObject* find_in_object(char *key, JsonObject *object) {
-    JsonObject *result = initJsonObject();
+    JsonObject *result = initJsonObject(NULL, NULL, jsonNull);
     char *start = strstr(object->valor, key);
     if (start != NULL) {
         strncpy(result->clau, key, strlen(key));
@@ -139,7 +146,7 @@ int count_elements(JsonObject *object) {
 
 
 JsonObject* get_element_at_index(JsonObject *array, int index) {
-    JsonObject *result = initJsonObject();
+    JsonObject *result = initJsonObject(NULL, NULL, jsonNull);
     int count = 0;
     int posicioInicial = 0;
     int caracterMirat = 0;
@@ -173,12 +180,13 @@ JsonObject* get_element_at_index(JsonObject *array, int index) {
     char* input = (char*) malloc(sizeof(char)*(caracterMirat-posicioInicial+4));
     strncpy(input, start + posicioInicial, caracterMirat - posicioInicial + 2);
     findValue(input, result, true);
+
     free(input);
 
     return result;
 }
 JsonObject* get_element_string_at_index(JsonObject *array, int index) {
-    JsonObject* elementArray = initJsonObject();
+    JsonObject* elementArray = initJsonObject(NULL, NULL, jsonNull);
     int count = 0;
     int posicioInicial = 0;
     int caracterMirat = 0;
@@ -220,7 +228,7 @@ JsonObject* get_element_string_at_index(JsonObject *array, int index) {
 
     if (start[caracterMirat] == '\0') caracterMirat--;
 
-    char* input = (char*) malloc(sizeof(char)*(caracterMirat-posicioInicial - 1));
+    char* input = (char*) calloc((caracterMirat-posicioInicial - 1), sizeof(char));
     strncpy(input, start + posicioInicial + 1, caracterMirat-posicioInicial - 1);
     elementArray->valor = input;
     if (trobat == true)
@@ -230,4 +238,113 @@ JsonObject* get_element_string_at_index(JsonObject *array, int index) {
 
     return elementArray;
 
+}
+
+char* jsonObjectToString(JsonObject *object, bool clau, bool esFinal) {
+    char* output = (char*) calloc(jsonObjectStringLength(object, clau) + 2, sizeof(char));
+
+    // El problema està aquí, revisar
+    if (clau == true && object->type != (jsonRoot) && object->type != (jsonTypeObjet)) {
+        strcat(output, "\"");
+        strcat(output, object->clau);
+        strcat(output, "\":");
+    }
+
+    switch (object->type) {
+        case jsonString:
+            strcat(output, "\"");
+            strcat(output, object->valor);
+            strcat(output, "\"");
+            break;
+        case jsonInt:
+            strcat(output, object->valor);
+            break;
+        case jsonArray:
+            strcat(output, "[");
+
+            strcat(output, object->valor);
+            strcat(output, "]");
+            break;
+        case jsonNull:
+            strcat(output, "null");
+            break;
+        case jsonTypeObjet:
+        case jsonRoot:
+            strcat(output, "{");
+            // El problema està aquí, revisar
+            if (clau == true) {
+                strcat(output, "\"");
+                strcat(output, object->clau);
+                strcat(output, "\":");
+            }
+            strcat(output, object->valor);
+            strcat(output, "}");
+            break;
+    }
+    if (esFinal == true)
+        strcat(output, "\0"); // S'afegeix el caràcter final
+    else
+        strcat(output, ",");
+
+    return output;
+}
+
+int jsonObjectStringLength(JsonObject *object, bool clau) {
+    int length = 0;
+
+    if (clau == true)
+        length += (int) strlen(object->clau) + 4; // for the key and quotes
+
+    switch (object->type) {
+        case jsonInt:
+            length += (int) strlen(object->valor);
+            break;
+        case jsonString:
+        case jsonArray:
+        case jsonTypeObjet:
+        case jsonRoot:
+            length += (int) strlen(object->valor) + 2;
+            break;
+        case jsonNull:
+            break;
+    }
+    return length;
+}
+
+char* arrayToString(char** array, int size) {
+    int total_size = 3, contador = 0; // es té en compte els [] i el caràcter nul.
+    for (int i = 0; i < size; i++) {
+        if (array[i] != NULL && strcmp(array[i], "\0") != 0)
+            total_size += (int) strlen(array[i]) + 4;
+    }
+    char* result = (char*) calloc(total_size + 1, sizeof(char));
+
+    for (int i = 0; i < size; i++) {
+        if (array[i] != NULL && strcmp(array[i], "\0") != 0) {
+            strcat(result, "\"");
+            strcat(result, array[i]);
+            strcat(result, "\"");
+
+            /// Cambiar: s'ha de modificar pq funcioni bé per guardar els amics.
+            if (i != size - 1 && array[i+1] != NULL) {
+                strcat(result, ",");
+            }
+        }
+    }
+    //strcat(result, "\0");
+
+    freeArrayStringsDinamic(array);
+
+    return result;
+}
+
+void freeArrayStringsDinamic(char** array) {
+    int i = 0;
+    if (array != NULL) {
+        while (array[i] != NULL) {
+            free(array[i]);
+            i++;
+        }
+        free(array);
+    }
 }
