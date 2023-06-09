@@ -54,7 +54,7 @@ int bucleMenu() {
                 break;
 
             case SORTIR:
-                arrayUsuarisJson = guardarUsuarisJson(taulaHash);
+                //arrayUsuarisJson = guardarUsuarisJson(taulaHash);
 
                 eliminarTaulaHash(taulaHash);
                 break;
@@ -66,7 +66,7 @@ int bucleMenu() {
         fflush(stdout);
     }
     printf("\nAdeu!\n");
-
+    /* falla
     FILE* file = fopen("../dades.json", "w");
     int midaRoot = jsonObjectStringLength(arrayUsuarisJson, true);
     rootGuardar = (char*) calloc(midaRoot+4, sizeof(char));
@@ -77,7 +77,8 @@ int bucleMenu() {
     fclose(file);
 
     borrarJsonObject(arrayUsuarisJson);
-    free(rootGuardar);
+    */
+    //free(rootGuardar);
 
 
     fflush(stdout);
