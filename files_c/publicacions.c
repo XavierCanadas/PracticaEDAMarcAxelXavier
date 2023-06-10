@@ -60,24 +60,24 @@ char** separarParaules(const char* frase, int longitud) {
 }
 
 
-void insertionSort(int array[], int n) {
-    int i, j, valorActual;
+void insertionSort(Tendencia tendencies[], int n) {
+    int i, j;
 
     for (i = 1; i < n; i++) {
-        valorActual = array[i];
+        Tendencia valorActual = tendencies[i];
         j = i - 1;
 
-        while (j >= 0 && array[j] > valorActual) {
-            array[j + 1] = array[j];
+        while (j >= 0 && tendencies[j].popularitat > valorActual.popularitat) {
+            tendencies[j + 1] = tendencies[j];
             j--;
         }
 
-        array[j + 1] = valorActual;
+        tendencies[j + 1] = valorActual;
     }
 }
 
 
-void imprimirTendenciesFinal(Publicacio** publicacions) {
+void imprimirTendenciesFinal(Publicacio **publicacions) {
     Tendencia *tendencies = (Tendencia *) malloc(10 * sizeof(Tendencia));
     // Comptar la popularitat de cada tendència
     int i = 0;
@@ -107,8 +107,8 @@ void imprimirTendenciesFinal(Publicacio** publicacions) {
     }
     insertionSort(tendencies,numTendencies);
     printf("------------------------------------\n"
-           "               TENDENCIES              \n"
-           "---------------------------------------\n");
+           "            TENDENCIES              \n"
+           "------------------------------------\n");
     for(int a=0;a<numTendencies;a++){
         printf("%d: %s",a,tendencies[a].contingut);
     }
@@ -116,7 +116,6 @@ void imprimirTendenciesFinal(Publicacio** publicacions) {
 
 int ampliarArrayPublicacions(int novaMida, ArrayPublciacions* arrayPublciacions) {
     Publicacio** aux;
-
     aux = (Publicacio**) realloc(arrayPublciacions->publicacions, novaMida*sizeof(Publicacio**));
 
     if (arrayPublciacions == NULL) {
@@ -137,7 +136,6 @@ int realitzarPublicacio(Usuari* usuari, ArrayPublciacions* arrayPublciacions) {
     fflush(stdout);
     entradaString(" ", contingut, "none");
 
-    Publicacio* aux;
 
     if (arrayPublciacions->mida == (arrayPublciacions->nombrePublicacions-1))
         ampliarArrayPublicacions(arrayPublciacions->mida+10, arrayPublciacions);
@@ -193,7 +191,7 @@ void mostrarPublicacions(ArrayPublciacions* arrayPublciacions, Usuari* usuari) {
                     publicacio = arrayPublciacions->publicacions[i];
                     break;
                 case 3:
-                    imprimirTendenciesFinal(arrayPublciacions);
+                    imprimirTendenciesFinal(arrayPublciacions->publicacions);
                 case 4:
                     return;
                 default:
