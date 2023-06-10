@@ -2,7 +2,7 @@
 
 int name_filter(char name[]){
     for (int i = 0; name[i] != '\0'; i++) {
-        while (!isalpha(name[i])) {
+        while (!isalpha(name[i]) && name[i] != ' ') {
             printf("El elemnto \"%c\", no es valido como parte del nombre\n", name[i]);
             return 0;
         }
@@ -35,8 +35,6 @@ int city_filter(char city[]){
 
     return 1;  // El nombre de la ciudad es válido
 }
-
-
 
 int mail_filter(char mail[]){
     int longitud = (int) strlen(mail);

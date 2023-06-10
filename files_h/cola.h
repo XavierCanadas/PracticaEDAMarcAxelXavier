@@ -12,6 +12,7 @@ void inicializarCola(ColaSolicitudes** cola);
 bool colaVacia(ColaSolicitudes* cola);
 void encolar(ColaSolicitudes* cola, const char* remitente, const char* destinatario);
 void desencolar(ColaSolicitudes* cola);
+int longitudCola(ColaSolicitudes* cola);
 void rechazarSolicitud(ColaSolicitudes* cola);
 void gestionSolicitudesAmistad(Usuari* usuari,TaulaHash* taula);
 void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari);

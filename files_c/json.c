@@ -9,8 +9,6 @@ JsonObject* initJsonObject(char* clau, char* valor, JsonTypes jsonTypes) {
         jsonObject->valor = (char*) calloc(strlen(valor + 1), sizeof(char));
         strcpy(jsonObject->valor, valor);
     }
-
-
     jsonObject->type = jsonTypes;
 
     return jsonObject;
@@ -239,8 +237,13 @@ JsonObject* get_element_string_at_index(JsonObject *array, int index) {
 
 }
 
-char* jsonObjectToString(JsonObject *object, bool clau, bool esFinal) {
-    char* output = (char*) calloc(jsonObjectStringLength(object, clau) + 2, sizeof(char));
+char* jsonObjectToString(JsonObject *object, bool clau, bool esFinal, bool esRoot) {
+    // es guarda espai de més per seguretat.
+    char* output = (char*) calloc(jsonObjectStringLength(object, clau) + 10, sizeof(char));
+
+    if (esRoot == true) {
+        strcat(output, "{");
+    }
 
     // El problema està aquí, revisar
     if (clau == true && object->type != (jsonRoot) && object->type != (jsonTypeObjet)) {
@@ -280,6 +283,9 @@ char* jsonObjectToString(JsonObject *object, bool clau, bool esFinal) {
             strcat(output, "}");
             break;
     }
+    if (esRoot == true) {
+        strcat(output, "}");
+    }
     if (esFinal == true)
         strcat(output, "\0"); // S'afegeix el caràcter final
     else
@@ -316,7 +322,7 @@ char* arrayToString(char** array, int size) {
         if (array[i] != NULL && strcmp(array[i], "\0") != 0)
             total_size += (int) strlen(array[i]) + 4;
     }
-    char* result = (char*) calloc(total_size + 1, sizeof(char));
+    char* result = (char*) calloc(total_size + 2, sizeof(char));
 
     for (int i = 0; i < size; i++) {
         if (array[i] != NULL && strcmp(array[i], "\0") != 0) {
@@ -333,22 +339,7 @@ char* arrayToString(char** array, int size) {
             array[i] = NULL;
         }
     }
-    //strcat(result, "\0");
 
     free(array);
-
-    //freeArrayStringsDinamic(array);
-
     return result;
-}
-
-void freeArrayStringsDinamic(char** array) {
-    int i = 0;
-    if (array != NULL) {
-        while (array[i] != NULL) {
-            free(array[i]);
-            i++;
-        }
-        free(array);
-    }
 }

@@ -7,7 +7,7 @@ int bucleMenu() {
     TaulaHash* taulaHash = (TaulaHash*) malloc(sizeof(TaulaHash));
     initTaulaHash(taulaHash, 10);
 
-    ArrayPublciacions* arrayPublciacions = initArrayPublicacions();
+    ArrayPublciacions* arrayPublciacions = initArrayPublicacions(10);
 
     int opcioEscollida = 0;
 
@@ -15,6 +15,8 @@ int bucleMenu() {
     llegirUsuarisJson(taulaHash, root);
 
     borrarJsonObject(root);
+    JsonObject* arrayUsuarisJson;
+    char* rootGuardar;
 
     while (opcioEscollida != SORTIR) {
 
@@ -51,6 +53,8 @@ int bucleMenu() {
                 break;
 
             case SORTIR:
+                arrayUsuarisJson = guardarUsuarisJson(taulaHash);
+
                 eliminarTaulaHash(taulaHash);
                 freeArrayPublicacions(arrayPublciacions);
                 break;
@@ -60,9 +64,19 @@ int bucleMenu() {
                 break;
 
         }
+        fflush(stdout);
     }
     printf("\033[2J");
     printf("\nAdeu!\n");
+
+    FILE* file = fopen("../dades.json", "w");
+    rootGuardar = jsonObjectToString(arrayUsuarisJson, true, true,true);
+    fputs(rootGuardar, file);
+    fclose(file);
+
+    borrarJsonObject(arrayUsuarisJson);
+    free(rootGuardar);
+
     fflush(stdout);
 
     return SUCCESS;
@@ -73,14 +87,14 @@ int bucleEscollirUsuari(TaulaHash* taula, ArrayPublciacions* arrayPublciacions) 
     int entradaAuxEliminarUsuari = 0;
 
     char user[MAX_STRING];
-    entradaString("\nIntroduiu el nom d'usuari amb el que volgueu operar: ", user, "none");
+    entradaString("Introduiu el nom d'usuari amb el que volgueu operar: ", user, "none");
     Usuari *usuari = buscarUsuari(taula, user);
     while (usuari == NULL) {
         entradaString("Usuari invalid, introduiu un altre nom: ", user, "none");
         usuari = buscarUsuari(taula, user);
     }
     // Es mostra el menú d'opcions
-    while (opcioEscollida != SORTIR) {
+    while (opcioEscollida != SORTIR_MENU_USUARI) {
         showEscollirUsuaruMenu(usuari);
         opcioEscollida = entradaInt("Si us plau, seleccioni una opcio");
 
@@ -98,7 +112,7 @@ int bucleEscollirUsuari(TaulaHash* taula, ArrayPublciacions* arrayPublciacions) 
                 break;
 
             case EDITAR_USUARI:
-                printf("S'editaria l'usuari");
+                printf("S'editaria l'usuari\n");
                 break;
 
             case ELIMINAR_USUARI:
@@ -155,8 +169,7 @@ void showEscollirUsuaruMenu(Usuari *usuari) {
     printf("\t %d: Veure les publicacions.\n", VEURE_PUBLICACIONS);
     printf("\t %d: Editar l'usuari.\n", EDITAR_USUARI);
     printf("\t %d: Eliminar l'usuari.\n", ELIMINAR_USUARI);
-    printf("\t %d: Mostrar opcions.\n", MOSTRAR_OPCIONS);
-    printf("\t %d: Sortir.\n", SORTIR);
+    printf("\t %d: Sortir.\n", SORTIR_MENU_USUARI);
     printf("-----------------------------------------\n");
     fflush(stdout);
 }

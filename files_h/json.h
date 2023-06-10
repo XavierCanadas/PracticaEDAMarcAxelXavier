@@ -36,7 +36,7 @@ JsonObject* get_element_at_index(JsonObject *array, int index);
 JsonObject* get_element_string_at_index(JsonObject *array, int index);
 
 // Escriptura
-char* jsonObjectToString(JsonObject *object, bool clau, bool esFinal);
+char* jsonObjectToString(JsonObject *object, bool clau, bool esFinal, bool esRoot);
 int jsonObjectStringLength(JsonObject *object, bool clau);
 char* arrayToString(char* array[], int size);
 void freeArrayStringsDinamic(char** array);

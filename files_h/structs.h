@@ -14,7 +14,7 @@
 typedef struct {
     char contingut[MAX_CARACTERS];
     char data[MAX_STRING];
-    int mAgrada;
+    int likes;
     char* usuarisMagrada[MAX_STRING];
 } Publicacio;
 
@@ -71,13 +71,4 @@ typedef struct Tendencia{
     int popularitat;
 }Tendencia;
 
-/*
-/Funcions
-void inicializarCola(ColaSolicitudes* cola);
-bool colaVacia(ColaSolicitudes* cola);
-void encolar(ColaSolicitudes* cola, const char* remitente, const char* destinatario);
-void desencolar(ColaSolicitudes* cola);
-void rechazarSolicitud(ColaSolicitudes* cola);
-void gestionSolicitudesAmistad(Usuari* usuari);
-void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari);
-*/
+

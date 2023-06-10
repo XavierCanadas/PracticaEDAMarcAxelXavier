@@ -35,14 +35,25 @@ void encolar(ColaSolicitudes* cola, const char* remitente, const char* destinata
 }
 
 
-//Elimina la sol·licitud de amistat del davant de la cua.
+//Elimina la sol·licitud d'amistat del davant de la cua.
 void desencolar(ColaSolicitudes* cola) {
     if (cola->frente==NULL) return;
-    cola->frente=cola->frente->siguiente;
+    NodoSolicitud* aux = cola->frente;
+    cola->frente = cola->frente->siguiente;
+    free(aux);
 }
 
+int longitudCola(ColaSolicitudes* cola) {
+    int contador = 0;
+    NodoSolicitud* aux = cola->frente;
+    while (aux != NULL){
+        contador++;
+        aux = aux->siguiente;
+    }
+    return contador;
+}
 
-//Rebutja la sol·licitud de amistat del davant de la cua.
+//Rebutja la sol·licitud d'amistat del davant de la cua.
 void rechazarSolicitud(ColaSolicitudes* cola) {
     if (colaVacia(cola)==true) {
         printf("La cua de solalicituds esta buida.\n");
@@ -86,10 +97,10 @@ void gestionSolicitudesAmistad(Usuari* usuari,TaulaHash* taula) {
     int opcion = 0;
     while (opcion != SORTIR_GESTIONAR_SOLICITUTS) {
         printf("\n----- GESTIO DE SOL.LICITUDS D'AMISTAT -----\n");
-        printf("%d. Enviar sol.licitud d'amistat\n", ENVIAR_SOLICITUD);
-        printf("%d. Acceptar sol.licitud d'amistat\n", ACEPTAR_SOLICITUD);
-        printf("%d. Rebutjar sol.licitud d'amistat\n", REBUTJAR_SOLICITUD);
-        printf("%d. Sortir\n", SORTIR_GESTIONAR_SOLICITUTS);
+        printf("\t %d. Enviar sol.licitud d'amistat\n", ENVIAR_SOLICITUD);
+        printf("\t %d. Acceptar sol.licitud d'amistat\n", ACEPTAR_SOLICITUD);
+        printf("\t %d. Rebutjar sol.licitud d'amistat\n", REBUTJAR_SOLICITUD);
+        printf("\t %d. Sortir\n", SORTIR_GESTIONAR_SOLICITUTS);
         opcion = entradaInt("Introdueix el numero de l'opcio desitjada: ");
 
         switch (opcion) {

@@ -6,10 +6,10 @@
 
 // S'inicialitza l'array de publicacions
 ArrayPublciacions* initArrayPublicacions(int mida) {
-    ArrayPublciacions *arrayPublciacions = (ArrayPublciacions *) malloc(sizeof(ArrayPublciacions));
+    ArrayPublciacions* arrayPublciacions = (ArrayPublciacions*) calloc(1, sizeof(ArrayPublciacions));
     arrayPublciacions->mida = mida;
     arrayPublciacions->nombrePublicacions = 0;
-    arrayPublciacions->publicacions = (Publicacio **) calloc(mida, sizeof(Publicacio *));
+    arrayPublciacions->publicacions = (Publicacio**) calloc(mida, sizeof(Publicacio*));
 
     return arrayPublciacions;
 }
@@ -137,6 +137,7 @@ int ampliarArrayPublicacions(int novaMida, ArrayPublciacions* arrayPublciacions)
         return ERROR_AMPLIAR_TAULA;
     }
     arrayPublciacions->publicacions = aux;
+    arrayPublciacions->mida = novaMida;
 
     return SUCCESS;
 }
@@ -145,23 +146,18 @@ int ampliarArrayPublicacions(int novaMida, ArrayPublciacions* arrayPublciacions)
 
 int realitzarPublicacio(Usuari* usuari, ArrayPublciacions* arrayPublciacions) {
     char contingut[MAX_STRING];
+    memset(contingut, 0, sizeof(contingut));
     printf("Introdueix el contingut de la publicacio (maxim %d caracters): ", MAX_CARACTERS);
     fflush(stdout);
-    entradaString("a", contingut, "none");
+    entradaString(" ", contingut, "none");
 
     Publicacio* aux;
 
-    if (usuari->nombrePublicacions > 0) {
-        aux = (Publicacio*) realloc(usuari->publicacions, sizeof(Publicacio)*(usuari->nombrePublicacions+1));
-
-        if (arrayPublciacions == NULL) {
-            return ERROR_AMPLIAR_TAULA;
-        }
-        usuari->publicacions = aux;
-    }
+    if (arrayPublciacions->mida == (arrayPublciacions->nombrePublicacions-1))
+        ampliarArrayPublicacions(arrayPublciacions->mida+10, arrayPublciacions);
 
     strcpy(usuari->publicacions[usuari->nombrePublicacions].contingut, contingut);
-    usuari->publicacions[usuari->nombrePublicacions].mAgrada = 0;
+    usuari->publicacions[usuari->nombrePublicacions].likes = 0;
 
     // Obtener la fecha actual
     time_t t = time(NULL);
@@ -170,9 +166,6 @@ int realitzarPublicacio(Usuari* usuari, ArrayPublciacions* arrayPublciacions) {
     // Formatear la fecha en el formato deseado (dd/mm/aaaa)
     snprintf(usuari->publicacions[usuari->nombrePublicacions].data, sizeof(usuari->publicacions[usuari->nombrePublicacions].data), "%02d/%02d/%d", fecha->tm_mday, fecha->tm_mon + 1, fecha->tm_year + 1900);
 
-    if (arrayPublciacions->mida == arrayPublciacions->nombrePublicacions) {
-
-    }
     arrayPublciacions->publicacions[arrayPublciacions->nombrePublicacions] = &usuari->publicacions[usuari->nombrePublicacions];
     arrayPublciacions->nombrePublicacions++;
 
@@ -184,10 +177,9 @@ int realitzarPublicacio(Usuari* usuari, ArrayPublciacions* arrayPublciacions) {
 
 
 void mostrarPublicacions(ArrayPublciacions* arrayPublciacions, Usuari* usuari) {
-    //char nomUsuari[MAX_STRING];
-    //entradaString("Introdueix el nom d'usuari per mostrar les publicacions: ", nomUsuari, "none");
     int entradaUsuari = 0;
     int nombrePublicacions;
+
     while (entradaUsuari != 3) {
         entradaUsuari = entradaInt("[1]- Veure les teves publicacions\n"
                                    "[2]- Veure totes les publicacions\n"
@@ -199,6 +191,10 @@ void mostrarPublicacions(ArrayPublciacions* arrayPublciacions, Usuari* usuari) {
             nombrePublicacions = arrayPublciacions->nombrePublicacions;
 
         Publicacio* publicacio;
+
+        if (nombrePublicacions == 0)
+            printf("No hi ha publicacions.\n");
+
         for (int i = 0; i < nombrePublicacions; i++) {
 
             switch (entradaUsuari) {
@@ -223,13 +219,13 @@ void mostrarPublicacions(ArrayPublciacions* arrayPublciacions, Usuari* usuari) {
             printf("---------------------------------------------------\n");
             printf("Data: %s\n\n", publicacio->data);
             printf("Contingut:\n%s\n\n", publicacio->contingut);
-            printf("Likes: %d\n", publicacio->mAgrada);
+            printf("Likes: %d\n", publicacio->likes);
             printf("---------------------------------------------------\n");
 
             int opcio = entradaInt("Vols donar m'agrada a aquesta publicació? (1: Sí, 0: No)");
 
             if (opcio == 1) {
-                publicacio->mAgrada++;
+                publicacio->likes++;
                 printf("Has donat m'agrada a aquesta publicació.\n");
             }
 
@@ -237,6 +233,7 @@ void mostrarPublicacions(ArrayPublciacions* arrayPublciacions, Usuari* usuari) {
         }
     }
 
+    /*
     // Buscar l'usuari a partir del nom d'usuari proporcionat
     //Usuari* usuari = buscarUsuari(taula, nomUsuari);
     if (usuari == NULL) {
@@ -252,19 +249,20 @@ void mostrarPublicacions(ArrayPublciacions* arrayPublciacions, Usuari* usuari) {
         printf("---------------------------------------------------\n");
         printf("Data: %s\n\n", usuari->publicacions[i].data);
         printf("Contingut:\n%s\n\n", usuari->publicacions[i].contingut);
-        printf("Likes: %d\n", usuari->publicacions[i].mAgrada);
+        printf("Likes: %d\n", usuari->publicacions[i].likes);
         printf("---------------------------------------------------\n");
 
         int opcio = entradaInt("Vols donar m'agrada a aquesta publicació? (1: Sí, 0: No)");
 
         if (opcio == 1) {
-            usuari->publicacions[i].mAgrada++;
+            usuari->publicacions[i].likes++;
             printf("Has donat m'agrada a aquesta publicació.\n");
         }
         printf("\n");
-    }
+    }*/
 
 }
+
 
 void freeArrayPublicacions(ArrayPublciacions* arrayPublciacions) {
     for (int i = 0; i < arrayPublciacions->mida; ++i) {

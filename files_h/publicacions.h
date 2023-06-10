@@ -1,6 +1,6 @@
 #include "../files_h/usuari.h"
 
-ArrayPublciacions* initArrayPublicacions();
+ArrayPublciacions* initArrayPublicacions(int mida);
 int ampliarArrayPublicacions(int novaMida, ArrayPublciacions* arrayPublciacions);
 void freeArrayPublicacions(ArrayPublciacions* arrayPublciacions);
 

@@ -17,12 +17,13 @@
 #define IMPRIMIR_USUARI 4
 #define EDITAR_USUARI 5
 #define ELIMINAR_USUARI 6
+#define SORTIR_MENU_USUARI 7
 
 // Funcions:
 int bucleMenu();
 void showMenuOptions();
 
-void showEscollirUsuaruMenu();
+void showEscollirUsuaruMenu(Usuari *usuari);
 int bucleEscollirUsuari(TaulaHash* taula, ArrayPublciacions* arrayPublciacions);
 
 
