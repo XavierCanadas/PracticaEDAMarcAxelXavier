@@ -97,7 +97,8 @@ void mostrarPublicacions(ArrayPublciacions* arrayPublciacions, Usuari* usuari) {
                 case 2:
                     publicacio = arrayPublciacions->publicacions[i];
                     break;
-
+                case 3:
+                    return;
                 default:
                     printf("Has entrat una opció incorrecte\n");
             }

@@ -8,10 +8,10 @@
 #define SORTIR_GESTIONAR_SOLICITUTS 4
 
 //funcions
-void inicializarCola(ColaSolicitudes* cola);
+void inicializarCola(ColaSolicitudes** cola);
 bool colaVacia(ColaSolicitudes* cola);
 void encolar(ColaSolicitudes* cola, const char* remitente, const char* destinatario);
 void desencolar(ColaSolicitudes* cola);
 void rechazarSolicitud(ColaSolicitudes* cola);
-void gestionSolicitudesAmistad(Usuari* usuari);
+void gestionSolicitudesAmistad(Usuari* usuari,TaulaHash* taula);
 void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari);

@@ -86,7 +86,7 @@ int bucleEscollirUsuari(TaulaHash* taula, ArrayPublciacions* arrayPublciacions) 
 
         switch (opcioEscollida) {
             case GESTIONAR_SOLICITUTS:
-                gestionSolicitudesAmistad(usuari);
+                gestionSolicitudesAmistad(usuari,taula);
                 break;
 
             case FER_PUBLICACIO:

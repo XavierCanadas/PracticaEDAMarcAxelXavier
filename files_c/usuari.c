@@ -2,6 +2,7 @@
 #include "time.h"
 
 // Aquesta funció crea espai per un usuari i totes les variables a 0.
+extern void inicializarCola(ColaSolicitudes** cola);
 Usuari* initUsuari() {
     Usuari* usuari = (Usuari*) calloc(1, sizeof(Usuari));
 
@@ -15,7 +16,7 @@ Usuari* initUsuari() {
     initTaulaHash(  usuari->amics, 10);
 
     usuari->publicacions = (Publicacio*) calloc(1, sizeof(Publicacio));
-
+    inicializarCola(&usuari->solicitudsAmistat);
     return usuari;
 }
 void seleccionarGustos(Usuari* usuari) {

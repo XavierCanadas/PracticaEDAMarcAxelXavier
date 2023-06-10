@@ -4,7 +4,6 @@
 
 // Includes
 #include "../files_h/taulaHash.h"
-
 #ifndef UNTITLED2_USUARI_H
 #define UNTITLED2_USUARI_H
 
