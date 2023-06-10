@@ -172,6 +172,7 @@ void imprimirTendenciesFinal(ArrayPublciacions* arrayPublciacions) {
 int ampliarArrayPublicacions(int novaMida, ArrayPublciacions* arrayPublciacions) {
     Publicacio** aux;
 
+
     aux = (Publicacio**) realloc(arrayPublciacions->publicacions, novaMida*sizeof(Publicacio**));
 
     if (arrayPublciacions == NULL) {
