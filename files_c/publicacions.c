@@ -14,66 +14,51 @@ ArrayPublciacions* initArrayPublicacions(int mida) {
     return arrayPublciacions;
 }
 
-char** separarParaules(const char *frase) {
-    // Comptar el número de paraules a la frase
-    int contador = 0;
-    const char* p = frase;
-    while (*p != '\0') {
-        // Ignorar espais inicials
-        while (*p == ' ') {
-            p++;
-        }
-        // Comptar la paraula
-        if (*p != '\0') {
-            contador++;
-            // Avançar fins al següent espai o final de la frase
-            while (*p != ' ' && *p != '\0') {
-                p++;
-            }
-        }
-    }
-
+char** separarParaules(const char* frase, int longitud) {
     // Assignar memòria per a l'array de paraules
-    char** paraules = (char**)malloc((contador + 1) * sizeof(char*));
+    char** paraules = (char**)malloc((101) * sizeof(char*));
     if (paraules == NULL) {
         return NULL;
     }
 
-    // Copiar les paraules a l'array
-    int index = 0;
-    p = frase;
-    while (*p != '\0') {
-        // Ignorar espais inicials
-        while (*p == ' ') {
-            p++;
-        }
-        // Copiar la paraula
-        if (*p != '\0') {
-            const char* inici = p;
-            // Avançar fins al següent espai o final de la frase
-            while (*p != ' ' && *p != '\0') {
-                p++;
-            }
-            const int longitud = p - inici;
-            char* paraula = (char*)malloc((longitud + 1) * sizeof(char));
-            if (paraula == NULL) {
-                // Alliberar memòria si hi ha un error
-                for (int i = 0; i < index; i++) {
-                    free(paraules[i]);
+    int contador = 0;  // Comptador de paraules
+    int inici = 0;    // Índex d'inici d'una paraula
+
+    for (int i = 0; i < longitud; i++) {
+        if (frase[i] == ' ' || frase[i] == '\0') {
+            // Trobem un espai en blanc o el final de la cadena
+            if (i - inici > 0) {
+                // La paraula té almenys un caràcter
+                int longitudParaula = i - inici;
+                char* paraula = (char*)malloc((longitudParaula + 1) * sizeof(char));
+                if (paraula == NULL) {
+                    // Error d'assignació de memòria
+                    for (int j = 0; j < contador; j++) {
+                        free(paraules[j]);
+                    }
+                    free(paraules);
+                    return NULL;
                 }
-                free(paraules);
-                return NULL;
+
+                strncpy(paraula, &frase[inici], longitudParaula);
+                paraula[longitudParaula] = '\0';
+                paraules[contador] = paraula;
+                contador++;
+
+                if (contador >= 100) {
+                    // S'ha arribat al límit màxim de paraules
+                    break;
+                }
             }
-            strncpy(paraula, inici, longitud);
-            paraula[longitud] = '\0';
-            paraules[index] = paraula;
-            index++;
+
+            inici = i + 1;
         }
     }
 
-    paraules[index] = NULL; // Marcar el final de l'array amb un punter nul
+    paraules[contador] = NULL;  // Marcar el final de l'array amb un punter nul
     return paraules;
 }
+
 
 void insertionSort(int array[], int n) {
     int i, j, valorActual;
@@ -100,10 +85,11 @@ void imprimirTendenciesFinal(Publicacio** publicacions) {
     int numTendencies = 0;
     int k;
     while (publicacions[j]) {
-        while (separarParaules(publicacions[j]->contingut)[i]);{
+        char** palabras = separarParaules(publicacions[j]->contingut, strlen(publicacions[j]->contingut));
+        while (palabras != NULL && palabras[i]){
             k=0;
             char tendencia[MAX_STRING];
-            strcpy(tendencia,separarParaules(publicacions[j]->contingut)[i]);
+            strncpy(tendencia,separarParaules(publicacions[j]->contingut,strlen(publicacions[j]->contingut))[i],strlen(publicacions[j]->contingut));
             while(k<numTendencies){
                 if(strcmp(tendencies[k].contingut,tendencia)==0){
                     tendencies[k].popularitat++;
@@ -112,19 +98,19 @@ void imprimirTendenciesFinal(Publicacio** publicacions) {
                 k++;
             }
             numTendencies++;
-            strcpy(tendencies[numTendencies].contingut,tendencia);
+            strcpy(tendencies[numTendencies].contingut, tendencia);
             tendencies[numTendencies].popularitat=1;
             i++;
         }
         i=0;
         j++;
     }
-    insertionSort(&tendencies->popularitat,numTendencies);
+    insertionSort(tendencies,numTendencies);
+    printf("------------------------------------\n"
+           "               TENDENCIES              \n"
+           "---------------------------------------\n");
     for(int a=0;a<numTendencies;a++){
-        printf("------------------------------------\n"
-               "               TENDENCIES              \n"
-               "---------------------------------------\n"
-               "%d: %s",a,tendencies[a].contingut);
+        printf("%d: %s",a,tendencies[a].contingut);
     }
 }
 
@@ -207,7 +193,7 @@ void mostrarPublicacions(ArrayPublciacions* arrayPublciacions, Usuari* usuari) {
                     publicacio = arrayPublciacions->publicacions[i];
                     break;
                 case 3:
-                    imprimirTendenciesFinal(&publicacio);
+                    imprimirTendenciesFinal(arrayPublciacions);
                 case 4:
                     return;
                 default:
