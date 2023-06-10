@@ -9,6 +9,6 @@ JsonObject* guardarUsuarisJson(TaulaHash* taulaHash);
 
 char** convertirArrayAmics_arrayString(TaulaHash* taulaHash);
 char** convertirArrayGustos(char arrayGustos[5][MAX_STRING]);
-char** convertirArrayPublicacions(Usuari* usuari);
+JsonObject* arrayPublicacionsJson(Usuari* usuari);
 JsonObject* publicacioAJson(Publicacio* publicacio);
-char** convertirSolicitutsJson(Usuari* usuari);
+char** convertirSolicitutsJson(Usuari* usuari, int nombreSolicituts);

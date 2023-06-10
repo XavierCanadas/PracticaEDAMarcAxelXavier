@@ -109,7 +109,7 @@ void gestionSolicitudesAmistad(Usuari* usuari,TaulaHash* taula) {
                 entradaString("Introdueix el nom d'usuari del destinatari: ", destinatario, "none");
                 Usuari *user= buscarUsuari(taula, destinatario);
                 // s'hauria de passar com a remitent el nom d'usuari de l'objecte usuari del paràmetre
-                if(strcmp(usuari->nom,destinatario)!=0) encolar(user->solicitudsAmistat, usuari->nom, destinatario);
+                if(strcmp(usuari->nomUsuari,destinatario)!=0) encolar(user->solicitudsAmistat, usuari->nomUsuari, destinatario);
                 else printf("Error al enviar la sol·licitud");
                 printf("Sol·licitud d'amistat enviada a %s.\n", destinatario);
                 break;

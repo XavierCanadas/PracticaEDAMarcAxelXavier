@@ -179,10 +179,13 @@ JsonObject* usuariAJson(Usuari* usuari) {
     midaStringUsuari += jsonObjectStringLength(amics, true);
 
     // Solicituts d'amistat
+    int nombreSolicituts = longitudCola(usuari->solicitudsAmistat);
+    char* arraySolicituts = arrayToString(convertirSolicitutsJson(usuari, nombreSolicituts), nombreSolicituts);
+    JsonObject* solicituts = initJsonObject("solicituts", arraySolicituts, jsonArray);
+    midaStringUsuari += jsonObjectStringLength(solicituts, true);
 
     // Publicacions
-    char* arrayPublicacions = arrayToString(convertirArrayPublicacions(usuari), usuari->nombrePublicacions);
-    JsonObject* publicacions = initJsonObject("publicacions", arrayPublicacions, jsonArray);
+    JsonObject* publicacions = arrayPublicacionsJson(usuari);
     midaStringUsuari += jsonObjectStringLength(amics, true);
 
     // Nombre de publicacions
@@ -198,10 +201,10 @@ JsonObject* usuariAJson(Usuari* usuari) {
     strcat(usuariJson->valor, jsonObjectToString(correu, true, false, false));
     strcat(usuariJson->valor, jsonObjectToString(ciutat, true, false, false));
     strcat(usuariJson->valor, jsonObjectToString(gustos, true, false,false));
-    strcat(usuariJson->valor, jsonObjectToString(amics, true, true, false));
-
+    strcat(usuariJson->valor, jsonObjectToString(amics, true, false, false));
+    strcat(usuariJson->valor, jsonObjectToString(solicituts, true, false, false));
     strcat(usuariJson->valor, jsonObjectToString(publicacions, true, false,false));
-    strcat(usuariJson->valor, jsonObjectToString(nombrePublicacions, true, false, false));
+    strcat(usuariJson->valor, jsonObjectToString(nombrePublicacions, true, true, false));
 
 
     borrarJsonObject(nom);
@@ -211,7 +214,7 @@ JsonObject* usuariAJson(Usuari* usuari) {
     borrarJsonObject(ciutat);
     borrarJsonObject(gustos);
     borrarJsonObject(amics);
-
+    borrarJsonObject(solicituts);
     borrarJsonObject(publicacions);
     borrarJsonObject(nombrePublicacions);
 
@@ -247,13 +250,42 @@ char** convertirArrayGustos(char arrayGustos[5][MAX_STRING]) {
     return array;
 }
 
+JsonObject* arrayPublicacionsJson(Usuari* usuari) {
+    JsonObject* arrayPublicacions = initJsonObject("publicacions", NULL, jsonArray);
+    char** arrayAux = (char**) calloc(usuari->nombrePublicacions, sizeof(char*));
+    int midaArray = 0, comptador = 0;
+    bool esFinal = false;
+
+    for (int i = 0; i < usuari->nombrePublicacions; ++i) {
+        JsonObject* publicacio = publicacioAJson(&usuari->publicacions[i]);
+        if (publicacio != NULL){
+            if (comptador == usuari->nombrePublicacions - 1)
+                esFinal = true;
+            arrayAux[comptador] = jsonObjectToString(publicacio, false, esFinal, false);
+            midaArray += (int) strlen(arrayAux[comptador]);
+            comptador++;
+        }
+    }
+    arrayPublicacions->valor = (char*) calloc(midaArray + 1, sizeof(char));
+
+    for (int i = 0; i < comptador; ++i) {
+        strcat(arrayPublicacions->valor, arrayAux[i]);
+        free(arrayAux[i]);
+    }
+    free(arrayAux);
+    return arrayPublicacions;
+}
+
 char** convertirArrayPublicacions(Usuari* usuari) {
     int comptador = 0;
+    bool esFinal = false;
     char** arrayPublicacions = (char**) calloc(usuari->nombrePublicacions, sizeof(char*));
     for (int i = 0; i < usuari->nombrePublicacions; ++i) {
         JsonObject* publicacio = publicacioAJson(&usuari->publicacions[i]);
         if (publicacio != NULL){
-            char* publicacioString = jsonObjectToString(publicacio, false, false, false);
+            if (comptador == usuari->nombrePublicacions - 1)
+                esFinal = true;
+            char* publicacioString = jsonObjectToString(publicacio, false, esFinal, false);
             arrayPublicacions[comptador] = (char*) calloc(strlen(publicacioString) + 1, sizeof(char));
             strcpy(arrayPublicacions[comptador], publicacioString);
             comptador++;
@@ -288,7 +320,7 @@ JsonObject* publicacioAJson(Publicacio* publicacio) {
     publicacioJson->valor = (char*) calloc(midaString + 1, sizeof(char));
     strcat(publicacioJson->valor, jsonObjectToString(contingut, true, false, false));
     strcat(publicacioJson->valor, jsonObjectToString(data, true, false, false));
-    strcat(publicacioJson->valor, jsonObjectToString(likes, true, false, false));
+    strcat(publicacioJson->valor, jsonObjectToString(likes, true, true, false));
 
     // Es lliberen de memòria els JsonObject
     borrarJsonObject(contingut);
@@ -298,15 +330,17 @@ JsonObject* publicacioAJson(Publicacio* publicacio) {
     return publicacioJson;
 }
 
-char** convertirSolicitutsJson(Usuari* usuari) {
+char** convertirSolicitutsJson(Usuari* usuari, int nombreSolicituts) {
     NodoSolicitud* solicitut;
-    char** array = (char**) calloc(longitudCola(usuari->solicitudsAmistat) + 1, sizeof(char*));
+    char** array = (char**) calloc(nombreSolicituts + 1, sizeof(char*));
     int comptador = 0;
+
     while (colaVacia(usuari->solicitudsAmistat) == false) {
         solicitut = usuari->solicitudsAmistat->frente;
         if (solicitut->remitente[0] != '\0') {
             array[comptador] = (char*) calloc(strlen(solicitut->remitente)+1, sizeof(char));
             strcpy(array[comptador], solicitut->remitente);
+            desencolar(usuari->solicitudsAmistat);
             comptador++;
         }
     }

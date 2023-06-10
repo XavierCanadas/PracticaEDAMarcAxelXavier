@@ -69,7 +69,7 @@ int bucleMenu() {
     printf("\033[2J");
     printf("\nAdeu!\n");
 
-    FILE* file = fopen("../dades.json", "w");
+    FILE* file = fopen("../guardarDades.json", "w");
     rootGuardar = jsonObjectToString(arrayUsuarisJson, true, true,true);
     fputs(rootGuardar, file);
     fclose(file);

@@ -60,32 +60,84 @@ char** separarParaules(const char* frase, int longitud) {
 }
 
 
-void insertionSort(Tendencia tendencies[], int n) {
-    int i, j;
+void insertionSort(Tendencia* tendencia, int n) {
+    int j;
+    Tendencia* tendenciaActual;
 
+    for (int i = 1; i < n; ++i) {
+        tendenciaActual = &tendencia[i];
+        j = i - 1;
+        while (j >= 0 && tendencia[j].popularitat > tendenciaActual->popularitat) {
+            tendencia[j + 1].popularitat = tendenciaActual->popularitat;
+            strcpy(tendencia[j + 1].contingut, tendenciaActual->contingut);
+            j--;
+        }
+    }
+
+    /*
     for (i = 1; i < n; i++) {
-        Tendencia valorActual = tendencies[i];
+        valorActual = tendencia[i];
         j = i - 1;
 
-        while (j >= 0 && tendencies[j].popularitat > valorActual.popularitat) {
-            tendencies[j + 1] = tendencies[j];
+        while (j >= 0 && array[j] > valorActual) {
+            array[j + 1] = array[j];
             j--;
         }
 
-        tendencies[j + 1] = valorActual;
+        array[j + 1] = valorActual;
     }
+    */
 }
 
 
-void imprimirTendenciesFinal(Publicacio **publicacions) {
-    Tendencia *tendencies = (Tendencia *) malloc(10 * sizeof(Tendencia));
+void imprimirTendenciesFinal(ArrayPublciacions* arrayPublciacions) {
+    int midaArrayTendencies = 10, numTendencies = 0;
+
+    Tendencia* tendencies = (Tendencia *) calloc(midaArrayTendencies, sizeof(Tendencia));
+    Publicacio** publicacions = arrayPublciacions->publicacions;
+
+    // Recorrer totes les publicacions.
+    for (int i = 0; i < arrayPublciacions->nombrePublicacions; ++i) {
+        // Separar el contingut d'una publicació en paraules
+        char* ultimaPosicio;
+        char* paraula = strtok_r(publicacions[i]->contingut, " ", &ultimaPosicio);
+        while (paraula != NULL) {
+            bool trobat = false;
+            // Comproba que la paraula té més de 2 lletres
+            if (strlen(paraula) > 2) {
+                // Recorre l'array de tendències per veure si està
+                for (int j = 0; j < numTendencies; ++j) {
+                    if (strcmp(tendencies[j].contingut, paraula) == 0){
+                        tendencies[j].popularitat++;
+                        trobat = true;
+                        break;
+                    }
+                }
+                if (trobat == false) {
+                    if (numTendencies == (midaArrayTendencies-1)) {
+                        realloc(tendencies, (midaArrayTendencies + 10)* sizeof(Tendencia));
+                        midaArrayTendencies += 10;
+                    }
+                    strcpy(tendencies[numTendencies].contingut, paraula);
+                    tendencies[numTendencies].popularitat = 1;
+                    numTendencies++;
+                }
+            }
+            // Això passa a la següent paraula de la publicació
+            paraula = strtok_r(NULL, " ", &ultimaPosicio);
+        }
+    }
+
+
+
+    /*
     // Comptar la popularitat de cada tendència
     int i = 0;
     int j = 0;
     int numTendencies = 0;
     int k;
     while (publicacions[j]) {
-        char** palabras = separarParaules(publicacions[j]->contingut, strlen(publicacions[j]->contingut));
+        char** palabras = separarParaules(publicacions[j]->contingut, (int) strlen(publicacions[j]->contingut));
         while (palabras != NULL && palabras[i]){
             k=0;
             char tendencia[MAX_STRING];
@@ -104,18 +156,21 @@ void imprimirTendenciesFinal(Publicacio **publicacions) {
         }
         i=0;
         j++;
-    }
-    insertionSort(tendencies,numTendencies);
+    }*/
+
+    // L'he comentat per veure si s'imprimien les tendències.
+    //insertionSort(tendencies,arrayPublciacions->nombrePublicacions);
     printf("------------------------------------\n"
-           "            TENDENCIES              \n"
-           "------------------------------------\n");
+           "               TENDENCIES              \n"
+           "---------------------------------------\n");
     for(int a=0;a<numTendencies;a++){
-        printf("%d: %s",a,tendencies[a].contingut);
+        printf("%d: %s\n",a,tendencies[a].contingut);
     }
 }
 
 int ampliarArrayPublicacions(int novaMida, ArrayPublciacions* arrayPublciacions) {
     Publicacio** aux;
+
     aux = (Publicacio**) realloc(arrayPublciacions->publicacions, novaMida*sizeof(Publicacio**));
 
     if (arrayPublciacions == NULL) {
@@ -136,6 +191,7 @@ int realitzarPublicacio(Usuari* usuari, ArrayPublciacions* arrayPublciacions) {
     fflush(stdout);
     entradaString(" ", contingut, "none");
 
+    Publicacio* aux;
 
     if (arrayPublciacions->mida == (arrayPublciacions->nombrePublicacions-1))
         ampliarArrayPublicacions(arrayPublciacions->mida+10, arrayPublciacions);
@@ -191,7 +247,7 @@ void mostrarPublicacions(ArrayPublciacions* arrayPublciacions, Usuari* usuari) {
                     publicacio = arrayPublciacions->publicacions[i];
                     break;
                 case 3:
-                    imprimirTendenciesFinal(arrayPublciacions->publicacions);
+                    imprimirTendenciesFinal(arrayPublciacions);
                 case 4:
                     return;
                 default:
