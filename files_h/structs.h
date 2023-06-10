@@ -66,6 +66,11 @@ struct ColaSolicitudes{
     NodoSolicitud* final;
 } ;
 
+typedef struct Tendencia{
+    char contingut[MAX_STRING];
+    int popularitat;
+}Tendencia;
+
 /*
 /Funcions
 void inicializarCola(ColaSolicitudes* cola);
