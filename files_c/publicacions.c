@@ -52,7 +52,7 @@ char** separarParaules(const char* frase, int longitud) {
             }
 
             inici = i + 1;
-        }
+       }
     }
 
     paraules[contador] = NULL;  // Marcar el final de l'array amb un punter nul
@@ -61,7 +61,7 @@ char** separarParaules(const char* frase, int longitud) {
 
 
 void insertionSort(Tendencia* tendencia, int n) {
-    int j;
+    /*int j;
     Tendencia* tendenciaActual;
 
     for (int i = 1; i < n; ++i) {
@@ -72,21 +72,22 @@ void insertionSort(Tendencia* tendencia, int n) {
             strcpy(tendencia[j + 1].contingut, tendenciaActual->contingut);
             j--;
         }
-    }
+    }*/
 
-    /*
-    for (i = 1; i < n; i++) {
-        valorActual = tendencia[i];
-        j = i - 1;
 
-        while (j >= 0 && array[j] > valorActual) {
-            array[j + 1] = array[j];
+    for (int i = 1; i < n; i++) {
+        Tendencia valorActual = tendencia[i];
+        int j = i - 1;
+
+        while (j >= 0 && tendencia[j].popularitat > valorActual.popularitat) {
+            tendencia[j + 1].popularitat = tendencia[j].popularitat;
+            strcpy(tendencia[j+1].contingut,tendencia[j].contingut);
             j--;
         }
-
-        array[j + 1] = valorActual;
+        tendencia[j + 1].popularitat = valorActual.popularitat;
+        strcpy(tendencia[j+1].contingut,valorActual.contingut);
     }
-    */
+
 }
 
 
@@ -159,12 +160,12 @@ void imprimirTendenciesFinal(ArrayPublciacions* arrayPublciacions) {
     }*/
 
     // L'he comentat per veure si s'imprimien les tendències.
-    //insertionSort(tendencies,arrayPublciacions->nombrePublicacions);
+    insertionSort(tendencies,arrayPublciacions->nombrePublicacions);
     printf("------------------------------------\n"
            "               TENDENCIES              \n"
            "---------------------------------------\n");
-    for(int a=0;a<numTendencies;a++){
-        printf("%d: %s\n",a,tendencies[a].contingut);
+    for(int a=6;a>0;a--){
+        printf("-> %s (%d vegades)\n",tendencies[a].contingut,tendencies[a].popularitat);
     }
 }
 
@@ -273,33 +274,6 @@ void mostrarPublicacions(ArrayPublciacions* arrayPublciacions, Usuari* usuari) {
         }
     }
 
-    /*
-    // Buscar l'usuari a partir del nom d'usuari proporcionat
-    //Usuari* usuari = buscarUsuari(taula, nomUsuari);
-    if (usuari == NULL) {
-        printf("No s'ha trobat cap usuari amb aquest nom.\n");
-        return;
-    }
-
-    printf("Publicacions de l'usuari %s:\n", usuari->nomUsuari);
-
-    for (int i = 0; i < usuari->nombrePublicacions; i++) {
-        printf("---------------------------------------------------\n");
-        printf("                Publicacio %d\n", i + 1);
-        printf("---------------------------------------------------\n");
-        printf("Data: %s\n\n", usuari->publicacions[i].data);
-        printf("Contingut:\n%s\n\n", usuari->publicacions[i].contingut);
-        printf("Likes: %d\n", usuari->publicacions[i].likes);
-        printf("---------------------------------------------------\n");
-
-        int opcio = entradaInt("Vols donar m'agrada a aquesta publicació? (1: Sí, 0: No)");
-
-        if (opcio == 1) {
-            usuari->publicacions[i].likes++;
-            printf("Has donat m'agrada a aquesta publicació.\n");
-        }
-        printf("\n");
-    }*/
 
 }
 
