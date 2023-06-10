@@ -61,25 +61,12 @@ char** separarParaules(const char* frase, int longitud) {
 
 
 void insertionSort(Tendencia* tendencia, int n) {
-    /*int j;
-    Tendencia* tendenciaActual;
-
-    for (int i = 1; i < n; ++i) {
-        tendenciaActual = &tendencia[i];
-        j = i - 1;
-        while (j >= 0 && tendencia[j].popularitat > tendenciaActual->popularitat) {
-            tendencia[j + 1].popularitat = tendenciaActual->popularitat;
-            strcpy(tendencia[j + 1].contingut, tendenciaActual->contingut);
-            j--;
-        }
-    }*/
-
 
     for (int i = 1; i < n; i++) {
         Tendencia valorActual = tendencia[i];
         int j = i - 1;
 
-        while (j >= 0 && tendencia[j].popularitat > valorActual.popularitat) {
+        while (j >= 0 && tendencia[j].popularitat < valorActual.popularitat) {
             tendencia[j + 1].popularitat = tendencia[j].popularitat;
             strcpy(tendencia[j+1].contingut,tendencia[j].contingut);
             j--;
@@ -164,7 +151,7 @@ void imprimirTendenciesFinal(ArrayPublciacions* arrayPublciacions) {
     printf("------------------------------------\n"
            "               TENDENCIES              \n"
            "---------------------------------------\n");
-    for(int a=6;a>0;a--){
+    for(int a=0;a<5;a++){
         printf("-> %s (%d vegades)\n",tendencies[a].contingut,tendencies[a].popularitat);
     }
 }
