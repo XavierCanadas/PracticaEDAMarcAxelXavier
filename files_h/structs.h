@@ -15,7 +15,7 @@ typedef struct {
     char contingut[MAX_CARACTERS];
     char data[MAX_STRING];
     int likes;
-    char* usuarisMagrada[MAX_STRING];
+    char nomUsuari[MAX_STRING];
 } Publicacio;
 
 typedef struct {
@@ -36,7 +36,7 @@ typedef struct {
     char gustos[5][MAX_STRING];
     TaulaHash* amics;
     ColaSolicitudes* solicitudsAmistat;
-    Publicacio* publicacions;
+    ArrayPublciacions* arrayPublciacions;
     int nombrePublicacions;
 } Usuari;
 

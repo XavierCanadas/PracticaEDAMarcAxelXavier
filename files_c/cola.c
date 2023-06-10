@@ -18,7 +18,7 @@ bool colaVacia(ColaSolicitudes* cola) {
 }
 
 
-//Afegeix una nova sol·licitud de amistat a la cua.
+//Afegeix una nova sol·licitud d'amistat a la cua.
 void encolar(ColaSolicitudes* cola, const char* remitente, const char* destinatario) {
     NodoSolicitud* nuevoNodo = (NodoSolicitud*)calloc(1,sizeof(NodoSolicitud));
     strcpy(nuevoNodo->remitente, remitente);
@@ -72,13 +72,15 @@ void rechazarSolicitud(ColaSolicitudes* cola) {
  Accepta la sol·licitud d'amistat del davant de la cua.
  Afegeix l'amistat a la llista d'amics de l'usuari.
 */
-void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari) {
+void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari, TaulaHash* taulaHash) {
     if (colaVacia(cola)==true) {
         printf("No hi han solicituts d'amistat pendents.\n");
         return;
     }
-    int resultado = guardarUsuari(NULL, cola->frente->remitente, usuari->amics, NULL);
-    if (resultado == SUCCESS) {
+    Usuari* remitent = buscarUsuari(taulaHash, cola->frente->remitente);
+    int resultado = guardarUsuari(NULL, remitent->nomUsuari, usuari->amics, NULL);
+    int resultado2 = guardarUsuari(NULL, usuari->nomUsuari, remitent->amics, NULL);
+    if (resultado == SUCCESS && resultado2 == SUCCESS) {
         printf("Solicitud d'amistad acceptada, %s ara es el teu amic.\n", cola->frente->remitente);
     } else {
         printf("Error al aceptar solicitud d'amistat.\n");
@@ -90,13 +92,25 @@ void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari) {
 
 /*
  Gestiona les sol·licituds d'amistat.
- Proporciona un menú per enviar, acceptar o rebutjar sol·licituds de amistat.
+ Proporciona un menú per enviar, acceptar o rebutjar sol·licituds d'amistat.
 */
 void gestionSolicitudesAmistad(Usuari* usuari,TaulaHash* taula) {
-    usuari->solicitudsAmistat;
+    printf("\n----- GESTIO DE SOL.LICITUDS D'AMISTAT -----\n");
+    if (colaVacia(usuari->solicitudsAmistat) == false){
+        printf("Tens solicituts d'amistat pendents:\n");
+        int i = 1;
+        NodoSolicitud* aux = usuari->solicitudsAmistat->frente;
+        while (aux != NULL){
+            printf("\t %d: %s t'ha enviat una solicitut d'amistat\n", i, aux->remitente);
+            aux = aux->siguiente;
+            i++;
+        }
+        printf("\n");
+    }
+
     int opcion = 0;
     while (opcion != SORTIR_GESTIONAR_SOLICITUTS) {
-        printf("\n----- GESTIO DE SOL.LICITUDS D'AMISTAT -----\n");
+        printf("Escull el que vulguis fer:\n");
         printf("\t %d. Enviar sol.licitud d'amistat\n", ENVIAR_SOLICITUD);
         printf("\t %d. Acceptar sol.licitud d'amistat\n", ACEPTAR_SOLICITUD);
         printf("\t %d. Rebutjar sol.licitud d'amistat\n", REBUTJAR_SOLICITUD);
@@ -109,13 +123,16 @@ void gestionSolicitudesAmistad(Usuari* usuari,TaulaHash* taula) {
                 entradaString("Introdueix el nom d'usuari del destinatari: ", destinatario, "none");
                 Usuari *user= buscarUsuari(taula, destinatario);
                 // s'hauria de passar com a remitent el nom d'usuari de l'objecte usuari del paràmetre
-                if(strcmp(usuari->nomUsuari,destinatario)!=0) encolar(user->solicitudsAmistat, usuari->nomUsuari, destinatario);
-                else printf("Error al enviar la sol·licitud");
+                if(user != NULL && strcmp(usuari->nomUsuari,destinatario) != 0)
+                    encolar(user->solicitudsAmistat, usuari->nomUsuari, destinatario);
+                else
+                    printf("Error al enviar la sol·licitud");
+
                 printf("Sol·licitud d'amistat enviada a %s.\n", destinatario);
                 break;
             }
             case ACEPTAR_SOLICITUD:
-                acceptarSolicitud(usuari->solicitudsAmistat, usuari);
+                acceptarSolicitud(usuari->solicitudsAmistat, usuari, taula);
                 break;
             case REBUTJAR_SOLICITUD:
                 rechazarSolicitud(usuari->solicitudsAmistat);

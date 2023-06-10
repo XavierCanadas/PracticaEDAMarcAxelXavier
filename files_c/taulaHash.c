@@ -126,12 +126,29 @@ int taulaHashPlena(TaulaHash* taulaHash) {
 
     return SUCCESS;
 }
-
+extern void freeArrayPublicacions(ArrayPublciacions* arrayPublciacions);
+extern bool colaVacia(ColaSolicitudes* cola);
+extern void desencolar(ColaSolicitudes* cola);
 void eliminarUsuari(TaulaHash* taulaHash, int index) {
     Usuari* usuari = taulaHash->elements[index].valor;
 
     // Eliminar l'usuari
     if (usuari != NULL) {
+        if (usuari->arrayPublciacions != NULL)
+            freeArrayPublicacions(usuari->arrayPublciacions);
+
+        while (colaVacia(usuari->solicitudsAmistat) == false)
+            desencolar(usuari->solicitudsAmistat);
+
+        if (usuari->solicitudsAmistat != NULL)
+            free(usuari->solicitudsAmistat);
+
+        if (usuari->amics != NULL) {
+            free(usuari->amics->elements);
+            free(usuari->amics);
+        }
+
+
         free(usuari);
         taulaHash->elements[index].valor = NULL;
     }

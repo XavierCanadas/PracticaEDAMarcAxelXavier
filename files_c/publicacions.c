@@ -180,40 +180,52 @@ int realitzarPublicacio(Usuari* usuari, ArrayPublciacions* arrayPublciacions) {
     fflush(stdout);
     entradaString(" ", contingut, "none");
 
-    Publicacio* aux;
-
-    if (arrayPublciacions->mida == (arrayPublciacions->nombrePublicacions-1))
-        ampliarArrayPublicacions(arrayPublciacions->mida+10, arrayPublciacions);
-
-    strcpy(usuari->publicacions[usuari->nombrePublicacions].contingut, contingut);
-    usuari->publicacions[usuari->nombrePublicacions].likes = 0;
-
     // Obtener la fecha actual
     time_t t = time(NULL);
     struct tm* fecha = localtime(&t);
 
     // Formatear la fecha en el formato deseado (dd/mm/aaaa)
-    snprintf(usuari->publicacions[usuari->nombrePublicacions].data, sizeof(usuari->publicacions[usuari->nombrePublicacions].data), "%02d/%02d/%d", fecha->tm_mday, fecha->tm_mon + 1, fecha->tm_year + 1900);
+    char data[MAX_STRING];
+    snprintf(data, sizeof(data), "%02d/%02d/%d", fecha->tm_mday, fecha->tm_mon + 1, fecha->tm_year + 1900);
 
-    arrayPublciacions->publicacions[arrayPublciacions->nombrePublicacions] = &usuari->publicacions[usuari->nombrePublicacions];
-    arrayPublciacions->nombrePublicacions++;
-
-    usuari->nombrePublicacions++;
+    afegirPublicacio(usuari, arrayPublciacions, contingut, data, 0);
 
     printf("Publicacio realitzada amb exit.\n");
     return SUCCESS;
+}
+void afegirPublicacio(Usuari* usuari, ArrayPublciacions* arrayPublciacions, char* contingut, char* data, int likes) {
+    Publicacio* publicacio = (Publicacio*) calloc(1, sizeof(Publicacio));
+    if (arrayPublciacions->mida == (arrayPublciacions->nombrePublicacions-1))
+        ampliarArrayPublicacions(arrayPublciacions->mida+10, arrayPublciacions);
+
+    if (usuari->arrayPublciacions->mida == (usuari->arrayPublciacions->nombrePublicacions-1))
+        ampliarArrayPublicacions(usuari->arrayPublciacions->mida+10, usuari->arrayPublciacions);
+
+    strcpy(publicacio->contingut, contingut);
+    publicacio->likes = likes;
+
+    strcpy(publicacio->data, data);
+    strcpy(publicacio->nomUsuari, usuari->nomUsuari);
+    usuari->arrayPublciacions->publicacions[usuari->nombrePublicacions] = publicacio;
+    arrayPublciacions->publicacions[arrayPublciacions->nombrePublicacions] = publicacio;
+    arrayPublciacions->nombrePublicacions++;
+
+    usuari->nombrePublicacions++;
 }
 
 
 void mostrarPublicacions(ArrayPublciacions* arrayPublciacions, Usuari* usuari) {
     int entradaUsuari = 0;
     int nombrePublicacions;
-
+    printf("\n-----------------------------------------\n");
+    printf("        PUBLICACIONS\n");
+    printf("-----------------------------------------\n");
     while (entradaUsuari != 3) {
-        entradaUsuari = entradaInt("[1]- Veure les teves publicacions\n"
-                                   "[2]- Veure totes les publicacions\n"
-                                   "[3]- Tendències\n"
-                                   "[4]- Sortir\n");
+        printf("\t %d: Veure les teves publicacions\n"
+               "\t %d: Veure totes les publicacions\n"
+               "\t %d: Tendencies\n"
+               "\t %d: Sortir",VEURE_MEVES_PUB, VEURE_TOTES_PUB, TENDENCIES, SORTIR_PUB);
+        entradaUsuari = entradaInt(" ");
         if (entradaUsuari == 1)
             nombrePublicacions = usuari->nombrePublicacions;
         else
@@ -229,7 +241,7 @@ void mostrarPublicacions(ArrayPublciacions* arrayPublciacions, Usuari* usuari) {
             switch (entradaUsuari) {
                 case 1:
                     printf("Publicacions de l'usuari %s:\n", usuari->nomUsuari);
-                    publicacio = &usuari->publicacions[i];
+                    publicacio = usuari->arrayPublciacions->publicacions[i];
                     break;
 
                 case 2:
@@ -249,6 +261,7 @@ void mostrarPublicacions(ArrayPublciacions* arrayPublciacions, Usuari* usuari) {
             printf("Data: %s\n\n", publicacio->data);
             printf("Contingut:\n%s\n\n", publicacio->contingut);
             printf("Likes: %d\n", publicacio->likes);
+            printf("Publicacio feta per: %s\n", publicacio->nomUsuari);
             printf("---------------------------------------------------\n");
 
             int opcio = entradaInt("Vols donar m'agrada a aquesta publicació? (1: Sí, 0: No)");

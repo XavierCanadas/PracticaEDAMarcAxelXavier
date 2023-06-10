@@ -2,8 +2,9 @@
 #include "../files_h/json.h"
 
 JsonObject* llegirFitxer(char* direccioFitxer);
-int llegirUsuarisJson(TaulaHash* taulaHash, JsonObject* root);
-Usuari* convertirJsonUsuari(JsonObject* usuariJson);
+int llegirUsuarisJson(TaulaHash* taulaHash, JsonObject* root, ArrayPublciacions* arrayPublciacions);
+Usuari* convertirJsonUsuari(JsonObject* usuariJson, ArrayPublciacions* arrayPublciacions);
+void convertirPublicacioJson(JsonObject* publicacions, Usuari* usuari, ArrayPublciacions* arrayPublciacions);
 JsonObject* usuariAJson(Usuari* usuari);
 JsonObject* guardarUsuarisJson(TaulaHash* taulaHash);
 

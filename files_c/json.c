@@ -65,7 +65,8 @@ void handle_array(char *start, JsonObject *object) {
 
 void handle_object(char *start, JsonObject *object) {
     char *end;
-    end = strchr(start + 1, '}');
+    end = strrchr(start + 1, '}');
+
     if (end != NULL) {
         object->valor = malloc(end - start + 2);
         strncpy(object->valor, start + 1, end - start - 1);

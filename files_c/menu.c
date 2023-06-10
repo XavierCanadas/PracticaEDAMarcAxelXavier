@@ -12,7 +12,7 @@ int bucleMenu() {
     int opcioEscollida = 0;
 
     JsonObject* root = llegirFitxer("../dades.json");
-    llegirUsuarisJson(taulaHash, root);
+    llegirUsuarisJson(taulaHash, root, arrayPublciacions);
 
     borrarJsonObject(root);
     JsonObject* arrayUsuarisJson;
@@ -56,7 +56,6 @@ int bucleMenu() {
                 arrayUsuarisJson = guardarUsuarisJson(taulaHash);
 
                 eliminarTaulaHash(taulaHash);
-                freeArrayPublicacions(arrayPublciacions);
                 break;
 
             default:
@@ -66,16 +65,17 @@ int bucleMenu() {
         }
         fflush(stdout);
     }
-    printf("\033[2J");
     printf("\nAdeu!\n");
+    printf("\033[2J");
 
-    FILE* file = fopen("../guardarDades.json", "w");
+    FILE* file = fopen("../dades.json", "w");
     rootGuardar = jsonObjectToString(arrayUsuarisJson, true, true,true);
     fputs(rootGuardar, file);
     fclose(file);
 
     borrarJsonObject(arrayUsuarisJson);
     free(rootGuardar);
+    free(arrayPublciacions);
 
     fflush(stdout);
 

@@ -15,4 +15,4 @@ void desencolar(ColaSolicitudes* cola);
 int longitudCola(ColaSolicitudes* cola);
 void rechazarSolicitud(ColaSolicitudes* cola);
 void gestionSolicitudesAmistad(Usuari* usuari,TaulaHash* taula);
-void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari);
+void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari, TaulaHash* taulaHash);

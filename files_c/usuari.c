@@ -3,6 +3,7 @@
 
 // Aquesta funció crea espai per un usuari i totes les variables a 0.
 extern void inicializarCola(ColaSolicitudes** cola);
+extern ArrayPublciacions* initArrayPublicacions(int mida);
 Usuari* initUsuari() {
     Usuari* usuari = (Usuari*) calloc(1, sizeof(Usuari));
 
@@ -10,12 +11,12 @@ Usuari* initUsuari() {
         memset(usuari->gustos[i], 0, sizeof(usuari->gustos[i]));
     }
 
-
     // Crea espai per deu amics
     usuari->amics = (TaulaHash*) calloc(1, sizeof(TaulaHash));
     initTaulaHash(  usuari->amics, 10);
 
-    usuari->publicacions = (Publicacio*) calloc(1, sizeof(Publicacio));
+    usuari->arrayPublciacions = initArrayPublicacions(10);
+
     inicializarCola(&usuari->solicitudsAmistat);
     return usuari;
 }

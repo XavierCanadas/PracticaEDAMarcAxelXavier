@@ -22,7 +22,7 @@ JsonObject* llegirFitxer(char* direccioFitxer) {
     return jsonObject;
 }
 
-int llegirUsuarisJson(TaulaHash* taulaHash, JsonObject* root) {
+int llegirUsuarisJson(TaulaHash* taulaHash, JsonObject* root, ArrayPublciacions* arrayPublciacions) {
     int nombreTotalUsuaris;
 
     // Es comproba que s'hagi passat l'arrel
@@ -38,7 +38,7 @@ int llegirUsuarisJson(TaulaHash* taulaHash, JsonObject* root) {
 
     for (int i = 0; i < midaArray; ++i) {
         JsonObject* usuariJson = get_element_at_index(arrayUsuaris, i);
-        Usuari* aux = convertirJsonUsuari(usuariJson);
+        Usuari* aux = convertirJsonUsuari(usuariJson, arrayPublciacions);
         guardarUsuari(aux, aux->nomUsuari, taulaHash, NULL);
         borrarJsonObject(usuariJson);
     }
@@ -46,7 +46,7 @@ int llegirUsuarisJson(TaulaHash* taulaHash, JsonObject* root) {
     return SUCCESS;
 }
 
-Usuari* convertirJsonUsuari(JsonObject* usuariJson) {
+Usuari* convertirJsonUsuari(JsonObject* usuariJson, ArrayPublciacions* arrayPublciacions) {
     // Es comprova si l'usuariJson passat és null
     if (usuariJson->type == jsonNull)
         return NULL;
@@ -67,6 +67,15 @@ Usuari* convertirJsonUsuari(JsonObject* usuariJson) {
     // Agafar l'array d'amics
     JsonObject* amicsArray = find_in_object("amics", usuariJson);
     JsonObject* unAmic;
+
+    // Agafar l'array de solicituts
+    JsonObject* solicituts = find_in_object("solicituts", usuariJson);
+    JsonObject* unaSolicitut;
+
+    // Agafar l'array de publicació
+    JsonObject* publicacions = find_in_object("publicacions", usuariJson);
+
+
 
     // es copia cada variable de l'usuari.
     strcpy(usuari->nom, nom->valor);
@@ -96,8 +105,22 @@ Usuari* convertirJsonUsuari(JsonObject* usuariJson) {
             guardarUsuari(NULL, unAmic->valor, usuari->amics, NULL);
             borrarJsonObject(unAmic);
         }
-
     }
+
+    // s'agafen les solicituts pendents i es posen a la cua
+    if (solicituts->type != jsonNull && solicituts->valor[0] != '\0') {
+        int midaArray = (int) count_elements(solicituts);
+        for (int i = 0; i < midaArray; ++i) {
+            unaSolicitut = get_element_string_at_index(solicituts, i);
+            encolar(usuari->solicitudsAmistat, unaSolicitut->valor, usuari->nomUsuari);
+            borrarJsonObject(unAmic);
+        }
+    }
+
+    // s'afegeixen les publicacions
+    if (publicacions->type != jsonNull && publicacions->valor[0] != '\0')
+        convertirPublicacioJson(publicacions, usuari, arrayPublciacions);
+
     // Lliberar de memòria tot.
     borrarJsonObject(nom);
     borrarJsonObject(nomUsuari);
@@ -106,8 +129,32 @@ Usuari* convertirJsonUsuari(JsonObject* usuariJson) {
     borrarJsonObject(ciutat);
     borrarJsonObject(amicsArray);
     borrarJsonObject(gustosArray);
+    borrarJsonObject(solicituts);
+    borrarJsonObject(publicacions);
 
     return usuari;
+}
+void convertirPublicacioJson(JsonObject* publicacions, Usuari* usuari, ArrayPublciacions* arrayPublciacions) {
+    JsonObject* unaPublicacio;
+    if (publicacions->type != jsonNull) {
+        for (int i = 0; i < count_elements(publicacions); ++i) {
+            unaPublicacio = get_element_at_index(publicacions, i);
+            JsonObject* contingut = find_in_object("contingut", unaPublicacio);
+            JsonObject* data = find_in_object("data", unaPublicacio);
+            JsonObject* likes = find_in_object("likes", unaPublicacio);
+
+            // S'afegeix la publicació a l'array de l'usuari i també al que les conté totes.
+            afegirPublicacio(usuari, arrayPublciacions, contingut->valor, data->valor, (int) strtol(likes->valor, NULL, 10));
+
+            // Es llibera de memòria els objectes creats
+            borrarJsonObject(contingut);
+            borrarJsonObject(data);
+            borrarJsonObject(likes);
+            borrarJsonObject(unaPublicacio);
+
+        }
+    }
+
 }
 
 /// Escriure dades
@@ -186,7 +233,7 @@ JsonObject* usuariAJson(Usuari* usuari) {
 
     // Publicacions
     JsonObject* publicacions = arrayPublicacionsJson(usuari);
-    midaStringUsuari += jsonObjectStringLength(amics, true);
+    midaStringUsuari += jsonObjectStringLength(publicacions, true);
 
     // Nombre de publicacions
     char nombrePublicacionsString[10];
@@ -257,7 +304,7 @@ JsonObject* arrayPublicacionsJson(Usuari* usuari) {
     bool esFinal = false;
 
     for (int i = 0; i < usuari->nombrePublicacions; ++i) {
-        JsonObject* publicacio = publicacioAJson(&usuari->publicacions[i]);
+        JsonObject* publicacio = publicacioAJson(usuari->arrayPublciacions->publicacions[i]);
         if (publicacio != NULL){
             if (comptador == usuari->nombrePublicacions - 1)
                 esFinal = true;
@@ -276,24 +323,7 @@ JsonObject* arrayPublicacionsJson(Usuari* usuari) {
     return arrayPublicacions;
 }
 
-char** convertirArrayPublicacions(Usuari* usuari) {
-    int comptador = 0;
-    bool esFinal = false;
-    char** arrayPublicacions = (char**) calloc(usuari->nombrePublicacions, sizeof(char*));
-    for (int i = 0; i < usuari->nombrePublicacions; ++i) {
-        JsonObject* publicacio = publicacioAJson(&usuari->publicacions[i]);
-        if (publicacio != NULL){
-            if (comptador == usuari->nombrePublicacions - 1)
-                esFinal = true;
-            char* publicacioString = jsonObjectToString(publicacio, false, esFinal, false);
-            arrayPublicacions[comptador] = (char*) calloc(strlen(publicacioString) + 1, sizeof(char));
-            strcpy(arrayPublicacions[comptador], publicacioString);
-            comptador++;
-        }
-    }
 
-    return arrayPublicacions;
-}
 
 JsonObject* publicacioAJson(Publicacio* publicacio) {
     JsonObject* publicacioJson = initJsonObject(NULL, NULL, jsonTypeObjet);
