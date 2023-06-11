@@ -18,6 +18,8 @@ STUDENT NAMES: Marc Guiu, Xavier Cañadas i Axel Del Val
 STUDENT NUMBERS: U , U , U215091
 11/06/2022
 
+Link video: https://drive.google.com/file/d/1hG2Iun87ZtNsI_mVayIX02yVxCYKdZRG/view?usp=share_link
+
 INTRODUCCIÓ
 El present informe té com a objectiu proporcionar una visió del procés de desenvolupament d'una xarxa social, amb les funcions principals que ha de tenir, centrat en la creació de perfils, establiment d'amistats, publicació de contingut i compartició d'interessos de l'usuari.
 
