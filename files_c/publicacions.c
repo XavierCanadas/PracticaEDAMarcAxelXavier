@@ -15,6 +15,7 @@ ArrayPublciacions* initArrayPublicacions(int mida) {
 }
 int ampliarArrayPublicacions(int novaMida, ArrayPublciacions* arrayPublciacions) {
     Publicacio** aux;
+    int midaAux = arrayPublciacions->mida - 1;
 
     aux = (Publicacio**) realloc(arrayPublciacions->publicacions, novaMida*sizeof(Publicacio*));
 
@@ -23,6 +24,10 @@ int ampliarArrayPublicacions(int novaMida, ArrayPublciacions* arrayPublciacions)
     }
     arrayPublciacions->publicacions = aux;
     arrayPublciacions->mida = novaMida;
+
+    for (int i = midaAux; i < novaMida; ++i) {
+        arrayPublciacions->publicacions[i] = NULL;
+    }
 
     return SUCCESS;
 }
@@ -42,8 +47,9 @@ ArrayTendencies* initArrayTendencies(int mida) {
     return arrayTendencies;
 }
 
-int ampliarArraytendencies(int novaMida, ArrayTendencies* arrayTendencies) {
+int ampliarArraytendencies(int novaMida, ArrayTendencies* arrayTendencies, bool taulaHash) {
     Tendencia** aux;
+    int midaAux = arrayTendencies->mida - 1;
 
     aux = (Tendencia**) realloc(arrayTendencies->tendencies, novaMida*sizeof(Tendencia*));
 
@@ -52,6 +58,27 @@ int ampliarArraytendencies(int novaMida, ArrayTendencies* arrayTendencies) {
     }
     arrayTendencies->tendencies = aux;
     arrayTendencies->mida = novaMida;
+
+    if (taulaHash == false) {
+        for (int i = midaAux; i < novaMida; ++i) {
+            arrayTendencies->tendencies[i] = NULL;
+        }
+    } else {
+        for (int i = novaMida - 1; i >= 0; --i) {
+            if (i >= novaMida - 10) {
+                arrayTendencies->tendencies[i] = NULL;
+            } else {
+                int indexGuardat;
+                indexGuardat = hashingTendencies(arrayTendencies, arrayTendencies->tendencies[i]);
+                if (indexGuardat != i) {
+                    arrayTendencies->tendencies[indexGuardat] = arrayTendencies->tendencies[i];
+                    arrayTendencies->tendencies[i] = NULL;
+                }
+            }
+        }
+    }
+
+
 
     return SUCCESS;
 }
@@ -133,12 +160,12 @@ void afegirTendencies(Publicacio* publicacio, ArrayTendencies* arrayTendencies, 
             } else {
                 tendencia->popularitat = 1;
                 if (arrayTendencies->mida == (arrayTendencies->nombreTendencies -1 ))
-                    ampliarArraytendencies(arrayTendencies->mida+10, arrayTendencies);
+                    ampliarArraytendencies(arrayTendencies->mida+10, arrayTendencies, true);
                 arrayTendencies->tendencies[index] = tendencia;
                 arrayTendencies->nombreTendencies++;
 
                 if (arrayTendenciesSorting->mida == (arrayTendenciesSorting->nombreTendencies -1 ))
-                    ampliarArraytendencies(arrayTendenciesSorting->mida+10, arrayTendenciesSorting);
+                    ampliarArraytendencies(arrayTendenciesSorting->mida+10, arrayTendenciesSorting, false);
                 arrayTendenciesSorting->tendencies[arrayTendenciesSorting->nombreTendencies] = tendencia;
                 arrayTendenciesSorting->nombreTendencies++;
             }
@@ -153,7 +180,6 @@ void agafarTendenciesvoid(ArrayPublciacions* arrayPublciacions, ArrayTendencies*
     for (int i = 0; i < arrayPublciacions->nombrePublicacions; ++i) {
         afegirTendencies(arrayPublciacions->publicacions[i], arrayTendencies, arrayTendenciesSorting);
     }
-
 }
 
 

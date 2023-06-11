@@ -11,7 +11,7 @@ int ampliarArrayPublicacions(int novaMida, ArrayPublciacions* arrayPublciacions)
 void freeArrayPublicacions(ArrayPublciacions* arrayPublciacions);
 
 ArrayTendencies* initArrayTendencies(int mida);
-int ampliarArraytendencies(int novaMida, ArrayTendencies* arrayTendencies);
+int ampliarArraytendencies(int novaMida, ArrayTendencies* arrayTendencies, bool taulaHash);
 void freeArrayTendencies(ArrayTendencies * arrayTendencies);
 int hashingTendencies(ArrayTendencies* arrayTendencies, Tendencia* tendencia);
 void afegirTendencies(Publicacio* publicacio, ArrayTendencies* arrayTendencies, ArrayTendencies* arrayTendenciesSorting);
