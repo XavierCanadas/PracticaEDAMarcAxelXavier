@@ -68,14 +68,12 @@ Variables utilitzades i la seva finalitat: Com a variables, a part d’un índex
 Estructures de dades utilitzades i el seu ús esperat: Es va utilitzar una estructura JsonObject, que definia el tipus de dades que podem trobar dins l’arxiu .json.
 Algorisme escollit i el seu comportament esperat: Es va utilitzar l'algorisme de cerca lineal, que recorre l’array en cerca del valor desitjat.
 Limitacions de l'algorisme i la seva implementació: L'algorisme de cerca lineal requereix que es recorre la llista per “força bruta”, la qual cosa no és massa eficient; tot i això, en alguns casos on les dades estan desordenades és la millor opció.
+
 Objectiu: implementar algoritme de sorting (insertion sort)
 Resum: Es va implementar funcionalment l'algorisme de sorting per ordenar la llista de tendències (paraules més usades a les publicacions) de major a menor. Per ordenar-les hem usat l’algoritme InsertionSort.
 Variables utilitzades i la seva finalitat: s’ha fet servir dos nombres enters que s’utilitza com a comptadors que s’actualitzaran dintre dels bucles que hi ha. també punter de Tendència auxiliar per fer els canvis de posició.
 Estructures de dades utilitzades i implementació de l’algoritme: l’algoritme recorre un array de punters de tendències per fer les comparacions. Primer hi ha un bucle for que recorre tot l’array i dintre hi ha un bucle while que comprovarà si un valor és més gran que l’altre i si ho és fa el canvi de posició.
 Limitacions de l'algorisme i la seva implementació: L’algoritme d'insertionsort és simple d’implementar però, per contra, té que en el pitjor dels casos el temps de complexitat és O(n^2)
-Possibles millores: Es podria canviar l'algorisme de cerca lineal per tècniques com la cerca recursiva per a millorar l'eficiència i facilitar el manteniment del codi.
-Temps requerit per desenvolupar aquest objectiu: Aproximadament 5 hores. 
-Ubicació: Fitxer "json.c", funció getElementAtIndex()
 
 Objectiu: Implementar un Diccionari (Dictionary) funcional com a part de les funcionalitats del projecte.
 Resum: Es va implementar un Diccionari funcional en forma de taula hash, per guardar els usuaris i les seves dades, generant la clau a partir del nom d’usuari.
@@ -173,7 +171,6 @@ Aquest és el mètode per registrar i guardar un nou usuari. Per a mantenir aque
 
 Descripció i tractament del conjunt de dades
 Abans d’inicialitzar el menú es crida a la funció llegirFitxer() la qual es basa en cerca tota la informació dins l’arxiu json i guardar-la en una llista dinàmica, aquesta llista la podem situar en el nostre codi dins un objecte (JsonObject)  tipus root. Un cop hem extret les dades de l'arxiu json i estan a la llista cridem la funció usuarisJson() per agafar tota la informació de la llista i passar-la a una taula hash, que ha estat prèviament inicialitzada. Dins la taula es guardaran els usuaris, el JsonObject i l’array amb les publicacions corresponent a cada usuari. Per a tots els usuaris del fitxer json hi ha una sèrie de funcions internes que serveixen desserialitzar les dades del json i per guardar certa informació a la taula hash. Les funcions convertirJsonUsuari() i guardarUsuari() son les encarregades d’aquest procés. A més la funció convertirJsonUsuari() es trunca amb la funció convertirPublicacioJson() que guarda la informació de les publicacions de cada usuari als arrays que contenen totes les publicacions i les publicacions d’un mateix usuari. Aquest és el sistema que usem per a poder guardar i moure les dades dels usuaris al llarg de tot el codi. 
-
 
 
 
