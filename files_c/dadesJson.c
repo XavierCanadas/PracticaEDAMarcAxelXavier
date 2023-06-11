@@ -10,11 +10,11 @@ JsonObject* llegirFitxer(char* direccioFitxer) {
 
     if (file) {
         fseek(file, 0, SEEK_END);
-        mida =  ftell(file);
+        mida =  ftell(file) + 2;
         fseek(file, 0, SEEK_SET);
-        jsonObject->valor = (char*) malloc(mida);
+        jsonObject->valor = (char*) calloc(1, mida);
         if (jsonObject->valor) {
-            fread(jsonObject->valor, 1, mida, file);
+            fread(jsonObject->valor, 1, mida - 2, file);
         }
         fclose(file);
     }
@@ -73,7 +73,7 @@ Usuari* convertirJsonUsuari(JsonObject* usuariJson, ArrayPublciacions* arrayPubl
     JsonObject* unaSolicitut;
 
     // Agafar l'array de publicació
-    //JsonObject* publicacions = find_in_object("publicacions", usuariJson);
+    JsonObject* publicacions = find_in_object("publicacions", usuariJson);
 
 
 
@@ -113,15 +113,15 @@ Usuari* convertirJsonUsuari(JsonObject* usuariJson, ArrayPublciacions* arrayPubl
         for (int i = 0; i < midaArray; ++i) {
             unaSolicitut = get_element_string_at_index(solicituts, i);
             encolar(usuari->solicitudsAmistat, unaSolicitut->valor, usuari->nomUsuari);
-            borrarJsonObject(unAmic);
+            borrarJsonObject(unaSolicitut);
         }
     }
 
-    /* FALLA
+
     // s'afegeixen les publicacions
     if (publicacions->type != jsonNull && publicacions->valor[0] != '\0')
         convertirPublicacioJson(publicacions, usuari, arrayPublciacions);
-    */
+
 
     // Lliberar de memòria tot.
     borrarJsonObject(nom);
