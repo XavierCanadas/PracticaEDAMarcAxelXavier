@@ -17,7 +17,6 @@ int hashing(char* clau, TaulaHash* taulaHash, bool esNouUsuari) {
     int clauASCII = charToIntASCII(clau);
     char clauAux[MAX_STRING];
 
-
     do {
         // S'aplica el mòdul al nombre clauASCII % mida de la taula
         index = (clauASCII + i) % taulaHash->size;

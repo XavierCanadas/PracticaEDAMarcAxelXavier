@@ -8,11 +8,14 @@ int bucleMenu() {
     initTaulaHash(taulaHash, 10);
 
     ArrayPublciacions* arrayPublciacions = initArrayPublicacions(10);
+    ArrayTendencies* arrayTendencies = initArrayTendencies(30);
+    ArrayTendencies* arrayTendenciesSorting = initArrayTendencies(30);
 
     int opcioEscollida = 0;
 
     JsonObject* root = llegirFitxer("../dades.json");
     llegirUsuarisJson(taulaHash, root, arrayPublciacions);
+    agafarTendenciesvoid(arrayPublciacions, arrayTendencies,arrayTendenciesSorting);
 
     borrarJsonObject(root);
     JsonObject* arrayUsuarisJson;
@@ -46,7 +49,7 @@ int bucleMenu() {
                 break;
 
             case ESCOLLIR_USUARI:
-                bucleEscollirUsuari(taulaHash, arrayPublciacions);
+                bucleEscollirUsuari(taulaHash, arrayPublciacions, arrayTendencies, arrayTendenciesSorting);
                 break;
 
             case MOSTRAR_OPCIONS:
@@ -76,13 +79,16 @@ int bucleMenu() {
     borrarJsonObject(arrayUsuarisJson);
     free(rootGuardar);
     free(arrayPublciacions);
+    freeArrayTendencies(arrayTendencies);
+    free(arrayTendenciesSorting);
+
 
     fflush(stdout);
 
     return SUCCESS;
 }
 
-int bucleEscollirUsuari(TaulaHash* taula, ArrayPublciacions* arrayPublciacions) {
+int bucleEscollirUsuari(TaulaHash* taula, ArrayPublciacions* arrayPublciacions, ArrayTendencies* arrayTendencies, ArrayTendencies* arrayTendenciesSorting) {
     int opcioEscollida = 0;
     int entradaAuxEliminarUsuari = 0;
 
@@ -104,11 +110,11 @@ int bucleEscollirUsuari(TaulaHash* taula, ArrayPublciacions* arrayPublciacions) 
                 break;
 
             case FER_PUBLICACIO:
-                realitzarPublicacio(usuari, arrayPublciacions);
+                realitzarPublicacio(usuari, arrayPublciacions, arrayTendencies, arrayTendenciesSorting);
                 break;
 
             case VEURE_PUBLICACIONS:
-                mostrarPublicacions(arrayPublciacions, usuari);
+                mostrarPublicacions(arrayPublciacions, usuari, arrayTendencies, arrayTendenciesSorting);
                 break;
 
             case EDITAR_USUARI:

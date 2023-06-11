@@ -66,9 +66,15 @@ struct ColaSolicitudes{
     NodoSolicitud* final;
 } ;
 
-typedef struct Tendencia{
+typedef struct {
     char contingut[MAX_STRING];
     int popularitat;
 }Tendencia;
+
+typedef struct {
+    Tendencia** tendencies;
+    int mida;
+    int nombreTendencies;
+}ArrayTendencies;
 
 

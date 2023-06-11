@@ -24,6 +24,6 @@ int bucleMenu();
 void showMenuOptions();
 
 void showEscollirUsuaruMenu(Usuari *usuari);
-int bucleEscollirUsuari(TaulaHash* taula, ArrayPublciacions* arrayPublciacions);
+int bucleEscollirUsuari(TaulaHash* taula, ArrayPublciacions* arrayPublciacions, ArrayTendencies* arrayTendencies, ArrayTendencies* arrayTendenciesSorting);
 
 

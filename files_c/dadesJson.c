@@ -146,7 +146,7 @@ void convertirPublicacioJson(JsonObject* publicacions, Usuari* usuari, ArrayPubl
             JsonObject* likes = find_in_object("likes", unaPublicacio);
 
             // S'afegeix la publicació a l'array de l'usuari i també al que les conté totes.
-            afegirPublicacio(usuari, arrayPublciacions, contingut->valor, data->valor, (int) strtol(likes->valor, NULL, 10));
+            afegirPublicacio(usuari, arrayPublciacions, contingut->valor, data->valor, (int) strtol(likes->valor, NULL, 10), NULL, NULL);
 
             // Es llibera de memòria els objectes creats
             borrarJsonObject(contingut);
