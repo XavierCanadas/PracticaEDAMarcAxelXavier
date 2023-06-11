@@ -180,8 +180,9 @@ void afegirTendencies(Publicacio* publicacio, ArrayTendencies* arrayTendencies, 
 
     // Separar el contingut d'una publicació en paraules
     char* ultimaPosicio;
-    char* paraula = strtok_r(publicacio->contingut, " ", &ultimaPosicio);
-
+    char paraulaAux[MAX_CARACTERS];
+    strcpy(paraulaAux, publicacio->contingut);
+    char* paraula = strtok_r(paraulaAux, " ", &ultimaPosicio);
 
     while (paraula != NULL) {
         Tendencia* tendencia = (Tendencia*) calloc(1, sizeof(Tendencia));
@@ -250,7 +251,7 @@ void imprimirTendenciesFinal(ArrayPublciacions* arrayPublciacions, ArrayTendenci
  * @return
  */
 int realitzarPublicacio(Usuari* usuari, ArrayPublciacions* arrayPublciacions, ArrayTendencies* arrayTendencies,ArrayTendencies* arrayTendenciesSorting) {
-    char contingut[MAX_STRING];
+    char contingut[MAX_CARACTERS];
     memset(contingut, 0, sizeof(contingut));
     printf("Introdueix el contingut de la publicacio (maxim %d caracters): ", MAX_CARACTERS);
     fflush(stdout);
