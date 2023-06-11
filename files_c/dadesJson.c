@@ -132,7 +132,7 @@ Usuari* convertirJsonUsuari(JsonObject* usuariJson, ArrayPublciacions* arrayPubl
     borrarJsonObject(amicsArray);
     borrarJsonObject(gustosArray);
     borrarJsonObject(solicituts);
-    //borrarJsonObject(publicacions);
+    borrarJsonObject(publicacions);
 
     return usuari;
 }
