@@ -234,7 +234,8 @@ void imprimirTendenciesFinal(ArrayPublciacions* arrayPublciacions, ArrayTendenci
            "               TENDENCIES              \n"
            "---------------------------------------\n");
     for(int a = 0; a < 6;a++){
-        printf("-> %s (%d vegades)\n",arrayTendenciesSorting->tendencies[a]->contingut,arrayTendenciesSorting->tendencies[a]->popularitat);
+        if (arrayTendenciesSorting->tendencies[a] != NULL)
+            printf("-> %s (%d vegades)\n",arrayTendenciesSorting->tendencies[a]->contingut,arrayTendenciesSorting->tendencies[a]->popularitat);
     }
 }
 
