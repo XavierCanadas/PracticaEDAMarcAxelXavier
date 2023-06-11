@@ -65,10 +65,11 @@ void handle_array(char *start, JsonObject *object) {
 
 void handle_object(char *start, JsonObject *object) {
     char *end;
-    end = strrchr(start + 1, '}');
+    end = strrchr(start, '}');
+
 
     if (end != NULL) {
-        object->valor = malloc(end - start + 2);
+        object->valor = calloc(1,end - start + 4);
         strncpy(object->valor, start + 1, end - start - 1);
         object->valor[end - start] = '\0';
         object->type = jsonTypeObjet;
@@ -96,8 +97,8 @@ void findValue(char *input, JsonObject *object, bool objectInArray) {
         } else if (isdigit(*start) || *start == '-') {
             char *end;
             end = start;
-            while (isdigit(*end) || *end == '-') end++;
-            object->valor = malloc(end - start + 1);
+            while (*end != '\0') end++;
+            object->valor = calloc(1,end - start + 1);
             strncpy(object->valor, start, end - start);
             object->valor[end - start] = '\0';
             object->type = jsonInt;

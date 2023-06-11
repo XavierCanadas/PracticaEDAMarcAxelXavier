@@ -89,6 +89,7 @@ void imprimirTendenciesFinal(ArrayPublciacions* arrayPublciacions) {
         // Separar el contingut d'una publicació en paraules
         char* ultimaPosicio;
         char* paraula = strtok_r(publicacions[i]->contingut, " ", &ultimaPosicio);
+
         while (paraula != NULL) {
             bool trobat = false;
             // Comproba que la paraula té més de 2 lletres

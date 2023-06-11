@@ -73,7 +73,7 @@ Usuari* convertirJsonUsuari(JsonObject* usuariJson, ArrayPublciacions* arrayPubl
     JsonObject* unaSolicitut;
 
     // Agafar l'array de publicació
-    JsonObject* publicacions = find_in_object("publicacions", usuariJson);
+    //JsonObject* publicacions = find_in_object("publicacions", usuariJson);
 
 
 
@@ -117,9 +117,11 @@ Usuari* convertirJsonUsuari(JsonObject* usuariJson, ArrayPublciacions* arrayPubl
         }
     }
 
+    /* FALLA
     // s'afegeixen les publicacions
     if (publicacions->type != jsonNull && publicacions->valor[0] != '\0')
         convertirPublicacioJson(publicacions, usuari, arrayPublciacions);
+    */
 
     // Lliberar de memòria tot.
     borrarJsonObject(nom);
@@ -130,7 +132,7 @@ Usuari* convertirJsonUsuari(JsonObject* usuariJson, ArrayPublciacions* arrayPubl
     borrarJsonObject(amicsArray);
     borrarJsonObject(gustosArray);
     borrarJsonObject(solicituts);
-    borrarJsonObject(publicacions);
+    //borrarJsonObject(publicacions);
 
     return usuari;
 }
@@ -341,7 +343,7 @@ JsonObject* publicacioAJson(Publicacio* publicacio) {
     midaString += jsonObjectStringLength(data, true);
 
     // m'agrada
-    char likesString[10];
+    char likesString[3];
     sprintf(likesString, "%d", publicacio->likes);
     JsonObject* likes = initJsonObject("likes", likesString, jsonInt);
     midaString += jsonObjectStringLength(likes, true);
