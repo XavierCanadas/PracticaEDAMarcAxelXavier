@@ -4,7 +4,6 @@
 #include <time.h>
 
 
-// S'inicialitza l'array de publicacions
 /**
  * Es reserva a memòria espai per un objecte ArrayPublciacions i també es reserva espai per un array de punters de Publicació.
  * @param mida

@@ -161,6 +161,7 @@ extern void desencolar(ColaSolicitudes* cola);
  * @param taulaHash
  * @param index
  */
+ extern Usuari* initUsuari();
 void eliminarUsuari(TaulaHash* taulaHash, int index) {
     Usuari* usuari = taulaHash->elements[index].valor;
 
@@ -178,11 +179,14 @@ void eliminarUsuari(TaulaHash* taulaHash, int index) {
         if (usuari->amics != NULL) {
             free(usuari->amics->elements);
             free(usuari->amics);
+
         }
 
 
         free(usuari);
         taulaHash->elements[index].valor = NULL;
+        taulaHash->count--;
+
     }
     memset(taulaHash->elements[index].clau, 0, sizeof(taulaHash->elements->clau));
 }
