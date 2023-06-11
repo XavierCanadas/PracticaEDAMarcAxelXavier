@@ -117,11 +117,9 @@ Usuari* convertirJsonUsuari(JsonObject* usuariJson, ArrayPublciacions* arrayPubl
         }
     }
 
-
     // s'afegeixen les publicacions
     if (publicacions->type != jsonNull && publicacions->valor[0] != '\0')
         convertirPublicacioJson(publicacions, usuari, arrayPublciacions);
-
 
     // Lliberar de memòria tot.
     borrarJsonObject(nom);
@@ -315,7 +313,7 @@ JsonObject* arrayPublicacionsJson(Usuari* usuari) {
             comptador++;
         }
     }
-    arrayPublicacions->valor = (char*) calloc(midaArray + 1, sizeof(char));
+    arrayPublicacions->valor = (char*) calloc(midaArray + 5, sizeof(char));
 
     for (int i = 0; i < comptador; ++i) {
         strcat(arrayPublicacions->valor, arrayAux[i]);
@@ -349,7 +347,7 @@ JsonObject* publicacioAJson(Publicacio* publicacio) {
     midaString += jsonObjectStringLength(likes, true);
 
     // S'afegeixen tots els jsonObject a PublicacioJson.
-    publicacioJson->valor = (char*) calloc(midaString + 1, sizeof(char));
+    publicacioJson->valor = (char*) calloc(midaString + 5, sizeof(char));
     strcat(publicacioJson->valor, jsonObjectToString(contingut, true, false, false));
     strcat(publicacioJson->valor, jsonObjectToString(data, true, false, false));
     strcat(publicacioJson->valor, jsonObjectToString(likes, true, true, false));

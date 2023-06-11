@@ -6,7 +6,7 @@ JsonObject* initJsonObject(char* clau, char* valor, JsonTypes jsonTypes) {
         strcpy(jsonObject->clau, clau);
 
     if (valor != NULL) {
-        jsonObject->valor = (char*) calloc(strlen(valor + 1), sizeof(char));
+        jsonObject->valor = (char*) calloc(strlen(valor) + 5, sizeof(char));
         strcpy(jsonObject->valor, valor);
     }
     jsonObject->type = jsonTypes;
@@ -39,7 +39,7 @@ void handle_string(char *start, JsonObject *object) {
     char *end;
     end = strchr(start + 1, '\"');
     if (end != NULL) {
-        object->valor = malloc(end - start);
+        object->valor = calloc(1,end - start);
         strncpy(object->valor, start + 1, end - start - 1);
         object->valor[end - start - 1] = '\0';
         object->type = jsonString;
@@ -56,7 +56,7 @@ void handle_array(char *start, JsonObject *object) {
     }
     if (count == 0) {
         end--;
-        object->valor = malloc(end - start);
+        object->valor = calloc(1,end - start + 2);
         strncpy(object->valor, start + 1, end - start - 1);
         object->valor[end - start - 1] = '\0';
         object->type = jsonArray;
@@ -65,8 +65,7 @@ void handle_array(char *start, JsonObject *object) {
 
 void handle_object(char *start, JsonObject *object) {
     char *end;
-    end = strrchr(start, '}');
-
+    end = strrchr(start + 1, '}');
 
     if (end != NULL) {
         object->valor = calloc(1,end - start + 4);
@@ -97,13 +96,16 @@ void findValue(char *input, JsonObject *object, bool objectInArray) {
         } else if (isdigit(*start) || *start == '-') {
             char *end;
             end = start;
-            while (*end != '\0') end++;
+            while (*end != '\0' && isdigit(*end)) {
+                end++;
+            }
+
             object->valor = calloc(1,end - start + 1);
             strncpy(object->valor, start, end - start);
             object->valor[end - start] = '\0';
             object->type = jsonInt;
         } else {
-            object->valor = malloc(1);
+            object->valor = calloc(1,1);
             object->valor[0] = '\0';
             object->type = jsonNull;
         }
@@ -118,6 +120,7 @@ JsonObject* find_in_object(char *key, JsonObject *object) {
         result->clau[strlen(key)] = '\0';
         findValue(start - 1 , result, false);
     }
+    strcat(result->valor, "\0");
 
     return result;
 }
@@ -176,7 +179,7 @@ JsonObject* get_element_at_index(JsonObject *array, int index) {
 
     if (start[caracterMirat] == '\0') caracterMirat--;
 
-    char* input = (char*) malloc(sizeof(char)*(caracterMirat-posicioInicial+4));
+    char* input = (char*) calloc((caracterMirat-posicioInicial+4),sizeof(char));
     strncpy(input, start + posicioInicial, caracterMirat - posicioInicial + 2);
     findValue(input, result, true);
 

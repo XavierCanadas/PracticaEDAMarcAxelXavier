@@ -11,6 +11,10 @@
 #include <math.h>
 #include <ctype.h>
 
+#if defined(_WIN32) || defined(_WIN64)
+#define strtok_r strtok_s
+#endif
+
 // Declaració de constants globals
 #define SUCCESS 33 // Per saber si una funció ha tingut èxit.
 #define OPCIO_INVALIDA (-10)

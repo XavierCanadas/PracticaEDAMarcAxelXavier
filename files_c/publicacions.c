@@ -15,17 +15,17 @@ ArrayPublciacions* initArrayPublicacions(int mida) {
 }
 int ampliarArrayPublicacions(int novaMida, ArrayPublciacions* arrayPublciacions) {
     Publicacio** aux;
-    int midaAux = arrayPublciacions->mida - 1;
-
+    int midaAux = arrayPublciacions->mida;
     aux = (Publicacio**) realloc(arrayPublciacions->publicacions, novaMida*sizeof(Publicacio*));
 
     if (arrayPublciacions == NULL) {
         return ERROR_AMPLIAR_TAULA;
     }
     arrayPublciacions->publicacions = aux;
+
     arrayPublciacions->mida = novaMida;
 
-    for (int i = midaAux; i < novaMida; ++i) {
+    for (int i = midaAux-1; i < novaMida; ++i) {
         arrayPublciacions->publicacions[i] = NULL;
     }
 
@@ -116,17 +116,6 @@ int hashingTendencies(ArrayTendencies* arrayTendencies, Tendencia* tendencia) {
 
 
 void insertionSort(ArrayTendencies* arrayTendenciesSorting, int n) {
-    /*
-    for (int i = 1; i < n; ++i) {
-        Tendencia* tendenciaActual = arrayTendenciesSorting->tendencies[i];
-        int j = i-1;
-
-        while (j >= 0 && arrayTendenciesSorting->tendencies[i]->popularitat < tendenciaActual->popularitat) {
-            arrayTendenciesSorting->tendencies[j+1] = arrayTendenciesSorting->tendencies[j];
-            j--;
-        }
-        arrayTendenciesSorting->tendencies[j+1] = tendenciaActual;
-    }*/
     int  j;
     Tendencia *key;
     for (int i = 1; i < arrayTendenciesSorting->nombreTendencies; i++) {
@@ -178,7 +167,9 @@ void afegirTendencies(Publicacio* publicacio, ArrayTendencies* arrayTendencies, 
 }
 void agafarTendenciesvoid(ArrayPublciacions* arrayPublciacions, ArrayTendencies* arrayTendencies, ArrayTendencies* arrayTendenciesSorting) {
     for (int i = 0; i < arrayPublciacions->nombrePublicacions; ++i) {
-        afegirTendencies(arrayPublciacions->publicacions[i], arrayTendencies, arrayTendenciesSorting);
+        if (arrayPublciacions->publicacions[i] != NULL && arrayPublciacions->publicacions[i]->contingut[0] != '\0') {
+            afegirTendencies(arrayPublciacions->publicacions[i], arrayTendencies, arrayTendenciesSorting);
+        }
     }
 }
 
