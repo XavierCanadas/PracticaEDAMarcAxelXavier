@@ -1,9 +1,14 @@
 #include "../files_h/usuari.h"
 #include "time.h"
 
-// Aquesta funció crea espai per un usuari i totes les variables a 0.
+// s'agafen funcions de cola.h sense incluir tot l'arxiu perquè produia errors inesperats.
 extern void inicializarCola(ColaSolicitudes** cola);
 extern ArrayPublciacions* initArrayPublicacions(int mida);
+
+/**
+ * Es reserva espai a memòria per un usuari i s'inicialitza totes les seves variables a NULL o 0 (amb calloc).
+ * @return: es retorna l'usuari inicialitzat
+ */
 Usuari* initUsuari() {
     Usuari* usuari = (Usuari*) calloc(1, sizeof(Usuari));
 
@@ -20,8 +25,12 @@ Usuari* initUsuari() {
     inicializarCola(&usuari->solicitudsAmistat);
     return usuari;
 }
+/**
+ * Aquesta funció s'encarrega de demanar a l'usuari que esculli els seus gustos d'una llista predeterminada.
+ * @param usuari
+ */
 void seleccionarGustos(Usuari* usuari) {
-    // Lista de gustos en catalán
+    // Lista de gustos
     const char* gustos[] = {
             "Cuina",
             "Esport",
@@ -40,18 +49,17 @@ void seleccionarGustos(Usuari* usuari) {
 
     printf("Selecciona els %d gustos que millor et defineixin:\n", 5);
 
-    // Mostrar la lista de gustos
+    // Mostra la llista de gustos
     for (int i = 0; i < numGustos; i++) {
         printf("%d. %s\n", i + 1, gustos[i]);
     }
 
-    // Solicitar al usuario que seleccione sus gustos
+    // Solicita l'usuari que seleccioni els seus gustos
     for (int i = 0; i < 5; i++) {
         printf("Selecciona el gust numero %d: ", i + 1);
-        int seleccion;
-        scanf("%d", &seleccion);
+        int seleccion = entradaInt(" ");
 
-        // Validar la selección del usuario
+        // Valida la selecció de l'usuari
         if (seleccion >= 1 && seleccion <= numGustos) {
             strcpy(usuari->gustos[i], gustos[seleccion - 1]);
         } else {
@@ -62,6 +70,10 @@ void seleccionarGustos(Usuari* usuari) {
 }
 
 /// Creació i guardar un usuari
+/**
+ * La funció inicialitza un Usuari i demana a l'usuari que introdueixi les dades.
+ * @return
+ */
 Usuari* nouUsuari() {
     Usuari *user = initUsuari();
 

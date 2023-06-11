@@ -14,7 +14,5 @@
 Usuari* initUsuari();
 Usuari* nouUsuari();
 void imprimirUsuaris(TaulaHash* taulaHash);
-void imprimirUnUsuari(Usuari* usuari);
-void initLlistaAmics(Usuari* usuari);
 Usuari* buscarUsuari(TaulaHash* taulaHash, char* nomUsuari);
 
