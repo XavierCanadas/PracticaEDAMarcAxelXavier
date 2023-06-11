@@ -94,6 +94,10 @@ Usuari* nouUsuari() {
     return user;
 }
 
+/**
+ * La funció itera per la taulaHash d'usuaris passada i imprimeix el nom d'usuari de tots els usuaris guardats
+ * @param taulaHash
+ */
 void imprimirUsuaris(TaulaHash* taulaHash) {
     // Recorrer tota la taula i imprimir
     int k=0, count = 0;
@@ -108,9 +112,15 @@ void imprimirUsuaris(TaulaHash* taulaHash) {
 }
 
 // Funció buscar usuari: s'ha de trucar a la funció hashing
+/**
+ * Passat un nom d'usuari, aquesta funció truca a la funció de hashing per buscar-lo a la taula hash i el retorna.
+ * @param taulaHash
+ * @param nomUsuari
+ * @return
+ */
 Usuari* buscarUsuari(TaulaHash* taulaHash, char* nomUsuari) {
     int idx = hashing(nomUsuari, taulaHash, false);
-    if (idx==ERROR_CALCULAR_INDEX) return NULL;
+    if (idx == ERROR_CALCULAR_INDEX) return NULL;
     return taulaHash->elements[idx].valor;
 }
 

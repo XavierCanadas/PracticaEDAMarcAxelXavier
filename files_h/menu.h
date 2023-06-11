@@ -14,10 +14,8 @@
 #define GESTIONAR_SOLICITUTS 1
 #define FER_PUBLICACIO 2
 #define VEURE_PUBLICACIONS 3
-#define IMPRIMIR_USUARI 4
-#define EDITAR_USUARI 5
-#define ELIMINAR_USUARI 6
-#define SORTIR_MENU_USUARI 7
+#define ELIMINAR_USUARI 4
+#define SORTIR_MENU_USUARI 5
 
 // Funcions:
 int bucleMenu();

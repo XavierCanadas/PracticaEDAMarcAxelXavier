@@ -2,16 +2,18 @@
 
 // Taula Hash:
 
-/* Explicació funció hash:
-
-  La funció hash rep una clau del tipus String i una taula hash, al principi truca a la funció
+/**
+ * La funció hash rep una clau del tipus String i una taula hash, al principi truca a la funció
   charToIntASCII() per convertir la clau en un nombre. Després aplica el mòdul al nombre de la clau
   i comproba si amb l'índex que ha donat, a la taula aquest índex està ocupat o lliure. Si està lliure
   o està ocupat per la mateixa clau retorna l'índex trobat, sinó torna a aplicar el mòdul al nombre,
   però aquesta vegada sumant-li +1 i torna a mirar la condició.
  (La comprobació de col·lisions es fa a la funció guardarUsuari())
+ * @param clau
+ * @param taulaHash
+ * @param esNouUsuari
+ * @return
  */
-
 int hashing(char* clau, TaulaHash* taulaHash, bool esNouUsuari) {
     int index, i = 0;
     int clauASCII = charToIntASCII(clau);
@@ -38,6 +40,11 @@ int hashing(char* clau, TaulaHash* taulaHash, bool esNouUsuari) {
     return index;
 }
 
+/**
+ * La funció rep una string, itera per cada caracter i va sumant tots els valors ascii i retorna el valor de la suma final.
+ * @param string
+ * @return
+ */
 int charToIntASCII(char* string) {
     int resultat = 0;
     for (int i = 0; i < strlen(string); ++i) {
@@ -46,7 +53,12 @@ int charToIntASCII(char* string) {
     }
     return resultat;
 }
-
+/**
+ * Es passa un punter de taula hash, amb memòria reservada ja, la funció asigna tots els valors a 0 i també crea espai per
+ * el nombre d'elements que spha definit al paràmetre.
+ * @param taulaHash
+ * @param size
+ */
 void initTaulaHash(TaulaHash* taulaHash, int size) {
     ElementTaulaHash* llistaElements = (ElementTaulaHash*) calloc(size,sizeof(ElementTaulaHash));
     taulaHash->elements = llistaElements;
@@ -58,7 +70,15 @@ void initTaulaHash(TaulaHash* taulaHash, int size) {
         taulaHash->elements[i].valor = NULL;
     }
 }
-
+/**
+ * La finalitat de la funció és guardar un usuari a la taula hash, per fer això primer calcula l'índex que ha de tenir
+ * trucant a hashing i després el guarda a la seva posició.
+ * @param usuari
+ * @param nomUsuari
+ * @param taulaHash
+ * @param indexGuardat: s'utilitza només per poder ampliar la taula correctament a la funció taulaHashPlena().
+ * @return
+ */
 int guardarUsuari(Usuari* usuari, char* nomUsuari, TaulaHash* taulaHash, int *indexGuardat) {
     int index = hashing(nomUsuari, taulaHash, true);
 
@@ -84,6 +104,12 @@ int guardarUsuari(Usuari* usuari, char* nomUsuari, TaulaHash* taulaHash, int *in
     return SUCCESS;
 }
 
+/**
+ * Quan la taulaHash s'emplena, aquesta funció s'encarrega de reservar més espai i tornar a asignar els nous índex a la posició
+ * que li correspon a cada usuari.
+ * @param taulaHash
+ * @return
+ */
 int taulaHashPlena(TaulaHash* taulaHash) {
     // S'afegeix espai per 10 usuaris més
     taulaHash->size += 10;
@@ -125,9 +151,16 @@ int taulaHashPlena(TaulaHash* taulaHash) {
 
     return SUCCESS;
 }
+// Aquestes funcions s'usen per poder lliberar de la memòria correctament els usuaris que es volen eliminar.
 extern void freeArrayPublicacions(ArrayPublciacions* arrayPublciacions);
 extern bool colaVacia(ColaSolicitudes* cola);
 extern void desencolar(ColaSolicitudes* cola);
+
+/**
+ * La funció llibera de memòria cada component d'un usuari passat i després llibera l'usuari i així s'elimina.
+ * @param taulaHash
+ * @param index
+ */
 void eliminarUsuari(TaulaHash* taulaHash, int index) {
     Usuari* usuari = taulaHash->elements[index].valor;
 
@@ -154,6 +187,10 @@ void eliminarUsuari(TaulaHash* taulaHash, int index) {
     memset(taulaHash->elements[index].clau, 0, sizeof(taulaHash->elements->clau));
 }
 
+/**
+ * La funció recorre tota la taula hash i elimina cada usuari trucant a eliminarUsuari().
+ * @param taulaHash
+ */
 void eliminarTaulaHash(TaulaHash* taulaHash) {
     // primer iterar per cada element de la taula i eliminar-lo.
     for (int i = 0; i < taulaHash->size; ++i) {

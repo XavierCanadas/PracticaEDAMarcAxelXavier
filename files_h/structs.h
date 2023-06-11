@@ -7,27 +7,27 @@
 #define UNTITLED2_STRUCTS_H
 
 #endif //UNTITLED2_STRUCTS_H
-//definicions per les publicacions
-#define MAX_PUBLICACIONS 100
+//definició per les publicacions
 #define MAX_CARACTERS 120
 
-typedef struct {
-    char contingut[MAX_CARACTERS];
-    char data[MAX_STRING];
-    int likes;
-    char nomUsuari[MAX_STRING];
-} Publicacio;
-
-typedef struct {
-    Publicacio** publicacions;
-    int mida;
-    int nombrePublicacions;
-}ArrayPublciacions;
+typedef struct Usuari Usuari;
 
 typedef struct TaulaHash TaulaHash;
+typedef struct ElementTaulaHash ElementTaulaHash;
+
+typedef struct NodoSolicitud NodoSolicitud;
 typedef struct ColaSolicitudes ColaSolicitudes;
 
-typedef struct {
+typedef struct Publicacio Publicacio;
+typedef struct ArrayPublciacions ArrayPublciacions;
+
+typedef struct Tendencia Tendencia;
+typedef struct ArrayTendencies ArrayTendencies;
+
+/**
+ * Estructura que defineix un usuari
+ */
+struct Usuari{
     char nomUsuari[MAX_STRING];
     char nom[MAX_STRING];
     int edat;
@@ -38,15 +38,19 @@ typedef struct {
     ColaSolicitudes* solicitudsAmistat;
     ArrayPublciacions* arrayPublciacions;
     int nombrePublicacions;
-} Usuari;
+};
 
 
-/// Estructura per la taula hash per guadar els usuaris
-typedef struct {
+/**
+ * Estructura d'un element de la taula hash per a guadar els usuaris
+ */
+struct ElementTaulaHash{
     char clau[MAX_STRING]; // És el nom d'usuari.
     Usuari* valor;
-} ElementTaulaHash;
-
+};
+/**
+ * Estructura per la taula hash per a guadar els usuaris
+ */
 struct TaulaHash {
     int size;
     int count;
@@ -54,27 +58,56 @@ struct TaulaHash {
 };
 
 
-///Estructures cua per solicituds d'amistat
-typedef struct Nodo {
+
+/**
+ * Estructura d'un node de la cua per solicituds d'amistat
+ */
+struct NodoSolicitud {
     char remitente[MAX_STRING];
     char destinatario[MAX_STRING];
-    struct Nodo* siguiente;
-} NodoSolicitud;
-
+    struct NodoSolicitud* siguiente;
+};
+/**
+ * Estructura cua per solicituds d'amistat
+ */
 struct ColaSolicitudes{
     NodoSolicitud* frente;
     NodoSolicitud* final;
-} ;
+};
 
-typedef struct {
+/**
+ * Estructura d'una Publicació
+ */
+struct Publicacio{
+    char contingut[MAX_CARACTERS];
+    char data[MAX_STRING];
+    int likes;
+    char nomUsuari[MAX_STRING];
+} ;
+/**
+ * Estructura de l'array de publicacions
+ */
+struct ArrayPublciacions{
+    Publicacio** publicacions;
+    int mida;
+    int nombrePublicacions;
+};
+
+/**
+ * Estructura d'una Tendència
+ */
+struct Tendencia{
     char contingut[MAX_STRING];
     int popularitat;
-}Tendencia;
+};
 
-typedef struct {
+/**
+ * Estructura de l'array de tendències
+ */
+struct ArrayTendencies{
     Tendencia** tendencies;
     int mida;
     int nombreTendencies;
-}ArrayTendencies;
+};
 
 

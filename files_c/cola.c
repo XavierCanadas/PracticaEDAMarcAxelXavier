@@ -1,24 +1,34 @@
 //Includes
 #include "../files_h/cola.h"
 
-//Inicialitza la cua de sol·licituds.
+
+/**
+ * s'inicialitza la cua de sol·licituds
+ * @param cola
+ */
 void inicializarCola(ColaSolicitudes** cola) {
     *cola = (ColaSolicitudes*) calloc(1,sizeof(ColaSolicitudes));
     (*cola)->frente = NULL;
     (*cola)->final = NULL;
 }
 
-/*
- Comprova si la cua de sol·licituds està buida.
- Retorna true si la cua està buida, false en cas contrari.
+/**
+ * Comprova si la cua de sol·licituds està buida.
+ * Retorna true si la cua està buida, false en cas contrari.
+ * @param cola
+ * @return
  */
 bool colaVacia(ColaSolicitudes* cola) {
     if (cola->frente == NULL) return true;
     return false;
 }
 
-
-//Afegeix una nova sol·licitud d'amistat a la cua.
+/**
+ * s'afegeix una nova sol·licitud d'amistat a la cua.
+ * @param cola
+ * @param remitente
+ * @param destinatario
+ */
 void encolar(ColaSolicitudes* cola, const char* remitente, const char* destinatario) {
     NodoSolicitud* nuevoNodo = (NodoSolicitud*)calloc(1,sizeof(NodoSolicitud));
     strcpy(nuevoNodo->remitente, remitente);
@@ -35,7 +45,10 @@ void encolar(ColaSolicitudes* cola, const char* remitente, const char* destinata
 }
 
 
-//Elimina la sol·licitud d'amistat del davant de la cua.
+/**
+ * Elimina la sol·licitud d'amistat del davant de la cua.
+ * @param cola
+ */
 void desencolar(ColaSolicitudes* cola) {
     if (cola->frente==NULL) return;
     NodoSolicitud* aux = cola->frente;
@@ -43,6 +56,11 @@ void desencolar(ColaSolicitudes* cola) {
     free(aux);
 }
 
+/**
+ * Calcula el nombre de solicituts que hi ha la cua.
+ * @param cola
+ * @return
+ */
 int longitudCola(ColaSolicitudes* cola) {
     int contador = 0;
     NodoSolicitud* aux = cola->frente;
@@ -53,13 +71,16 @@ int longitudCola(ColaSolicitudes* cola) {
     return contador;
 }
 
-//Rebutja la sol·licitud d'amistat del davant de la cua.
+/**
+ * Rebutja la sol·licitud d'amistat del davant de la cua.
+ * @param cola
+ */
 void rechazarSolicitud(ColaSolicitudes* cola) {
     if (colaVacia(cola)==true) {
         printf("La cua de solalicituds esta buida.\n");
         return;
     }
-    //eliminem la solicitud
+    //elimina la solicitud
     printf("Sol.licitud d'amistat de %s rebutjada.\n", cola->frente->remitente);
 
     cola->frente = cola->frente->siguiente;
@@ -68,10 +89,13 @@ void rechazarSolicitud(ColaSolicitudes* cola) {
     }
 }
 
-/*
- Accepta la sol·licitud d'amistat del davant de la cua.
- Afegeix l'amistat a la llista d'amics de l'usuari.
-*/
+/**
+ * Accepta la sol·licitud d'amistat del davant de la cua.
+ * Afegeix l'amistat a la llista d'amics de l'usuari.
+ * @param cola
+ * @param usuari
+ * @param taulaHash
+ */
 void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari, TaulaHash* taulaHash) {
     if (colaVacia(cola)==true) {
         printf("No hi han solicituts d'amistat pendents.\n");
@@ -88,12 +112,12 @@ void acceptarSolicitud(ColaSolicitudes* cola, Usuari* usuari, TaulaHash* taulaHa
     desencolar(cola);
 }
 
-
-
-/*
- Gestiona les sol·licituds d'amistat.
- Proporciona un menú per enviar, acceptar o rebutjar sol·licituds d'amistat.
-*/
+/**
+ * Gestiona les sol·licituds d'amistat.
+ * Proporciona un menú per enviar, acceptar o rebutjar sol·licituds d'amistat.
+ * @param usuari
+ * @param taula
+ */
 void gestionSolicitudesAmistad(Usuari* usuari,TaulaHash* taula) {
     printf("\n----- GESTIO DE SOL.LICITUDS D'AMISTAT -----\n");
     if (colaVacia(usuari->solicitudsAmistat) == false){
@@ -128,7 +152,7 @@ void gestionSolicitudesAmistad(Usuari* usuari,TaulaHash* taula) {
                 else
                     printf("Error al enviar la sol·licitud");
 
-                printf("Sol·licitud d'amistat enviada a %s.\n", destinatario);
+                printf("Solicitud d'amistat enviada a %s.\n", destinatario);
                 break;
             }
             case ACEPTAR_SOLICITUD:

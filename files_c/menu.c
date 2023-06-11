@@ -1,6 +1,9 @@
 #include "../files_h/menu.h"
 
-// Aquesta funció conté el bucle del menú del programa.
+/**
+ * Aquesta funció conté el bucle del menú principal del programa.
+ * @return
+ */
 int bucleMenu() {
 
     // Es crea la taula hash
@@ -68,8 +71,9 @@ int bucleMenu() {
         }
         fflush(stdout);
     }
-    printf("\nAdeu!\n");
     printf("\033[2J");
+    printf("\nAdeu!\n");
+
 
     FILE* file = fopen("../dades.json", "w");
     rootGuardar = jsonObjectToString(arrayUsuarisJson, true, true,true);
@@ -88,6 +92,14 @@ int bucleMenu() {
     return SUCCESS;
 }
 
+/**
+ * Aquesta funció conté el bucle del menú que hi ha quan selecciones per operar amb un usuari en específic.
+ * @param taula
+ * @param arrayPublciacions
+ * @param arrayTendencies
+ * @param arrayTendenciesSorting
+ * @return
+ */
 int bucleEscollirUsuari(TaulaHash* taula, ArrayPublciacions* arrayPublciacions, ArrayTendencies* arrayTendencies, ArrayTendencies* arrayTendenciesSorting) {
     int opcioEscollida = 0;
     int entradaAuxEliminarUsuari = 0;
@@ -117,10 +129,6 @@ int bucleEscollirUsuari(TaulaHash* taula, ArrayPublciacions* arrayPublciacions, 
                 mostrarPublicacions(arrayPublciacions, usuari, arrayTendencies, arrayTendenciesSorting);
                 break;
 
-            case EDITAR_USUARI:
-                printf("S'editaria l'usuari\n");
-                break;
-
             case ELIMINAR_USUARI:
                 printf("Estàs segur que vols borrar?\n escrigui %d per confirmar o %d per cancelar\n",CONFIRMAR, CANCELAR);
                 fflush(stdout);
@@ -148,7 +156,9 @@ int bucleEscollirUsuari(TaulaHash* taula, ArrayPublciacions* arrayPublciacions, 
 }
 
 
-// Aquesta funció servirà per ensenyar les opcions que hi ha en el menú.
+/**
+ * Aquesta funció servirà per ensenyar les opcions que hi ha en el menú.
+ */
 void showMenuOptions() {
     printf("\n-----------------------------------------\n");
     printf("           MENU PRINCIPAL\n");
@@ -164,7 +174,10 @@ void showMenuOptions() {
 }
 
 
-// Imprimeix el menú del bucle de l'opció escollir usuari
+/**
+ * Imprimeix el menú del bucle de l'opció escollir usuari
+ * @param usuari
+ */
 void showEscollirUsuaruMenu(Usuari *usuari) {
     printf("\n-----------------------------------------\n");
     printf("        MENU %s\n", usuari->nomUsuari);
@@ -173,7 +186,6 @@ void showEscollirUsuaruMenu(Usuari *usuari) {
     printf("\t %d: Gestionar o enviar solicituts d'amistat.\n", GESTIONAR_SOLICITUTS);
     printf("\t %d: Fer una publicacio.\n", FER_PUBLICACIO);
     printf("\t %d: Veure les publicacions.\n", VEURE_PUBLICACIONS);
-    printf("\t %d: Editar l'usuari.\n", EDITAR_USUARI);
     printf("\t %d: Eliminar l'usuari.\n", ELIMINAR_USUARI);
     printf("\t %d: Sortir.\n", SORTIR_MENU_USUARI);
     printf("-----------------------------------------\n");

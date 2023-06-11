@@ -1,5 +1,10 @@
 #include "../global.h"
 
+/**
+ * Aquesta funció s'encarrega de verificar que l'usuari introdueixi el nom  en el format correcte
+ * @param name
+ * @return
+ */
 int name_filter(char name[]){
     for (int i = 0; name[i] != '\0'; i++) {
         while (!isalpha(name[i]) && name[i] != ' ') {
@@ -9,17 +14,11 @@ int name_filter(char name[]){
     }
     return 1;  // La cadena solo contiene letras
 }
-
-int user_filter(char user[]){
-    for (int i = 0; user[i] != '\0'; i++) {
-        while (!isalpha(user[i])) {
-            printf("El elemnto \"%c\", no es valido como parte del nombre de una Ciudad\n", user[i]);
-            return 0;
-        }
-    }
-    return 1;  // La cadena solo contiene letras
-}
-
+/**
+ * Aquesta funció s'encarrega de verificar que l'usuari introdueixi el nom de la ciutat en el format correcte
+ * @param city
+ * @return
+ */
 int city_filter(char city[]){
     if (!isupper(city[0])) {
         printf("La primera letra debe ser una mayuscula\n");
@@ -35,7 +34,11 @@ int city_filter(char city[]){
 
     return 1;  // El nombre de la ciudad es válido
 }
-
+/**
+ * Aquesta funció s'encarrega de verificar que l'usuari introdueixi el correu electrònic en el format correcte
+ * @param mail
+ * @return
+ */
 int mail_filter(char mail[]){
     int longitud = (int) strlen(mail);
     int tieneArroba = 0;

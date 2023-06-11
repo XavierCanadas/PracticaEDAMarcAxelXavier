@@ -5,6 +5,11 @@
 
 
 // S'inicialitza l'array de publicacions
+/**
+ * Es reserva a memòria espai per un objecte ArrayPublciacions i també es reserva espai per un array de punters de Publicació.
+ * @param mida
+ * @return
+ */
 ArrayPublciacions* initArrayPublicacions(int mida) {
     ArrayPublciacions* arrayPublciacions = (ArrayPublciacions*) calloc(1, sizeof(ArrayPublciacions));
     arrayPublciacions->mida = mida;
@@ -13,6 +18,12 @@ ArrayPublciacions* initArrayPublicacions(int mida) {
 
     return arrayPublciacions;
 }
+/**
+ * Quan l'array de punters de Publicació  s'emplena, aquesta funció amplia l'array.
+ * @param novaMida
+ * @param arrayPublciacions
+ * @return
+ */
 int ampliarArrayPublicacions(int novaMida, ArrayPublciacions* arrayPublciacions) {
     Publicacio** aux;
     int midaAux = arrayPublciacions->mida;
@@ -31,6 +42,10 @@ int ampliarArrayPublicacions(int novaMida, ArrayPublciacions* arrayPublciacions)
 
     return SUCCESS;
 }
+/**
+ * Es llibera de memòria totes les publicacions i també l'array de publicacions passat.
+ * @param arrayPublciacions
+ */
 void freeArrayPublicacions(ArrayPublciacions* arrayPublciacions) {
     for (int i = 0; i < arrayPublciacions->mida; ++i) {
         if (arrayPublciacions->publicacions[i] != NULL)
@@ -38,7 +53,12 @@ void freeArrayPublicacions(ArrayPublciacions* arrayPublciacions) {
     }
     free(arrayPublciacions);
 }
-
+/**
+ * S'inicialitza la llista que conté les tendències. Aquesta llista pot ser de dos tipus: llista normal o una
+ * taula hash, l'única diferència, en aquest cas, és la manera en què s'afegeixen els valors a la llista.
+ * @param mida
+ * @return
+ */
 ArrayTendencies* initArrayTendencies(int mida) {
     ArrayTendencies* arrayTendencies = (ArrayTendencies*) calloc(1, sizeof(ArrayPublciacions));
     arrayTendencies->mida = mida;
@@ -46,7 +66,14 @@ ArrayTendencies* initArrayTendencies(int mida) {
     arrayTendencies->tendencies = (Tendencia**) calloc(mida, sizeof(Tendencia*));
     return arrayTendencies;
 }
-
+/**
+ * Quan la llista de tendències s'emplena, aquesta funció amplia la llista. Si és de tipus taulahash es tornen
+ * a calcular l'índex de cada objecte de Tendecia.
+ * @param novaMida
+ * @param arrayTendencies
+ * @param taulaHash
+ * @return
+ */
 int ampliarArraytendencies(int novaMida, ArrayTendencies* arrayTendencies, bool taulaHash) {
     Tendencia** aux;
     int midaAux = arrayTendencies->mida - 1;
@@ -77,11 +104,12 @@ int ampliarArraytendencies(int novaMida, ArrayTendencies* arrayTendencies, bool 
             }
         }
     }
-
-
-
     return SUCCESS;
 }
+/**
+ * Es llibera de memòria totes les tendències i també l'array de tendències
+ * @param arrayTendencies
+ */
 void freeArrayTendencies(ArrayTendencies* arrayTendencies) {
     for (int i = 0; i < arrayTendencies->mida; ++i) {
         if (arrayTendencies->tendencies[i] != NULL)
@@ -89,7 +117,13 @@ void freeArrayTendencies(ArrayTendencies* arrayTendencies) {
     }
     free(arrayTendencies);
 }
-
+/**
+ * Aquesta funció és la mateixa que la funció de hashing() pels usuari però adaptada a l'objecte Tendències.
+ * Té la mateixa funcionalitat.
+ * @param arrayTendencies
+ * @param tendencia
+ * @return
+ */
 int hashingTendencies(ArrayTendencies* arrayTendencies, Tendencia* tendencia) {
     int index, i = 0;
     int clauASCII = charToIntASCII(tendencia->contingut);
@@ -114,7 +148,11 @@ int hashingTendencies(ArrayTendencies* arrayTendencies, Tendencia* tendencia) {
     return index;
 }
 
-
+/**
+ * Aquesta funció conté l'algoritme d'insertionSort que ordenarà les tendències de major a menor.
+ * @param arrayTendenciesSorting
+ * @param n
+ */
 void insertionSort(ArrayTendencies* arrayTendenciesSorting, int n) {
     int  j;
     Tendencia *key;
@@ -129,7 +167,15 @@ void insertionSort(ArrayTendencies* arrayTendenciesSorting, int n) {
     }
 
 }
-
+/**
+ * Per afegir guardar les tendències hem usat dos arrays de punters. el primer el tractem com una taulaHash per poder
+ * trobar ràpidament les paraules i portar el comtatge de quantes vegades han sortit trucuant a ujna funció de hash. El
+ * segon array conté punters a les tendències que hi ha a la taula hash anterior però en aquest array s'ordenen de major a menor
+ * fent servir l'algoritme d'insertionSort.
+ * @param publicacio
+ * @param arrayTendencies
+ * @param arrayTendenciesSorting
+ */
 void afegirTendencies(Publicacio* publicacio, ArrayTendencies* arrayTendencies, ArrayTendencies* arrayTendenciesSorting) {
 
     // Separar el contingut d'una publicació en paraules
@@ -165,6 +211,10 @@ void afegirTendencies(Publicacio* publicacio, ArrayTendencies* arrayTendencies, 
     }
 
 }
+/*
+ * Aquesta funció recorre totes les publicacions que ja estan creades i guarda les paraules a tendències.
+ * La funció es truca una vegada agafades les dades del json.
+ */
 void agafarTendenciesvoid(ArrayPublciacions* arrayPublciacions, ArrayTendencies* arrayTendencies, ArrayTendencies* arrayTendenciesSorting) {
     for (int i = 0; i < arrayPublciacions->nombrePublicacions; ++i) {
         if (arrayPublciacions->publicacions[i] != NULL && arrayPublciacions->publicacions[i]->contingut[0] != '\0') {
@@ -173,12 +223,13 @@ void agafarTendenciesvoid(ArrayPublciacions* arrayPublciacions, ArrayTendencies*
     }
 }
 
-
+/**
+ * La funció imprimeix les tendències de major a menor vegades que han sortit.
+ * @param arrayPublciacions
+ * @param arrayTendenciesSorting
+ */
 void imprimirTendenciesFinal(ArrayPublciacions* arrayPublciacions, ArrayTendencies* arrayTendenciesSorting) {
-    int midaArrayTendencies = 10, numTendencies = 0;
-
-    // L'he comentat per veure si s'imprimien les tendències.
-insertionSort(arrayTendenciesSorting,arrayTendenciesSorting->nombreTendencies);
+    insertionSort(arrayTendenciesSorting,arrayTendenciesSorting->nombreTendencies);
     printf("------------------------------------\n"
            "               TENDENCIES              \n"
            "---------------------------------------\n");
@@ -188,7 +239,15 @@ insertionSort(arrayTendenciesSorting,arrayTendenciesSorting->nombreTendencies);
 }
 
 
-
+/**
+ * Aquesta funció s'encarrega de crear una Publicació, demana a l'usuari que entri el contingut i guarda la data en què s'ha fet.
+ *
+ * @param usuari
+ * @param arrayPublciacions
+ * @param arrayTendencies
+ * @param arrayTendenciesSorting
+ * @return
+ */
 int realitzarPublicacio(Usuari* usuari, ArrayPublciacions* arrayPublciacions, ArrayTendencies* arrayTendencies,ArrayTendencies* arrayTendenciesSorting) {
     char contingut[MAX_STRING];
     memset(contingut, 0, sizeof(contingut));
@@ -209,6 +268,18 @@ int realitzarPublicacio(Usuari* usuari, ArrayPublciacions* arrayPublciacions, Ar
     printf("Publicacio realitzada amb exit.\n");
     return SUCCESS;
 }
+/**
+ * Aquesta funció s'encarrega de posar la publicació a l'array de publicacions de l'usuari que l'ha fet i també
+ * a l'array que conté totes les publicacions. També, una vegada creada la publicació es truca a la funció d'afegir tendència per
+ * portar el recompte de paraules que han sortit més.
+ * @param usuari
+ * @param arrayPublciacions
+ * @param contingut
+ * @param data
+ * @param likes
+ * @param arrayTendencies
+ * @param arrayTendenciesSorting
+ */
 void afegirPublicacio(Usuari* usuari, ArrayPublciacions* arrayPublciacions, char* contingut, char* data, int likes, ArrayTendencies* arrayTendencies,ArrayTendencies* arrayTendenciesSorting) {
     Publicacio* publicacio = (Publicacio*) calloc(1, sizeof(Publicacio));
     if (arrayPublciacions->mida == (arrayPublciacions->nombrePublicacions-1))
@@ -233,7 +304,13 @@ void afegirPublicacio(Usuari* usuari, ArrayPublciacions* arrayPublciacions, char
 
 }
 
-
+/**
+ * Aquesta funció conté el bucle del menú de publicacions i les diferentes opcions que es poden fer.
+ * @param arrayPublciacions
+ * @param usuari
+ * @param arrayTendencies
+ * @param arrayTendenciesSorting
+ */
 void mostrarPublicacions(ArrayPublciacions* arrayPublciacions, Usuari* usuari, ArrayTendencies* arrayTendencies,ArrayTendencies* arrayTendenciesSorting) {
     int entradaUsuari = 0;
     int nombrePublicacions;
@@ -290,7 +367,6 @@ void mostrarPublicacions(ArrayPublciacions* arrayPublciacions, Usuari* usuari, A
                 publicacio->likes++;
                 printf("Has donat m'agrada a aquesta publicació.\n");
             }
-
             printf("\n");
         }
     }

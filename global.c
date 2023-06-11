@@ -1,14 +1,18 @@
 //Includes
 #include "global.h"
 
+// Funcions del fitxer filtres.h Si incloiem tot l'arxiu hi havia errrors inesperats.
 extern int name_filter(char name[]);
-extern int user_filter(char user[]);
 extern int city_filter(char city[]);
 extern int mail_filter(char mail[]);
 
 
-// Aquesta funció serveix perquè l'usuari introdueixi un enter, el paràmetre és per imprimir un missatge per l'usuari.
-// retorna
+/**
+ * Aquesta funció serveix perquè l'usuari introdueixi un enter, el paràmetre és per imprimir un missatge per l'usuari.
+ * retorna el nombre enter entrat.
+ * @param missatge
+ * @return
+ */
 int entradaInt(char missatge[]) {
     int nombreEnter;
     printf("%s: ", missatge);
@@ -25,7 +29,14 @@ int entradaInt(char missatge[]) {
     printf("\n");
     return nombreEnter;
 }
-
+/**
+ * Aquesta funció serveix perquè l'usuari introdueixi una string, quan l'usuari introdueix una string
+ * es verifica que sigui correcte trucant a les funcions de filtres.h
+ * @param missatge
+ * @param entradaUsuari
+ * @param filtres
+ * @return
+ */
 int entradaString(char missatge[], char entradaUsuari[], char filtres[]) {
     int i = 0;
 
@@ -37,9 +48,6 @@ int entradaString(char missatge[], char entradaUsuari[], char filtres[]) {
         } else if ((strcmp(filtres, "name") == 0)){
             scanf(" %[^\n]", entradaUsuari);
             i = name_filter(entradaUsuari);
-        } else if ((strcmp(filtres, "user") == 0)){
-            scanf(" %[^\n]", entradaUsuari);
-            i = user_filter(entradaUsuari);
         } else if ((strcmp(filtres, "city") == 0)){
             scanf(" %[^\n]", entradaUsuari);
             i = city_filter(entradaUsuari);
