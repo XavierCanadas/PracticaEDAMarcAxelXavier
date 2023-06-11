@@ -15,7 +15,7 @@ PROJECT TITLE
 
 
 STUDENT NAMES: Marc Guiu, Xavier Cañadas i Axel Del Val
-STUDENT NUMBERS: U , U , U215091
+STUDENT NUMBERS: U215107, U213934, U215091
 11/06/2022
 
 Link video: https://drive.google.com/file/d/1hG2Iun87ZtNsI_mVayIX02yVxCYKdZRG/view?usp=share_link
